@@ -10,12 +10,12 @@ const Routes = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
-        <Route path="/error" exact component={Error404} />
         <Route path="/userhistory" exact component={UserHistory} />
         <Route path="/book" component={BookDetail} />
         <Route path="/search/:id" component={searchPage} />
         <Route path="/admin" component={Admin} />
         <Route path="/myBooksRoom" component={MyBooksPage} />
+        <Route path="/*" exact component={Error404} />
       </Switch>
     </Router>
   );
