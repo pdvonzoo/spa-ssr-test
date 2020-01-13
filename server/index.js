@@ -137,11 +137,11 @@ import createSagaMiddleware from "redux-saga";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "../src/modules";
 import rootSaga from "../src/sagas";
+import { readFileSync } from "fs"
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     rootReducer,
-    // composeWithDevTools(applyMiddleware)
     applyMiddleware(sagaMiddleware)
 );
 sagaMiddleware.run(rootSaga);
@@ -169,17 +169,12 @@ app.get("*", (req, res, next) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>SSR with RR</title>
-            
             </head>
-
             <body>
             <script>
             // WARNING: See the following for security issues around embedding JSON in HTML:
             // https://redux.js.org/recipes/server-rendering/#security-considerations
-            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-        /</g,
-        '\\u003c'
-    )}
+            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
             <div id="root">${markup}</div>
             <script src="/bundle.js"></script>
@@ -192,3 +187,5 @@ app.listen(3000, () => {
     console.log(`Server is listening on port: 3000`)
 })
 
+window.__PRELOADED_STATE__ = NONE;
+NONE.replace()

@@ -1,5 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
+
+const baseURI = "http://localhost:5000"
 export const readAll = () => {
     return axios.get(`${baseURI}`, { data });
 }
