@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "startDev": "webpack-dev-server --config webpack.dev.js",
     "start": "node dist/server.js",
     "test": "jest --watchAll --verbose"
   },
@@ -69,6 +68,7 @@
     "babel-jest": "^24.9.0",
     "cross-env": "^6.0.3",
     "jest": "^24.9.0",
+    "loadable-components": "^2.2.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

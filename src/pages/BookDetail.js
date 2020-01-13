@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import datas from "../java_results.json";
 import BookDescTab from "../components/BookDetail/BookDescTab.js";
 import BookInfoTab from "../components/BookDetail/BookInfoTab.js";
 
