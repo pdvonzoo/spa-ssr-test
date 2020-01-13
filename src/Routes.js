@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from './components/common/Layout'
+import FinderRoute from './auth/FinderRoute';
 import { Admin, Home, Error404, Auth, UserHistory, BookDetail, searchPage, MyBooksPage } from "./pages";
 
 const Routes = () => {

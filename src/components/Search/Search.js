@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
-import { SEARCH_BOOK_REQUEST } from '../../modules/books'
+import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
+import { SEARCH_A_BOOK_REQUEST } from '../../modules/admin'
 import { Link } from 'react-router-dom';
 import { isBlank } from '../../Utils/valid'
 const SearchContainer = styled.form`
@@ -30,6 +31,7 @@ export default () => {
 
     const dispatch = useDispatch();
     const [search, setSearch] = useState('')
+
     const onChangeSearchBar = useCallback((e) => {
         setSearch(e.target.value)
     }, [search])
@@ -43,7 +45,9 @@ export default () => {
             search: search,
             offset: 0
         }
+        dispatch({ type: INIT_BOOKS });
         dispatch({ type: SEARCH_BOOK_REQUEST, data })
+
         setSearch('');
     }, [search])
     return <SearchContainer onSubmit={searchSubmit}>

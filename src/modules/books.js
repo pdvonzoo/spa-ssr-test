@@ -12,6 +12,8 @@ export const SEARCH_A_BOOK_REQUEST = 'books/SEARCH_A_BOOK_REQUEST';
 export const SEARCH_A_BOOK_SUCCESS = 'books/SEARCH_A_BOOK_SUCCESS';
 export const SEARCH_A_BOOK_FAILURE = 'books/SEARCH_A_BOOK_FAILURE';
 
+
+export const INIT_BOOKS = 'books/INIT_BOOKS';
 export const dataLimitLength = 10; //가져오는 책의 길이
 
 const initialState = {
@@ -25,12 +27,15 @@ const initialState = {
 
 const books = handleActions(
   {
+    [INIT_BOOKS]: (state) => ({ searchResultBooks: [] }),
+
     //검색결과 API
     [SEARCH_BOOK_REQUEST]: (state, action) => {
       return {
         ...state,
         isLoadging: true,
-        hasMoreSearchBooks: state.searchResultBooks.length ? state.hasMoreSearchBooks : true
+        hasMoreSearchBooks: state.searchResultBooks.length ? state.hasMoreSearchBooks : true,
+
       }
     },
     [SEARCH_BOOK_SUCCESS]: (state, action) => {
