@@ -18,16 +18,26 @@ const searchResultList = () => {
     const onScroll = () => {
         if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 280) {
             if (hasMoreSearchBooks) {
+                console.log("scroll!!")
                 const data = {
                     search: searchText,
                     offset: searchResultBooks.length
                 }
-                dispatch({ type: SEARCH_BOOK_REQUEST, data })
+                dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
+                console.log("두번쨰")
             }
         }
     }
 
     useEffect(() => {
+        const data = {
+            search: searchText,
+            offset: searchResultBooks.length
+        }
+        dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
+    }, [])
+    useEffect(() => {
+
         window.addEventListener('scroll', onScroll);
         return () => {
             window.removeEventListener('scroll', onScroll)
@@ -37,7 +47,6 @@ const searchResultList = () => {
 
     return (
         <Container>
-            {/* {isLoadging && <h1>로딩 중......</h1>} */}
             {searchResultBooks.map((book, index) => {
                 return (
                     <SearchABook key={index} title={book.title} author={book.author} image={book.image} pubdate={book.pubdate} isbn={book.isbn} />

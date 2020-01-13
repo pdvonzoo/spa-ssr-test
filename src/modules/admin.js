@@ -1,20 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
+import { makeActionTypes } from '../Utils/makeActionTypes'
 
-export const DELETE_BOOK_SUCCESS = 'admin/DELETE_BOOK_SUCCESS';
-export const DELETE_BOOK_FAILURE = 'admin/DELETE_BOOK_FAILURE';
-export const DELETE_BOOK_REQUEST = 'admin/DELETE_BOOK_REQUEST';
-
-export const UPDATE_BOOK_REQUEST = 'admin/UPDATE_BOOK_REQUEST'
-export const UPDATE_BOOK_FAILURE = 'admin/UPDATE_BOOK_FAILURE'
-export const UPDATE_BOOK_SUCCESS = 'admin/UPDATE_BOOK_SUCCESS'
-
-export const CREATE_BOOK_REQUEST = 'admin/CREATE_BOOK_REQUEST'
-export const CREATE_BOOK_SUCCESS = 'admin/CREATE_BOOK_SUCCESS'
-export const CREATE_BOOK_FAILURE = 'admin/CREATE_BOOK_FAILURE'
-
-export const SEARCH_A_BOOK_REQUEST = 'admin/SEARCH_A_BOOK_REQUEST'
-export const SEARCH_A_BOOK_SUCCESS = 'admin/SEARCH_A_BOOK_SUCCESS'
-export const SEARCH_A_BOOK_FAILURE = 'admin/SEARCH_A_BOOK_FAILURE'
+export const [DELETE_BOOK_REQUEST, DELETE_BOOK_SUCCESS, DELETE_BOOK_FAILURE] = makeActionTypes('admin/DELETE_BOOK');
+export const [UPDATE_BOOK_REQUEST, UPDATE_BOOK_SUCCESS, UPDATE_BOOK_FAILURE] = makeActionTypes('admin/UPDATE_BOOK');
+export const [CREATE_BOOK_REQUEST, CREATE_BOOK_SUCCESS, CREATE_BOOK_FAILURE] = makeActionTypes('admin/CREATE_BOOK');
+export const [SEARCH_A_BOOK_REQUEST, SEARCH_A_BOOK_SUCCESS, SEARCH_A_BOOK_FAILURE] = makeActionTypes('admin/SEARCH_A_BOOK')
 
 const initialState = {
     books: null,
@@ -95,8 +85,8 @@ const admin = handleActions(
         [SEARCH_A_BOOK_SUCCESS]: (state, action) => {
             return {
                 ...state,
-                books: action.data,
-                hasBooks: action.data
+                books: action.payload,
+                hasBooks: action.payload
             }
         },
         [SEARCH_A_BOOK_FAILURE]: (state, action) => {

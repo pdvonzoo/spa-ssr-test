@@ -1,22 +1,20 @@
 import axios from 'axios';
+const baseURI = 'http://localhost:5000'
 
-const baseURI = "http://localhost:5000"
-export const readAll = () => {
-    return axios.get(`${baseURI}`, { data });
+function searchBookAPI() {
+    return axios.get(`${baseURI}/admin/search`)
 }
 
-export const read = () => {
-    return axios.get(`${baseURI}`, { data });
+function updateBookAPI(actionData) {
+    console.log(actionData)
+    return axios.post(`${baseURI}/admin/update`, { actionData })
 }
 
-export const create = () => {
-    return axios.post(`${baseURI}`, { data });
+function createBookAPI(actionData) {
+    return axios.post(`${baseURI}/admin/create`, { actionData });
 }
 
-export const destroy = () => {
-    return axios.delete(`${baseURI}`, { data });
+function deleteBookAPI() {
+    return axios.delete(`${baseURI}/admin/delete`);
 }
-
-export const update = () => {
-    return axios.put(`${baseURI}`, { data });
-}
+export { searchBookAPI, updateBookAPI, createBookAPI, deleteBookAPI }

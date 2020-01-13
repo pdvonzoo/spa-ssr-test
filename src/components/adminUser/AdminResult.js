@@ -19,7 +19,6 @@ const AdminResult = () => {
             </div>
             <br />
             <button onClick={() => onSubmitCreate(val.isbn)}  >추가하기</button>
-
         </div>
     );
 };

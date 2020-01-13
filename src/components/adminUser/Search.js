@@ -4,10 +4,13 @@ import { SEARCH_A_BOOK_REQUEST } from '../../modules/admin';
 const Search = () => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
-    const onChangeSearch = useCallback((e) => setSaerch(e.target.search), [search])
+    const onChangeSearch = useCallback((e) => {
+        setSaerch(e.target.value)
+        console.log(search)
+    }, [search])
     const getBooksFromRepository = useCallback(() => {
         console.log('getBooksFromRespository')
-        dispatch({ type: SEARCH_A_BOOK_REQUEST, data: search });
+        dispatch({ type: SEARCH_A_BOOK_REQUEST, payload: search });
         setSaerch('')
     }, [search])
     return (
