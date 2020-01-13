@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { rentOneBook } from "./BookListAPI";
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const BookLayout = styled.div`
   flex: 1;
@@ -85,7 +85,7 @@ const Book = ({ book, height }) => {
   const { image, title, writer, publisher, publisherYear, isbn, isRental } = book;
   return (
     <BookLayout height={height}>
-      <Link to={{ pathname: "/book" }}>
+      <Link to="/book" >
         <ImageContainer>
           <BookImage src={image} alt="추천 책" />
           <BookCover>

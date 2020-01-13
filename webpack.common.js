@@ -20,7 +20,7 @@ const options = {
       },
       {
         test: /\.css$/i,
-        use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader'],
+        use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader']
       },
       {
         test: /\.js$/,
@@ -35,9 +35,12 @@ const options = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public/index.html"),
-      filename: 'index.html'
+      filename: 'index.html',
+      minify: {
+        removeScriptTypeAttributes: true,
+      },
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
   ]
 };
 

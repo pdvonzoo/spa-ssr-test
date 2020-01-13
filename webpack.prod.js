@@ -1,17 +1,46 @@
-const path = require("path");
-const common = require("./webpack.common");
-const merge = require("webpack-merge");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const nodeExternals = require('webpack-node-externals')
 
-const options = {
-  mode: "production",
+const browserConfig = {
+  mode: "development",
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "main.[contentHash].js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
-  optimization: {
-    minimizer: [new UglifyJsPlugin()]
-  }
-};
+  module: {
+    rules: [
+      { test: /\.(js)$/, use: 'babel-loader' },
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: "true"
+    })
+  ]
+}
 
-module.exports = merge(common, options);
+const serverConfig = {
+  entry: './server/index.js',
+  target: 'node',
+  externals: [nodeExternals()],
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'server.js',
+    publicPath: '/'
+  },
+  module: {
+    rules: [
+      { test: /\.(js)$/, use: 'babel-loader' }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: "false"
+    })
+  ]
+}
+
+module.exports = [browserConfig, serverConfig]

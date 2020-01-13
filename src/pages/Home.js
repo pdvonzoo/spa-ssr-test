@@ -18,9 +18,10 @@ export default () => {
   }, []);
 
   return <>
+    <Layout />
     <Search />
     <HomeConatainer>
-      <BookList datas={datas} width="33.3%" display="flex" />
+      <BookList datas={datas} />
     </HomeConatainer>
   </>;
 };
