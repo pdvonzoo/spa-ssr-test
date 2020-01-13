@@ -1,12 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Layout from './components/common/Layout'
-import FinderRoute from './auth/FinderRoute';
-import { Admin, Home, Error404, Auth, UserHistory, BookDetail, searchPage, MyBooksPage } from "./pages";
+import { Admin, Home, Error404, Auth, UserHistory, BookDetail, searchPage, MyBooksPage } from "./LazyRoutes";
 
 const Routes = () => {
   return (
-    // <Router>
     // <Layout />
     < Switch >
       <Route path="/" exact component={Home} />
@@ -18,7 +15,6 @@ const Routes = () => {
       <Route path="/myBooksRoom" component={MyBooksPage} />
       <Route path="/*" exact component={Error404} />
     </Switch >
-    // </Router>
   );
 };
 

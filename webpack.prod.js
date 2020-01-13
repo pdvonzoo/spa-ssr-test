@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
 const browserConfig = {
-  mode: "development",
+  mode: "production",
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -23,6 +23,7 @@ const browserConfig = {
 }
 
 const serverConfig = {
+  mode: "production",
   entry: './server/index.js',
   target: 'node',
   externals: [nodeExternals()],
