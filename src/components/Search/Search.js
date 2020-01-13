@@ -35,6 +35,7 @@ export default () => {
     }, [search])
 
     const searchSubmit = useCallback(() => {
+        console.log("ㅅㅣㄹ행")
         if (!isBlank(search)) {
             return alert("한글자 이상이어야 합니다.")
         }
@@ -45,15 +46,12 @@ export default () => {
         dispatch({ type: SEARCH_BOOK_REQUEST, data })
         setSearch('');
     }, [search])
-
-
-    return <SearchContainer>
+    return <SearchContainer onSubmit={searchSubmit}>
         <SearchForm type="search" onChange={onChangeSearchBar} value={search} placeholder="What are you searching for?" />
-        <Link to={isBlank(search) && `/search/${search}`}>
-            < SearchBtn type="submit" onClick={searchSubmit} >
-                GO
-        </SearchBtn>
+        <Link to={`/search/${search}`}>
+            <SearchBtn onClick={searchSubmit}>GO</SearchBtn>
         </Link>
     </SearchContainer >
+
 
 }

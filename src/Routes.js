@@ -5,19 +5,19 @@ import { Admin, Home, Error404, Auth, UserHistory, BookDetail, searchPage, MyBoo
 
 const Routes = () => {
   return (
-    <Router>
-      <Layout />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/auth" exact component={Auth} />
-        <Route path="/userhistory" exact component={UserHistory} />
-        <Route path="/book" component={BookDetail} />
-        <Route path="/search/:id" component={searchPage} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/myBooksRoom" component={MyBooksPage} />
-        <Route path="/*" exact component={Error404} />
-      </Switch>
-    </Router>
+    // <Router>
+    // <Layout />
+    < Switch >
+      <Route path="/" exact component={Home} />
+      <Route path="/auth" exact component={Auth} />
+      <Route path="/userhistory" exact component={UserHistory} />
+      <Route path="/book" component={BookDetail} />
+      <Route path="/search/:id" component={searchPage} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/myBooksRoom" component={MyBooksPage} />
+      <Route path="/*" exact component={Error404} />
+    </Switch >
+    // </Router>
   );
 };
 
