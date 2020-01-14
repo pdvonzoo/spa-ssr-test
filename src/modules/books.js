@@ -1,18 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
+import { makeActionTypes } from "../Utils/makeActionTypes";
 
-export const SEARCH_BOOK_REQUEST = "books/SEARCH_BOOK_REQUEST";  //검색하기
-export const SEARCH_BOOK_SUCCESS = 'books/SEARCH_BOOK_SUCCESS'
-export const SEARCH_BOOK_FAILURE = 'books/SEARCH_BOOK_FAILURE'
-
-export const GET_RECOMMENDED_BOOKS_REQUEST = 'books/GET_RECOMMENDED_BOOKS_REQUEST'  //추천 책 리스트 가져오기
-export const GET_RECOMMENDED_BOOKS_FAILURE = 'books/GET_RECOMMENDED_BOOKS_FAILURE'
-export const GET_RECOMMENDED_BOOKS_SUCCESS = 'books/GET_RECOMMENDED_BOOKS_SUCCESS'
-
-export const SEARCH_A_BOOK_REQUEST = 'books/SEARCH_A_BOOK_REQUEST';
-export const SEARCH_A_BOOK_SUCCESS = 'books/SEARCH_A_BOOK_SUCCESS';
-export const SEARCH_A_BOOK_FAILURE = 'books/SEARCH_A_BOOK_FAILURE';
-
-
+export const [SEARCH_BOOK_REQUEST, SEARCH_BOOK_SUCCESS, SEARCH_BOOK_FAILURE] = makeActionTypes('books/SEARCH_BOOK');
+export const [GET_RECOMMENDED_BOOKS_REQUEST, GET_RECOMMENDED_BOOKS_SUCCESS, GET_RECOMMENDED_BOOKS_FAILURE] = makeActionTypes('books/GET_RECOMMENDED_BOOKS');
+export const [SEARCH_A_BOOK_REQUEST, SEARCH_A_BOOK_SUCCESS, SEARCH_A_BOOK_FAILURE] = makeActionTypes('books/SEARCH_A_BOOK');
 export const INIT_BOOKS = 'books/INIT_BOOKS';
 export const dataLimitLength = 10; //가져오는 책의 길이
 
@@ -28,8 +19,6 @@ const initialState = {
 const books = handleActions(
   {
     [INIT_BOOKS]: (state) => ({ searchResultBooks: [] }),
-
-    //검색결과 API
     [SEARCH_BOOK_REQUEST]: (state, action) => {
       return {
         ...state,
@@ -39,12 +28,13 @@ const books = handleActions(
       }
     },
     [SEARCH_BOOK_SUCCESS]: (state, action) => {
+      console.log("SEARCH_BOOK_SUCCESS 의 액션 : ", action, action.payload.type, action.payload)
       return {
         ...state,
         isLoadging: false,
-        searchText: action.search,
-        searchResultBooks: state.searchResultBooks.concat(action.data),
-        hasMoreSearchBooks: action.data.length === dataLimitLength
+        searchText: "dsd",
+        searchResultBooks: state.searchResultBooks.concat(action.payload),
+        hasMoreSearchBooks: action.payload.length === dataLimitLength
       }
     },
     [SEARCH_BOOK_FAILURE]: (state, action) => {

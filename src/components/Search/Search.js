@@ -37,7 +37,6 @@ export default () => {
     }, [search])
 
     const searchSubmit = useCallback(() => {
-        console.log("ㅅㅣㄹ행")
         if (!isBlank(search)) {
             return alert("한글자 이상이어야 합니다.")
         }
@@ -46,7 +45,8 @@ export default () => {
             offset: 0
         }
         dispatch({ type: INIT_BOOKS });
-        dispatch({ type: SEARCH_BOOK_REQUEST, data })
+        dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
+        console.log("첫 디스패치")
 
         setSearch('');
     }, [search])

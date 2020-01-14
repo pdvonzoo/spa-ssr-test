@@ -30,16 +30,6 @@ const AdminGetBooks = () => {
                             <p style={{ color: "blue", fontSize: '15px' }}>책 저자 : {book.author}</p>
                             <p style={{ marginLeft: '10px', color: "green", fontSize: '15px' }}>   보유 수 : {index + 10}</p>
                         </p>
-
-                        {/* <h1>책 설명</h1>
-
-                        <textarea style={{ width: '800px', overflow: 'scroll', height: '400px' }} readonly>
-                            {book.bookIntroContent}
-                        </textarea>
-                        <h1>목차</h1>
-                        <div style={{ whiteSpace: "pre" }}>
-                            {book.tableOfContentsContent}
-                        </div> */}
                         <button onClick={() => updataBookFromRepository(book.isbn10)}>수정하기</button>
                         <button onClick={() => deleteBookFromRepository(index)}>삭제하기</button>
                     </div>

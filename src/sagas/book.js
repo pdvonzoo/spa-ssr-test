@@ -1,68 +1,20 @@
-import axios from "axios";
 import { fork, all, takeLatest, takeEvery, put, call } from "redux-saga/effects";
+import { createRequestSaga } from "../Utils/createRequestSaga";
+import { SEARCH_BOOK_REQUEST, GET_RECOMMENDED_BOOKS_REQUEST, } from "../modules/books";
+import { searchBooksAPI, getCommendedAPI } from '../api/book'
+const baseSaga = "books"
+const searchBookSaga = createRequestSaga(searchBooksAPI, baseSaga, "SEARCH_BOOK");
+const getRecommendedBookSaga = createRequestSaga(getCommendedAPI, baseSaga, "GET_RECOMMENDED_BOOKS")
 
-import {
-    SEARCH_BOOK_REQUEST,
-    SEARCH_BOOK_SUCCESS,
-    SEARCH_BOOK_FAILURE,
-
-    GET_RECOMMENDED_BOOKS_REQUEST,
-    GET_RECOMMENDED_BOOKS_SUCCESS,
-    GET_RECOMMENDED_BOOKS_FAILURE
-
-} from "../modules/books";
-import { dataLimitLength } from '../modules/books'
-
-
-const baseURI = 'http://localhost:5000'
-
-function searchBooksAPI(data, limit = dataLimitLength) {
-    return axios.get(`${baseURI}/post?search=${data.search}&offset=${data.offset}&limit=${limit}`)
-}
-
-function* searchBooks(action) {
-    try {
-
-        const result = yield call(searchBooksAPI, action.data);
-        yield put({
-            type: SEARCH_BOOK_SUCCESS,
-            data: result.data,
-            search: action.data.search
-        })
-    } catch (e) {
-        yield put({
-            type: SEARCH_BOOK_FAILURE,
-            error: e
-        })
-    }
-}
 function* searchBooksSaga() {
-    yield takeLatest(SEARCH_BOOK_REQUEST, searchBooks);
-}
-
-function getCommendedAPI() {
-    return axios.get(`${baseURI}/getCommendedBooks`);
-}
-
-function* getCommended() {
-    try {
-        const result = yield call(getCommendedAPI);
-        yield put({
-            type: GET_RECOMMENDED_BOOKS_SUCCESS,
-            data: result.data
-        })
-    } catch (e) {
-        yield put({
-            type: GET_RECOMMENDED_BOOKS_FAILURE,
-            error: e
-        })
-    }
+    yield takeLatest(SEARCH_BOOK_REQUEST, searchBookSaga);
 }
 
 function* getCommendedBooksSaga() {
-    yield takeEvery(GET_RECOMMENDED_BOOKS_REQUEST, getCommended);
+    yield takeEvery(GET_RECOMMENDED_BOOKS_REQUEST, getRecommendedBookSaga);
 }
 
 export default function* userSaga() {
     yield all([fork(searchBooksSaga), fork(getCommendedBooksSaga)]);
 }
+
