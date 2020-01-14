@@ -2,13 +2,13 @@ import express from "express"
 import React from "react"
 import { renderToString } from "react-dom/server"
 import { StaticRouter } from "react-router-dom"
-import Routes from "../src/Routes"
 
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "../src/modules";
 import rootSaga from "../src/sagas";
+import App from "../src/App"
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -25,7 +25,7 @@ app.get("*", (req, res, next) => {
     const markup = renderToString(
         <Provider store={store}>
             <StaticRouter location={req.url}>
-                <Routes />
+                <App />
             </StaticRouter>
         </Provider>
     )
@@ -39,12 +39,11 @@ app.get("*", (req, res, next) => {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>SSR with RR</title>
+            <title>도서대여 프로젝트</title>
+            <link rel="stylesheet" href="main.css">
             </head>
             <body>
             <script>
-            // WARNING: See the following for security issues around embedding JSON in HTML:
-            // https://redux.js.org/recipes/server-rendering/#security-considerations
             window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
             <div id="root">${markup}</div>

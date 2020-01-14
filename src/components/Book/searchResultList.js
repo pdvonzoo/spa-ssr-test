@@ -5,8 +5,8 @@ import SearchABook from './searchABook';
 import styled from "styled-components";
 
 const Container = styled.ul`
-    margin-top: 5rem;
     padding: 0 8rem;
+    padding-top: 10rem;
 `;
 
 const searchResultList = () => {

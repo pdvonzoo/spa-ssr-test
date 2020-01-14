@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { primaryColor } from "../common/colors";
 
 const StyledAuthLabel = styled.label`
-  color: #133ba3;
+  color: ${primaryColor};
   display: flex;
   font-weight: 700;
   margin-bottom: .3rem;
