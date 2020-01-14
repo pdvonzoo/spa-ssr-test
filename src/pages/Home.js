@@ -7,7 +7,8 @@ import Search from "../components/Search/Search";
 
 const HomeConatainer = styled.div`
   padding-top: 10rem;
-  height: 100%;
+  min-height: 100%;
+  background-color: #e4e4e4;
 `;
 
 export default () => {

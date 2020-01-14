@@ -7,18 +7,16 @@ import SmallHr from '../common/SmallHr';
 const Container = styled.li`
     font-family: 'Nanum Gothic', 'Chivo',sans-serif;
     display: inline-block;
-    text-align: center;
     margin-bottom: 5rem;
     padding: 0 1.5rem;
-    width: 33.3333%;
+    width: 25%;
     vertical-align: top;
 `;
 
 const ListItem = styled.div`
-    border: 1px solid rgba(0,0,0,.1);
     cursor: pointer;
-    &:hover{
-        box-shadow: 0 16px 29px rgba(0,0,0,.2)
+    &:hover ${BookInfo} ${Title}{
+        color: #0099d0;
     }
 `;
 
@@ -27,28 +25,28 @@ const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
     height: 20rem;
-    background-color: #181f3a;
+    background-color: #f3f0f1;
 `;
 const Image = styled.img`
-    height: 50%;
+    height: 60%;
 `;
 
 const BookInfo = styled.div`
     height: auto;
-    padding: 2rem 2rem 2rem;
     box-sizing: border-box;
     background-color: #fff;
+    padding: .5rem 0;
 `;
 const Title = styled.h2`
     display: -webkit-box;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     word-wrap:break-word; 
-    height: 2.16rem;
+    line-height: 1.4;
+    height: 2.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 0.9rem;
-    line-height: 1.2;
+    font-size: 1rem;
     font-weight: bold;
 `;
 
@@ -74,8 +72,7 @@ const searchABook = ({ title, author, pubdate, isbn, image }) => {
                 </ImageContainer>
                 <BookInfo>
                     <Title>{title}</Title>
-                    <SmallHr />
-                    <Text>{author}</Text>
+                    {/* <Text>{author}</Text> */}
                     {/* <TextContainer>
                         
                         <Text>{pubdate}</Text>
