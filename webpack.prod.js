@@ -1,6 +1,7 @@
-const path = require('path')
-const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals')
+const path = require('path');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const browserConfig = {
   mode: "production",
@@ -13,12 +14,17 @@ const browserConfig = {
   module: {
     rules: [
       { test: /\.(js)$/, use: 'babel-loader' },
+      {
+        test: /\.css$/i,
+        use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader'],
+      },
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
       __isBrowser__: "true"
-    })
+    }),
+    new MiniCssExtractPlugin()
   ]
 }
 
@@ -34,13 +40,18 @@ const serverConfig = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' }
+      { test: /\.(js)$/, use: 'babel-loader' },
+      {
+        test: /\.css$/i,
+        use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader'],
+      },
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
       __isBrowser__: "false"
-    })
+    }),
+    new MiniCssExtractPlugin()
   ]
 }
 

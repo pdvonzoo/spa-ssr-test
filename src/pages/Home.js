@@ -7,7 +7,6 @@ import Search from "../components/Search/Search";
 
 const HomeConatainer = styled.div`
   padding-top: 10rem;
-  background-color: #e4e4e4;
   height: 100%;
 `;
 
@@ -18,7 +17,6 @@ export default () => {
   }, []);
 
   return <>
-    <Layout />
     <Search />
     <HomeConatainer>
       <BookList datas={datas} />

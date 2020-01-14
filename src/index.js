@@ -1,7 +1,7 @@
 import React from "react";
 import { hydrate } from 'react-dom'
 import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "./Routes";
+import App from "./App";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { createStore, applyMiddleware } from "redux";
@@ -19,7 +19,7 @@ sagaMiddleware.run(rootSaga);
 hydrate(
     <Provider store={store}>
         <Router>
-            <Routes />
+            <App />
         </Router>
     </Provider>,
     document.getElementById("root")

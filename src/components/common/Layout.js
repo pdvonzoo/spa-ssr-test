@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import Search from "../Search/Search";
+import { primaryColor } from "./colors";
 
 const Header = styled.header`
   display: flex;
   align-items: center;
   height: 40px;
-  background-color: #17234c;
+  background-color: ${primaryColor};
 `;
 
 const BaseItem = styled(Link)`

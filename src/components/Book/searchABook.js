@@ -8,9 +8,9 @@ const Container = styled.li`
     font-family: 'Nanum Gothic', 'Chivo',sans-serif;
     display: inline-block;
     text-align: center;
-    margin-bottom: 7.5rem;
+    margin-bottom: 5rem;
     padding: 0 1.5rem;
-    width: 25%;
+    width: 33.3333%;
     vertical-align: top;
 `;
 
@@ -27,41 +27,33 @@ const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
     height: 20rem;
-    background-color: #040404;
+    background-color: #181f3a;
 `;
 const Image = styled.img`
     height: 50%;
 `;
 
 const BookInfo = styled.div`
-    height: 13rem;
+    height: auto;
     padding: 2rem 2rem 2rem;
     box-sizing: border-box;
+    background-color: #fff;
 `;
 const Title = styled.h2`
-    margin-bottom: 2rem;
     display: -webkit-box;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     word-wrap:break-word; 
-    height: 2.88rem;
+    height: 2.16rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     line-height: 1.2;
     font-weight: bold;
 `;
 
-// const TextContainer = styled.div`
-//     height: 2.88rem;
-//     text-overflow: ellipsis;
-//     word-wrap:break-word; 
-// `;
-
 const Text = styled.p`
-    margin-top: 2rem;
-    margin-bottom: 1.7rem;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     line-height: 1.4;
 `;
 
@@ -77,6 +69,9 @@ const searchABook = ({ title, author, pubdate, isbn, image }) => {
     return (
         <Container>
             <ListItem>
+                <ImageContainer>
+                    <Image src={image} />
+                </ImageContainer>
                 <BookInfo>
                     <Title>{title}</Title>
                     <SmallHr />
@@ -90,9 +85,6 @@ const searchABook = ({ title, author, pubdate, isbn, image }) => {
                     </BtnContainer> */}
                     {/* <Text>{isbn}</Text> */}
                 </BookInfo>
-                <ImageContainer>
-                    <Image src={image} />
-                </ImageContainer>
             </ListItem>
         </Container>
     );
