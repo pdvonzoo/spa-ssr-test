@@ -5,6 +5,7 @@ import SearchABook from './searchABook';
 import styled from "styled-components";
 
 const Container = styled.ul`
+    border-top: 1px solid #ddd;
     padding: 0 8rem;
     padding-top: 10rem;
 `;
