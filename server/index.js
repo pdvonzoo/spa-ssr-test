@@ -43,8 +43,8 @@ app.get("*", (req, res, next) => {
             </head>
             <body>
             <script>
-            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-          </script>
+                window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+            </script>
             <div id="root">${markup}</div>
             <script src="/bundle.js"></script>
             </body>

@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import SmallHr from '../common/SmallHr';
-{/* <li>  <img src={book.image} />
-/        책 이름 : {book.title} / 책 저자 : {book.author} / 출판 날짜 :{book.pubdate}  / isbn:{book.isbn} */}
+import { secondaryColor, pointColor } from '../common/colors';
 
 const Container = styled.li`
     font-family: 'Nanum Gothic', 'Chivo',sans-serif;
@@ -16,7 +14,7 @@ const Container = styled.li`
 const ListItem = styled.div`
     cursor: pointer;
     &:hover ${BookInfo} ${Title}{
-        color: #0099d0;
+        color: ${pointColor};
     }
 `;
 
@@ -25,7 +23,7 @@ const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
     height: 20rem;
-    background-color: #f3f0f1;
+    background-color: ${secondaryColor};
 `;
 const Image = styled.img`
     height: 60%;
