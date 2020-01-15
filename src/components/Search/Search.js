@@ -41,11 +41,11 @@ const SearchBtn = styled.button`
     border-radius: 2rem;
 `;
 
-export default () => {
-
+export default ({ match }) => {
+    console.log('home match test ', match)
     const dispatch = useDispatch();
     const [search, setSearch] = useState('')
-
+    const [isSearch, setIsSearch] = useState(false)
     const onChangeSearchBar = useCallback((e) => {
         setSearch(e.target.value)
     }, [search])
@@ -54,14 +54,13 @@ export default () => {
         if (!isBlank(search)) {
             return alert("한글자 이상이어야 합니다.")
         }
+        setIsSearch(true)
         const data = {
             search: search,
             offset: 0
         }
         dispatch({ type: INIT_BOOKS });
         dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
-        console.log("첫 디스패치")
-
         setSearch('');
     }, [search])
     return <SearchContainer onSubmit={searchSubmit}>
@@ -70,6 +69,4 @@ export default () => {
             <SearchBtn onClick={searchSubmit}>GO</SearchBtn>
         </Link>
     </SearchContainer >
-
-
 }

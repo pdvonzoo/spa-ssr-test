@@ -2,9 +2,9 @@ import { handleActions, createAction } from 'redux-actions';
 
 
 export default function makeReducer(name) {
-    const REQUEST = `${name}/request`;
-    const SUCCESS = `${name}/success`;
-    const FAILURE = `${name}/failure`;
+    const REQUEST = `${name}_REQUEST`;
+    const SUCCESS = `${name}_SUCCESS`;
+    const FAILURE = `${name}_FAILURE`;
 
     const request = search => ({ type: REQUEST, search })
     const success = search => ({ type: SUCCESS, search })
@@ -38,5 +38,5 @@ export default function makeReducer(name) {
         }
         , initialState
     )
-    return { request, success, failure, reducer };
+    return [request, success, failure, reducer]
 }

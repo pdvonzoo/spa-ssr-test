@@ -44,12 +44,12 @@ const AdminGetBooks = () => {
 
     const updataBookFromRepository = useCallback((isbn) => {
         console.log('updataBookFromRepository', isbn)
-        dispatch({ type: UPDATE_BOOK_REQUEST, data: isbn }) //isbn
+        dispatch({ type: UPDATE_BOOK_REQUEST, data: isbn })
     }, [hasBooks])
 
     const deleteBookFromRepository = useCallback((id) => {
         console.log('deleteBookFromRepository', id)
-        dispatch({ type: DELETE_BOOK_REQUEST, data: id })//책 아이디
+        dispatch({ type: DELETE_BOOK_REQUEST, data: id })
     }, [hasBooks])
 
     return (

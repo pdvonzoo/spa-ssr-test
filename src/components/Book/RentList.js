@@ -7,12 +7,9 @@ const RentList = () => {
   const { userLookUpBooks } = useSelector(state => state.user)
 
   useEffect(() => {
-    console.log("여기왔어요")
+    console.log("get_my_books_lookup_request")
     dispatch({ type: GET_MY_BOOKS_LOOKUP_REQUEST })
   }, [])
-
-
-
   return (
     <>
       <br /><br /><br />

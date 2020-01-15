@@ -97,15 +97,7 @@ const Book = ({ book, height }) => {
         <ListTitle>{title}</ListTitle>
         <SmallHr></SmallHr>
         <ListText>{writer}</ListText>
-        {/* <ListText>{isRental ? "렌탈 가능" : "렌탈 불가능"}</ListText> */}
         <RentalBtn onClick={rentOneBook}>책 대여하기</RentalBtn>
-        {/* <ListText>책 이름 : {title}</ListText>
-        <ListText>책 저자 : {writer}</ListText>
-        <ListText>출판사 : {publisher}</ListText>
-        <ListText>출판 년도 : {publisherYear}</ListText>
-        <ListText>isbn : {isbn}</ListText>
-        <ListText>렌탈 여부 :{isRental ? "출판가능" : "출판 불가능"}</ListText>
-        <button onClick={rentOneBook}>책 대여하기</button> */}
       </BookInfo>
     </BookLayout>
 

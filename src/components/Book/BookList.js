@@ -45,12 +45,12 @@ const datas = [
 ];
 
 const BookList = () => {
-  //추천도서 데이터 받기 
+
   const dispatch = useDispatch();
   const { recommendedBooks } = useSelector(state => state.books);
-  // useEffect(() => {
-  //   dispatch({ type: GET_RECOMMENDED_BOOKS_REQUEST })
-  // }, [])
+  useEffect(() => {
+    dispatch({ type: GET_RECOMMENDED_BOOKS_REQUEST })
+  }, [])
 
   return (
     <BooksContainer>
