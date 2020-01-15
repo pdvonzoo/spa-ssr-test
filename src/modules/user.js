@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { makeActionTypes } from "../Utils/makeActionTypes";
 
-export const [GET_MY_BOOKS_LOOKUP_REQUEST, GET_MY_BOOKS_LOOKUP_SUCCESS, GET_MY_BOOKS_LOOKUP_FAILURE] = makeActionTypes('user/GET_MY_BOOKS');
+export const [GET_MY_BOOKS_LOOKUP_REQUEST, GET_MY_BOOKS_LOOKUP_SUCCESS, GET_MY_BOOKS_LOOKUP_FAILURE] = makeActionTypes('user/GET_MY_BOOKS_LOOKUP');
 export const USER_LOGIN = 'user/USER_LOGIN'
 export const USER_LOGOUT = 'user/USER_LOGOUT';
 export const userLogin = createAction(USER_LOGIN, user => user);
@@ -43,7 +43,7 @@ const user = handleActions(
             return {
                 ...state,
                 isLoading: false,
-                userLookUpBooks: action.data
+                userLookUpBooks: action.payload
             }
         },
 
