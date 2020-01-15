@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import BookDescTab from "../components/BookDetail/BookDescTab.js";
 import BookInfoTab from "../components/BookDetail/BookInfoTab.js";
+import { getBookDetail } from '../api/book';
 
 
 const Container = styled.div`
@@ -12,8 +13,25 @@ const Container = styled.div`
   border-top: 1px solid #e3e4df;
 `;
 
-export default () => {
-    const [book, setBook] = useState(datas[2]);
+export default ({ match }) => {
+    const [book, setBook] = useState(null);
+    useEffect(() => {
+        console.log(match.params.isbn)
+        const isbnNumber = match.params.isbn
+        try {
+            const response = getBookDetail(isbnNumber)
+            console.log(response);
+            setBook(response.data);
+        } catch (e) {
+            console.error(e);
+
+        }
+    }, [book])
+
+
+    if (!book) {
+        return null;
+    }
     const {
         title,
         image,
@@ -28,7 +46,8 @@ export default () => {
     } = book;
 
     return (
-        <Container>
+
+        < Container >
             <BookInfoTab
                 image={image}
                 title={title}
@@ -41,6 +60,7 @@ export default () => {
                 authorIntroContent={authorIntroContent}
                 bookIntroContent={bookIntroContent}
                 tableOfContentsContent={tableOfContentsContent} />
-        </Container>
+        </Container >
+
     );
 }

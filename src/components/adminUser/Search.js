@@ -26,6 +26,7 @@ const SearchBtn = styled.button`
     border-radius: 2rem;
 `;
 
+import { SEARCH_ADMIN_NEWBOOK_REQUEST } from '../../modules/admin';
 const Search = () => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
@@ -35,7 +36,7 @@ const Search = () => {
     }, [search])
     const getBooksFromRepository = useCallback(() => {
         console.log('getBooksFromRespository')
-        dispatch({ type: SEARCH_A_BOOK_REQUEST, payload: search });
+        dispatch({ type: SEARCH_ADMIN_NEWBOOK_REQUEST, payload: search });
         setSaerch('')
     }, [search])
     return (

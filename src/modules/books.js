@@ -24,15 +24,15 @@ const books = handleActions(
         ...state,
         isLoadging: true,
         hasMoreSearchBooks: state.searchResultBooks.length ? state.hasMoreSearchBooks : true,
-
+        searchText: action.payload.search
       }
     },
     [SEARCH_BOOK_SUCCESS]: (state, action) => {
-      console.log("SEARCH_BOOK_SUCCESS 의 액션 : ", action, action.payload.type, action.payload)
+      console.log("search_book_succeess", action)
       return {
         ...state,
         isLoadging: false,
-        searchText: "dsd",
+        searchText: state.searchText,
         searchResultBooks: state.searchResultBooks.concat(action.payload),
         hasMoreSearchBooks: action.payload.length === dataLimitLength
       }
@@ -54,6 +54,7 @@ const books = handleActions(
       }
     },
     [GET_RECOMMENDED_BOOKS_SUCCESS]: (state, action) => {
+      console.log(action)
       return {
         ...state,
         recommendedBooks: action.data,

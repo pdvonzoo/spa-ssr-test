@@ -1,6 +1,6 @@
 import { fork, all, takeLatest, takeEvery } from "redux-saga/effects";
 import { searchBookAPI, updateBookAPI, createBookAPI, deleteBookAPI } from '../api/admin'
-import { DELETE_BOOK_REQUEST, UPDATE_BOOK_REQUEST, CREATE_BOOK_REQUEST, SEARCH_A_BOOK_REQUEST } from "../modules/admin";
+import { DELETE_BOOK_REQUEST, UPDATE_BOOK_REQUEST, CREATE_BOOK_REQUEST, SEARCH_ADMIN_NEWBOOK_REQUEST } from "../modules/admin";
 import { createRequestSaga } from "../Utils/createRequestSaga";
 const baseSaga = "admin"
 const searchBookSaga = createRequestSaga(searchBookAPI, baseSaga, "SEARCH_A_BOOK");
@@ -21,7 +21,7 @@ function* watchDeleteBookSaga() {
 }
 
 function* watchSearcBookSaga() {
-    yield takeLatest(SEARCH_A_BOOK_REQUEST, searchBookSaga);
+    yield takeLatest(SEARCH_ADMIN_NEWBOOK_REQUEST, searchBookSaga);
 }
 
 export default function* adminSaga() {

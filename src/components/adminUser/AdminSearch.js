@@ -38,6 +38,7 @@ const Btn = styled.button`
     background-color: ${pointColor};
 `;
 
+import SearchNewBook from './SearchNewBook';
 const AdminSearch = () => {
 
     const dispatch = useDispatch();
@@ -45,8 +46,12 @@ const AdminSearch = () => {
     const onSubmitCreate = (isbn) => {
         dispatch({ type: CREATE_BOOK_REQUEST, data: isbn.split(' ')[0] })
     }
+
+
+
     return (
         <>
+            {/* <SearchNewBook /> */}
             {books && books.map((book, idx) => {
                 return (
                     <Container key={idx}>

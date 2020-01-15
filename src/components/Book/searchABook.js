@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import { secondaryColor, pointColor } from '../common/colors';
-
+import SmallHr from '../common/SmallHr';
+import { Link } from 'react-router-dom'
 const Container = styled.li`
     font-family: 'Nanum Gothic', 'Chivo',sans-serif;
     display: inline-block;
@@ -63,25 +63,20 @@ const RentalBtn = styled.button`
 
 const searchABook = ({ title, author, pubdate, isbn, image }) => {
     return (
-        <Container>
-            <ListItem>
-                <ImageContainer>
-                    <Image src={image} />
-                </ImageContainer>
-                <BookInfo>
-                    <Title>{title}</Title>
-                    {/* <Text>{author}</Text> */}
-                    {/* <TextContainer>
-                        
-                        <Text>{pubdate}</Text>
-                    </TextContainer> */}
-                    {/* <BtnContainer>
-                        <RentalBtn>대여하기</RentalBtn>
-                    </BtnContainer> */}
-                    {/* <Text>{isbn}</Text> */}
-                </BookInfo>
-            </ListItem>
-        </Container>
+        <Link to={`/product/detail/${isbn.split(" ")[0]}`} >
+
+            <Container>
+
+                <ListItem>
+                    <ImageContainer>
+                        <Image src={image} />
+                    </ImageContainer>
+                    <BookInfo>
+                        <Title>{title}</Title>
+                    </BookInfo>
+                </ListItem>
+            </Container>
+        </Link >
     );
 };
 

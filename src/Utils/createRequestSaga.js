@@ -1,8 +1,8 @@
 import { call, put } from 'redux-saga/effects'
 
-const createRequestSaga = (api, suffix, type) => {
-    const SUCCESS = `${suffix}/${type}_SUCCESS`
-    const FAILURE = `${suffix}/${type}_FAILURE`
+const createRequestSaga = (api, prefix, type) => {
+    const SUCCESS = `${prefix}/${type}_SUCCESS`
+    const FAILURE = `${prefix}/${type}_FAILURE`
     console.log("test ", type)
     return function* (action) {
         console.log("action : ", action)

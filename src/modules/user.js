@@ -40,6 +40,7 @@ const user = handleActions(
         },
 
         [GET_MY_BOOKS_LOOKUP_SUCCESS]: (state, action) => {
+            console.log(action)
             return {
                 ...state,
                 isLoading: false,

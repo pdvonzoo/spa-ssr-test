@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BookInfo from "./BookInfo";
-
+import { useSelector } from 'react-redux'
 const Container = styled.div`
   position: fixed;
   left: 0;
@@ -25,12 +25,14 @@ const BookImage = styled.img`
 `;
 
 export default ({ image, title, author, publisher, pubdate, isbn }) => {
-    return (
-        <Container>
-            <BookImageContainer>
-                <BookImage src={image} alt={title} />
-            </BookImageContainer>
-            <BookInfo title={title} author={author} publisher={publisher} pubdate={pubdate} isbn={isbn} />
-        </Container>
-    )
+
+
+  return (
+    <Container>
+      <BookImageContainer>
+        <BookImage src={image} alt={title} />
+      </BookImageContainer>
+      <BookInfo title={title} author={author} publisher={publisher} pubdate={pubdate} isbn={isbn} />
+    </Container>
+  )
 }
