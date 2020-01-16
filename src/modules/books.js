@@ -4,37 +4,46 @@ import { makeActionTypes } from "../Utils/makeActionTypes";
 export const [SEARCH_BOOK_REQUEST, SEARCH_BOOK_SUCCESS, SEARCH_BOOK_FAILURE] = makeActionTypes('books/SEARCH_BOOK');
 export const [GET_RECOMMENDED_BOOKS_REQUEST, GET_RECOMMENDED_BOOKS_SUCCESS, GET_RECOMMENDED_BOOKS_FAILURE] = makeActionTypes('books/GET_RECOMMENDED_BOOKS');
 export const [SEARCH_A_BOOK_REQUEST, SEARCH_A_BOOK_SUCCESS, SEARCH_A_BOOK_FAILURE] = makeActionTypes('books/SEARCH_A_BOOK');
+
 export const INIT_BOOKS = 'books/INIT_BOOKS';
-export const dataLimitLength = 10; //가져오는 책의 길이
+export const dataLimitLength = 10;
 
 const initialState = {
+
   isLoadging: false,
   searchResultBooks: [],
   hasMoreSearchBooks: false,
   isLoading_recommendedBooks: false,
   recommendedBooks: [],
   searchText: '',
+  pageNumber: 0,
 };
 
 const books = handleActions(
   {
-    [INIT_BOOKS]: (state) => ({ searchResultBooks: [] }),
+    [INIT_BOOKS]: (state) => {
+      return {
+        ...state,
+        searchResultBooks: [],
+        pageNumber: 0,
+      }
+    },
     [SEARCH_BOOK_REQUEST]: (state, action) => {
       return {
         ...state,
         isLoadging: true,
         hasMoreSearchBooks: state.searchResultBooks.length ? state.hasMoreSearchBooks : true,
-        searchText: action.payload.search
+        searchText: action.payload.search,
       }
     },
     [SEARCH_BOOK_SUCCESS]: (state, action) => {
-      console.log("search_book_succeess", action)
       return {
         ...state,
         isLoadging: false,
         searchText: state.searchText,
         searchResultBooks: state.searchResultBooks.concat(action.payload),
-        hasMoreSearchBooks: action.payload.length === dataLimitLength
+        hasMoreSearchBooks: action.payload.length !== 0,
+        pageNumber: state.pageNumber + 1,
       }
     },
     [SEARCH_BOOK_FAILURE]: (state, action) => {
@@ -46,7 +55,6 @@ const books = handleActions(
       }
     },
 
-    //추천도서 API
     [GET_RECOMMENDED_BOOKS_REQUEST]: (state, action) => {
       return {
         ...state,

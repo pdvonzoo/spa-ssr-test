@@ -5,10 +5,8 @@ const createRequestSaga = (api, prefix, type) => {
     const FAILURE = `${prefix}/${type}_FAILURE`
     console.log("test ", type)
     return function* (action) {
-        console.log("action : ", action)
         try {
             const response = yield call(api, action.payload);
-            console.log('responses : ', response);
             yield put({
                 type: SUCCESS,
                 payload: response.data,
