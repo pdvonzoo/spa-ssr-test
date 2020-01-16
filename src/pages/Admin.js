@@ -38,9 +38,9 @@ const Admin = () => {
     <Container>
       <Nav>
         <NavItem onClick={searchView} view={view}>회원별 대여 기록</NavItem>
-        <NavItem onClick={getBooksView} view={view}>사내 보유 도서 검색</NavItem>
+        <NavItem onClick={getBooksView} view={view}>추가할 도서 검색</NavItem>
       </Nav>
-      <Search />
+      <Search view={view} />
       {view ? <AdminSearch /> : <AdminGetBooks />}
     </Container>
   );

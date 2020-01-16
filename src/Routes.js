@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { Admin, Home, Error404, Auth, UserHistory, BookDetail, searchPage, MyBooksPage } from "./LazyRoutes";
+import { Admin, Home, Error404, Auth, UserHistory, BookDetail, SearchPage, MyBooksPage } from "./pages";
 import Layout from "./components/common/Layout";
 
 const Routes = () => {
@@ -11,7 +11,8 @@ const Routes = () => {
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/userhistory" exact component={UserHistory} />
-        <Route path="/search/:id" component={searchPage} />
+        {/* <Route path="/book" component={BookDetail} /> */}
+        <Route path="/search/:id" component={SearchPage} />
         <Route path="/product/detail/:isbn" component={BookDetail} />
         <Route path="/admin" component={Admin} />
         <Route path="/myBooksRoom" component={MyBooksPage} />

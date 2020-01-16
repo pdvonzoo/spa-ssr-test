@@ -1,9 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
-import Layout from "../components/common/Layout";
+import React, { useState, useCallback } from "react";
 import RentList from "../components/Book/RentList";
-import UserBooks from "../components/Book/UserBooks";
-import { useSelector } from 'react-redux'
+import styled from "styled-components";
+
+const Container = styled.div`
+  margin: 5rem 0;
+`;
+
 const UserHistory = () => {
   const [clickPage, setClickPage] = useState("1");
   const changePage = useCallback(
@@ -15,7 +17,10 @@ const UserHistory = () => {
   );
 
   return (
-    <RentList />
+    <Container>
+      <h2>대여 목록</h2>
+      <RentList />
+    </Container>
   );
 };
 

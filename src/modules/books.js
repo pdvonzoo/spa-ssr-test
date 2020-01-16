@@ -14,7 +14,7 @@ const initialState = {
   searchResultBooks: [],
   hasMoreSearchBooks: false,
   isLoading_recommendedBooks: false,
-  recommendedBooks: [],
+  recommendedBooks: null,
   searchText: '',
   pageNumber: 0,
 };
@@ -65,7 +65,7 @@ const books = handleActions(
       console.log(action)
       return {
         ...state,
-        recommendedBooks: action.data,
+        recommendedBooks: action.payload,
         isLoading_recommendedBooks: false
 
       }

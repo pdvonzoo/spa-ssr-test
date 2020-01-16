@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BookDescTab from "../components/BookDetail/BookDescTab.js";
 import BookInfoTab from "../components/BookDetail/BookInfoTab.js";
 import { getBookDetail } from '../api/book';
+import { useParams } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -14,46 +15,48 @@ const Container = styled.div`
 `;
 
 export default () => {
+    let params = useParams();
     const [book, setBook] = useState(null);
     useEffect(() => {
         try {
-            // const response = getBookDetail()
-            // setBook(response.data);
+            const response = getBookDetail(params.isbn)
+                .then(response => {
+                    console.log(response.data);
+                    setBook(response.data)
+                });
         } catch (e) {
             console.error(e);
-
         }
-    }, [book])
+    }, [])
 
 
     if (!book) {
         return null;
     }
+
     const {
-        title,
-        image,
-        author,
-        publisher,
-        pubdate,
-        isbn,
-        description,
+        bookTitle,
+        bookImage,
+        bookWriter,
+        bookPublisher,
+        bookPublishYear,
+        bookIsbn,
         authorIntroContent,
         bookIntroContent,
         tableOfContentsContent
     } = book;
-
+    console.log(book);
     return (
 
         < Container >
             <BookInfoTab
-                image={image}
-                title={title}
-                author={author}
-                publisher={publisher}
-                pubdate={pubdate}
-                isbn={isbn} />
+                image={bookImage}
+                title={bookTitle}
+                author={bookWriter}
+                publisher={bookPublisher}
+                pubdate={bookPublishYear}
+                isbn={bookIsbn} />
             <BookDescTab
-                description={description}
                 authorIntroContent={authorIntroContent}
                 bookIntroContent={bookIntroContent}
                 tableOfContentsContent={tableOfContentsContent} />

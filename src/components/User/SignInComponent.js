@@ -9,14 +9,14 @@ import { isLogged } from '../../modules/user';
 
 const SignInComponent = () => {
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    memberEmail: "",
+    memberPassword: "",
     error: "",
     loading: false,
     redirectToRefferrer: false
   });
 
-  const { email, password, loading, error, redirectToRefferrer } = values;
+  const { memberEmail, memberPassword, loading, error, redirectToRefferrer } = values;
   const { user } = isAuthenticated();
 
   const handleChange = name => event => {
@@ -27,18 +27,18 @@ const SignInComponent = () => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
 
-    if (!isEmail(email)) {
-      setValues({ ...values, email: '', password: '', error: true, loading: false })
+    if (!isEmail(memberEmail)) {
+      setValues({ ...values, memberEmail: '', memberPassword: '', error: true, loading: false })
       return alert("이메일 형식이 올바르지 않습니다....")
     }
 
-    if (!isJobPassword(password)) {
-      setValues({ ...values, email: '', password: '', error: true, loading: false })
+    if (!isJobPassword(memberPassword)) {
+      setValues({ ...values, memberEmail: '', memberPassword: '', error: true, loading: false })
       return alert("비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.")
     }
 
 
-    signin({ email, password }).then(data => {
+    signin({ memberEmail, memberPassword }).then(data => {
       if (data.error || data.err) {
 
         setValues({ ...values, error: data.error || data.err, loading: false });
@@ -55,22 +55,23 @@ const SignInComponent = () => {
 
   const signInForm = () => (
     <AuthContainer onSubmit={clickSubmit}>
+      로그인
       <FormGroup>
         <AuthLabel>Email</AuthLabel>
         <AuthTextInput
-          onChange={handleChange("email")}
+          onChange={handleChange("memberEmail")}
           type="email"
           className="form-control"
-          value={email}
+          value={memberEmail}
         />
       </FormGroup>
       <FormGroup>
         <AuthLabel>Password</AuthLabel>
         <AuthTextInput
-          onChange={handleChange("password")}
+          onChange={handleChange("memberPassword")}
           type="password"
           className="form-control"
-          value={password}
+          value={memberPassword}
         />
       </FormGroup>
       <SubmitBtn onClick={clickSubmit}>
@@ -97,11 +98,12 @@ const SignInComponent = () => {
 
   const redirectUser = () => {
     if (redirectToRefferrer) {
-      if (user && user.role === 1) {
-        return <Redirect to="/admin/dashboard" />;
-      } else {
-        return <Redirect to="/user/dashboard" />;
-      }
+      return <Redirect to="/" />;
+      // if (user && user.role === 1) {
+      //   return <Redirect to="/admin/dashboard" />;
+      // } else {
+      //   return <Redirect to="/user/dashboard" />;
+      // }
     }
   };
 

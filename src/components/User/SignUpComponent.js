@@ -6,13 +6,13 @@ import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from ".
 
 const SignUpComponent = () => {
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    memberEmail: "",
+    memberPassword: "",
     error: "",
     success: false
   });
 
-  const { email, password, success, error } = values;
+  const { memberEmail, memberPassword, success, error } = values;
 
   const handleChange = name => event => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -22,23 +22,23 @@ const SignUpComponent = () => {
     event.preventDefault();
     setValues({ ...values, error: false });
 
-    if (!isEmail(email)) {
-      setValues({ ...values, email: '', })
+    if (!isEmail(memberEmail)) {
+      setValues({ ...values, memberEmail: '', })
       return alert("이메일 형식이 올바르지 않습니다....")
     }
-    if (!isJobPassword(password)) {
-      setValues({ ...values, password: '', })
+    if (!isJobPassword(memberPassword)) {
+      setValues({ ...values, memberPassword: '', })
       return alert("비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.")
     }
 
-    signup({ email, password }).then(data => {
+    signup({ memberEmail, memberPassword }).then(data => {
       if (data.error || data.err) {
         setValues({ ...values, error: data.error || data.err, success: false });
       } else {
         setValues({
           ...values,
-          email: "",
-          password: "",
+          memberEmail: "",
+          memberPassword: "",
           error: "",
           success: true
         });
@@ -48,22 +48,23 @@ const SignUpComponent = () => {
 
   const signUpForm = () => (
     <AuthContainer>
+      회원가입
       <FormGroup>
         <AuthLabel className="text-muted">Email</AuthLabel>
         <AuthTextInput
-          onChange={handleChange("email")}
+          onChange={handleChange("memberEmail")}
           type="email"
           className="form-control"
-          value={email}
+          value={memberEmail}
         />
       </FormGroup>
       <FormGroup>
         <AuthLabel className="text-muted">Password</AuthLabel>
         <AuthTextInput
-          onChange={handleChange("password")}
+          onChange={handleChange("memberPassword")}
           type="password"
           className="form-control"
-          value={password}
+          value={memberPassword}
         />
       </FormGroup>
       <SubmitBtn onClick={clickSubmit}>

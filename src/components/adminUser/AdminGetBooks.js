@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { DELETE_BOOK_REQUEST, UPDATE_BOOK_REQUEST } from '../../modules/admin'
+import { DELETE_BOOK_REQUEST, UPDATE_BOOK_REQUEST, CREATE_BOOK_REQUEST } from '../../modules/admin'
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
+import { createBookAPI } from '../../api/admin';
 
 const Container = styled.div`
     width: 70%;
@@ -52,17 +53,31 @@ const AdminGetBooks = () => {
         dispatch({ type: DELETE_BOOK_REQUEST, data: id })
     }, [hasBooks])
 
+    const createBookFromRepository = useCallback((book) => {
+        console.log('createBookFromRepository', book)
+        createBookAPI(book).then(res => console.log(res));
+    }, [hasBooks])
     return (
         <>
             {hasBooks && hasBooks.map((book, index) => {
+                const { title,
+                    link,
+                    image,
+                    author,
+                    price,
+                    discount,
+                    publisher,
+                    pubdate,
+                    isbn,
+                    description } = book;
                 return (
                     <Container key={index}>
                         <TextContainer>
-                            <Heading2>책 이름 : {book.title}</Heading2>
-                            <Param>책 저자 : {book.author}</Param>
+                            <Heading2>책 이름 : {title}</Heading2>
+                            <Param>책 저자 : {author}</Param>
                         </TextContainer>
                         <BtnContainer>
-                            <Btn onClick={() => updataBookFromRepository(book.isbn10)}>수정하기</Btn>
+                            <Btn onClick={() => createBookFromRepository(book)}>추가하기</Btn>
                             <Btn onClick={() => deleteBookFromRepository(index)}>삭제하기</Btn>
                         </BtnContainer>
                     </Container>
