@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import SmallHr from '../common/SmallHr';
 import { Link } from 'react-router-dom'
+import { pointColor, secondaryColor } from '../common/colors';
 const Container = styled.li`
     font-family: 'Nanum Gothic', 'Chivo',sans-serif;
     display: inline-block;

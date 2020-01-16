@@ -3,7 +3,7 @@ import { searchBookAPI, updateBookAPI, createBookAPI, deleteBookAPI } from '../a
 import { DELETE_BOOK_REQUEST, UPDATE_BOOK_REQUEST, CREATE_BOOK_REQUEST, SEARCH_ADMIN_NEWBOOK_REQUEST } from "../modules/admin";
 import { createRequestSaga } from "../Utils/createRequestSaga";
 const baseSaga = "admin"
-const searchBookSaga = createRequestSaga(searchBookAPI, baseSaga, "SEARCH_A_BOOK");
+const searchBookSaga = createRequestSaga(searchBookAPI, baseSaga, "SEARCH_ADMIN_NEWBOOK");
 const updateBookSaga = createRequestSaga(updateBookAPI, baseSaga, "UPDATE_BOOK");
 const createBookSaga = createRequestSaga(createBookAPI, baseSaga, "CREATE_BOOK")
 const deleteBookSaga = createRequestSaga(deleteBookAPI, baseSaga, "DELETE_BOOK");

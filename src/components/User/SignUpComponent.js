@@ -31,7 +31,7 @@ const SignUpComponent = () => {
       return alert("비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.")
     }
 
-    signup({ email, password, role }).then(data => {
+    signup({ email, password }).then(data => {
       if (data.error || data.err) {
         setValues({ ...values, error: data.error || data.err, success: false });
       } else {

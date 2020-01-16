@@ -2,10 +2,11 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
 import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
-import { SEARCH_A_BOOK_REQUEST } from '../../modules/admin'
 import { Link } from 'react-router-dom';
 import { isBlank } from '../../Utils/valid'
 import { pointColor } from "../common/colors";
+import Axios from "axios";
+import { getBookKeyWord } from '../../api/book'
 
 const SearchContainer = styled.form`
     display: flex;
@@ -41,32 +42,21 @@ const SearchBtn = styled.button`
     border-radius: 2rem;
 `;
 
-export default ({ match }) => {
-    console.log('home match test ', match)
-    const dispatch = useDispatch();
+export default () => {
+
     const [search, setSearch] = useState('')
-    const [isSearch, setIsSearch] = useState(false)
     const onChangeSearchBar = useCallback((e) => {
         setSearch(e.target.value)
+
+        console.log('result')
+
     }, [search])
 
-    const searchSubmit = useCallback(() => {
-        if (!isBlank(search)) {
-            return alert("한글자 이상이어야 합니다.")
-        }
-        setIsSearch(true)
-        const data = {
-            search: search,
-            offset: 0
-        }
-        dispatch({ type: INIT_BOOKS });
-        dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
-        setSearch('');
-    }, [search])
-    return <SearchContainer onSubmit={searchSubmit}>
+    return <SearchContainer >
         <SearchForm type="search" onChange={onChangeSearchBar} value={search} placeholder="What are you searching for?" />
-        <Link to={`/search/${search}`}>
-            <SearchBtn onClick={searchSubmit}>GO</SearchBtn>
+        <Link to={`/search/${search}`} replace >
+
+            <SearchBtn>GO</SearchBtn>
         </Link>
-    </SearchContainer >
+    </SearchContainer>
 }

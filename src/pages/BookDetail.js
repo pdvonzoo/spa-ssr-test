@@ -13,15 +13,12 @@ const Container = styled.div`
   border-top: 1px solid #e3e4df;
 `;
 
-export default ({ match }) => {
+export default () => {
     const [book, setBook] = useState(null);
     useEffect(() => {
-        console.log(match.params.isbn)
-        const isbnNumber = match.params.isbn
         try {
-            const response = getBookDetail(isbnNumber)
-            console.log(response);
-            setBook(response.data);
+            // const response = getBookDetail()
+            // setBook(response.data);
         } catch (e) {
             console.error(e);
 
