@@ -49,7 +49,7 @@ const searchResultList = () => {
         <Container>
             {searchResultBooks.map((book, index) => {
                 return (
-                    <SearchABook key={index} title={book.booktitle} author={book.bookWriter} image={book.bookImage} pubdate={book.bookPublishYear} isbn={book.bookIsbn} />
+                    <SearchABook key={index} title={book.bookTitle} author={book.bookWriter} image={book.bookImage} pubdate={book.bookPublishYear} isbn={book.bookIsbn} />
                 )
             })}
         </Container>

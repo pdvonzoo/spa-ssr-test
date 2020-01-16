@@ -1,5 +1,4 @@
-const baseURI = "http://10.102.61.102:8080/members"
-const API = "http://localhost:8080/api/v1/user";
+const API = "http://10.102.61.102:8080/members";
 
 export const signup = user => {
   console.log(user);
@@ -16,7 +15,7 @@ export const signup = user => {
 };
 
 export const signin = user => {
-  return fetch(`${baseURI}/signin`, {
+  return fetch(`${API}/login`, {
     method: "POST",
     headers: {
       Accept: "application/json",

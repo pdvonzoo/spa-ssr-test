@@ -7,5 +7,5 @@ export const Error404 = loadable(() => import("./pages/Error404"));
 export const Auth = loadable(() => import("./pages/Auth"));
 export const UserHistory = loadable(() => import("./pages/UserHistory"));
 export const BookDetail = loadable(() => import("./pages/BookDetail"));
-export const searchPage = loadable(() => import("./pages/searchPage"));
+export const SearchPage = loadable(() => import("./pages/SearchPage"));
 export const MyBooksPage = loadable(() => import("./pages/MyBooksPage"));

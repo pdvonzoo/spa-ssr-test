@@ -2,7 +2,7 @@ import React from 'react';
 import SearchResultList from '../components/Book/searchResultList';
 import Search from '../components/Search/Search';
 
-const searchPage = () => {
+const SearchPage = () => {
     return (
         <>
             <Search />
@@ -10,4 +10,4 @@ const searchPage = () => {
         </>
     );
 }
-export default searchPage;
+export default SearchPage;

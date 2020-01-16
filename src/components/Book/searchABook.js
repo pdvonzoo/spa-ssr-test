@@ -62,12 +62,10 @@ const RentalBtn = styled.button`
     font-size: 1.1rem;
 `;
 
-const searchABook = ({ title, author, pubdate, isbn, image }) => {
+const SearchABook = ({ title, author, pubdate, isbn, image }) => {
     return (
-        <Link to={`/product/detail/${isbn.split(" ")[0]}`} >
-
+        <Link to={`/product/detail/${isbn}`} >
             <Container>
-
                 <ListItem>
                     <ImageContainer>
                         <Image src={image} />
@@ -81,4 +79,4 @@ const searchABook = ({ title, author, pubdate, isbn, image }) => {
     );
 };
 
-export default searchABook;
+export default SearchABook;

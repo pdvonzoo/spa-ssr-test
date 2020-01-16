@@ -26,23 +26,28 @@ const SearchBtn = styled.button`
     border-radius: 2rem;
 `;
 
-import { SEARCH_ADMIN_NEWBOOK_REQUEST } from '../../modules/admin';
-const Search = () => {
+import { SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_REQUEST } from '../../modules/admin';
+const Search = ({ view }) => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
     const onChangeSearch = useCallback((e) => {
         setSaerch(e.target.value)
         console.log(search)
     }, [search])
+    const getBookFromNaverRepository = useCallback(() => {
+        console.log('getBooksFromNaver')
+        dispatch({ type: SEARCH_ADMIN_NAVER_BOOKS_REQUEST, payload: search })
+        setSaerch('')
+    });
     const getBooksFromRepository = useCallback(() => {
         console.log('getBooksFromRespository')
-        dispatch({ type: SEARCH_ADMIN_NEWBOOK_REQUEST, payload: search });
+        dispatch({ type: SEARCH_ADMIN_USER_REQUEST, payload: search });
         setSaerch('')
     }, [search])
     return (
         <Container>
             <SearchInput type="text" onChange={onChangeSearch} value={search} placeholder="조회하고 싶은 도서를 입력하세요" />
-            <SearchBtn onClick={getBooksFromRepository}>책 조회하기</SearchBtn>
+            <SearchBtn onClick={view ? getBooksFromRepository : getBookFromNaverRepository}>책 조회하기</SearchBtn>
         </Container>
     );
 };

@@ -6,8 +6,8 @@ const reserveBooks = () => {
     const { userBooks, isLoading } = useSelector(state => state.user);
     return (
         <>
-            <h1>나의 책 장바구니</h1>
-            {isLoading && <div>장바구니 로딩중 ......</div>}
+            <h1>대여 목록</h1>
+            {isLoading && <div>대여 목록 로딩중 ......</div>}
             {userBooks && !isLoading && userBooks.map((val, idx) => {
                 return (
                     <div>

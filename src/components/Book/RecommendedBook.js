@@ -19,7 +19,7 @@ const BookCover = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: #133ba3;
+  background: rgba(51,51,51,0.9);
   transition: opacity .25s cubic-bezier(.77,0,.175,1);
 `;
 
@@ -37,6 +37,12 @@ const ImageContainer = styled.div`
   position: relative;
   width: 100%;
   cursor: pointer;
+  display: flex;
+  background-color: rgb(51,51,51);
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
   &:hover {
     ${BookCover}{
       display: flex;
@@ -45,7 +51,8 @@ const ImageContainer = styled.div`
 `;
 
 const BookImage = styled.img`
-  width: 100%;
+  width: auto;
+  height: 70%;
 `;
 const BookInfo = styled.ul`
   padding: 1.75rem 1.25rem;
@@ -81,22 +88,21 @@ const RentalBtn = styled.button`
   background: inherit;
 `;
 
-const Book = ({ book, height }) => {
-  const { image, title, writer, publisher, publisherYear, isbn, isRental } = book;
+const RecommendedBook = ({ bookTitle, bookWriter, bookImage, bookIsbn }) => {
   return (
-    <BookLayout height={height}>
-      <Link to="/book" >
+    <BookLayout>
+      <Link to={`/product/detail/${bookIsbn}`} >
         <ImageContainer>
-          <BookImage src={image} alt="추천 책" />
+          <BookImage src={bookImage} alt="추천 책" />
           <BookCover>
             <BookCoverText>detail</BookCoverText>
           </BookCover>
         </ ImageContainer>
       </Link>
       <BookInfo>
-        <ListTitle>{title}</ListTitle>
+        <ListTitle>{bookTitle}</ListTitle>
         <SmallHr></SmallHr>
-        <ListText>{writer}</ListText>
+        <ListText>{bookWriter}</ListText>
         <RentalBtn onClick={rentOneBook}>책 대여하기</RentalBtn>
       </BookInfo>
     </BookLayout>
@@ -104,4 +110,4 @@ const Book = ({ book, height }) => {
   );
 };
 
-export default Book;
+export default RecommendedBook;

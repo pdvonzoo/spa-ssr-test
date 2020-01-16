@@ -10,12 +10,9 @@ const Section = styled.section`
   font-size: 1.1rem;
   line-height: 2rem;
 `;
-export default ({ description, authorIntroContent, bookIntroContent, tableOfContentsContent }) => {
+export default ({ authorIntroContent, bookIntroContent, tableOfContentsContent }) => {
     return (
         <Container>
-            <Section>
-                {description}
-            </Section>
             <Section>
                 {authorIntroContent}
             </Section>
