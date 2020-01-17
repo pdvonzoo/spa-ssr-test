@@ -28,4 +28,23 @@ function searchNaverBooksAPI(search) {
         }
     });
 }
-export { searchBookAPI, createBookAPI, searchNaverBooksAPI }
+
+function searchHavingBooksAPI(search) {
+    console.log(`searchHavingBooksAPI ${search}검색`)
+    const jwt = JSON.parse(localStorage.getItem("jwt")).token;
+    return axios.get(`${baseURI}/books/collections?query=${search}&size=${10}`, search, {
+        headers: {
+            "X-AUTH-TOKEN": jwt
+        }
+    });
+}
+
+function deleteHavingBook(id) {
+    const jwt = JSON.parse(localStorage.getItem("jwt")).token;
+    return axios.delete(`${baseURI}/books/${id}?bookDeleted=true`, {}, {
+        headers: {
+            "X-AUTH-TOKEN": jwt
+        }
+    });
+}
+export { searchBookAPI, createBookAPI, searchNaverBooksAPI, searchHavingBooksAPI, deleteHavingBook }

@@ -21,13 +21,16 @@ const user = handleActions(
         [USER_LOGIN]: (state) => {
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                isLogged: true
             }
         },
+
         [USER_LOGOUT]: (state) => {
             return {
                 ...state,
                 isLoading: false
+                , isLogged: false
             }
         },
 
@@ -40,7 +43,6 @@ const user = handleActions(
         },
 
         [GET_MY_BOOKS_LOOKUP_SUCCESS]: (state, action) => {
-            console.log(action)
             return {
                 ...state,
                 isLoading: false,

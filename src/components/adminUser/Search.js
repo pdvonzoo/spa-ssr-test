@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
-import { SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_REQUEST } from '../../modules/admin';
+import { SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_REQUEST, SEARCH_ADMIN_HAVING_BOOKS_REQUEST } from '../../modules/admin';
 
 const Container = styled.div`
     display: flex;
@@ -32,22 +32,30 @@ const Search = ({ view }) => {
 
     const onChangeSearch = useCallback((e) => {
         setSaerch(e.target.value)
-        console.log(search)
     }, [search])
 
     const getBookFromNaverRepository = useCallback(() => {
+        console.log('2번쨰')
         dispatch({ type: SEARCH_ADMIN_NAVER_BOOKS_REQUEST, payload: search })
         setSaerch('')
     });
 
     const getBooksFromRepository = useCallback(() => {
+        console.log('1번쨰')
         dispatch({ type: SEARCH_ADMIN_USER_REQUEST, payload: search });
         setSaerch('')
     }, [search])
+
+    const getBooksHavingFromRepository = useCallback(() => {
+        console.log('3번쨰')
+        dispatch({ type: SEARCH_ADMIN_HAVING_BOOKS_REQUEST, payload: search })
+        setSaerch('')
+    }, [search])
+
     return (
         <Container>
             <SearchInput type="text" onChange={onChangeSearch} value={search} placeholder="조회하고 싶은 도서를 입력하세요" />
-            <SearchBtn onClick={view ? getBooksFromRepository : getBookFromNaverRepository}>책 조회하기</SearchBtn>
+            <SearchBtn onClick={view === 1 ? getBooksFromRepository : view === 2 ? getBookFromNaverRepository : getBooksHavingFromRepository}>책 조회하기</SearchBtn>
         </Container>
     );
 };

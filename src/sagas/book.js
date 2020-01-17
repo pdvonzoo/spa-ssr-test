@@ -1,16 +1,18 @@
 import { fork, all, takeLatest, takeEvery, put, call } from "redux-saga/effects";
 import { createRequestSaga } from "../Utils/createRequestSaga";
-import { SEARCH_BOOK_REQUEST, GET_RECOMMENDED_BOOKS_REQUEST, } from "../modules/books";
+import { SEARCH_BOOK_REQUEST, GET_RECOMMENDED_BOOKS_REQUEST } from "../modules/books";
 import { searchBooksAPI, getCommendedAPI } from '../api/book'
-const baseSaga = "books"
-const searchBookSaga = createRequestSaga(searchBooksAPI, baseSaga, "SEARCH_BOOK");
-const getRecommendedBookSaga = createRequestSaga(getCommendedAPI, baseSaga, "GET_RECOMMENDED_BOOKS")
+export const searchBookSaga = createRequestSaga(searchBooksAPI, "books/SEARCH_BOOK");
+export const getRecommendedBookSaga = createRequestSaga(getCommendedAPI, "books/GET_RECOMMENDED_BOOKS")
+
+
+
 
 function* searchBooksSaga() {
     yield takeLatest(SEARCH_BOOK_REQUEST, searchBookSaga);
 }
 
-function* getCommendedBooksSaga() {
+export function* getCommendedBooksSaga() {
     yield takeEvery(GET_RECOMMENDED_BOOKS_REQUEST, getRecommendedBookSaga);
 }
 
