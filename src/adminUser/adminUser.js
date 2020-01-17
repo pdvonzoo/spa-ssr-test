@@ -7,7 +7,6 @@ const adminUser = () => {
   return (
     <Layout>
       <UsersInfo />
-      <p>--------- 분기선 ---------</p>
       <AdminPage />
     </Layout>
   );

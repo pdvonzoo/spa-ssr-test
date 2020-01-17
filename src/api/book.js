@@ -8,6 +8,7 @@ function searchBooksAPI(data, limit = dataLimitLength) {
 }
 
 function getCommendedAPI() {
+    console.log("getCommAPI")
     return axios.get(`${baseURI}/recommend`);
 }
 

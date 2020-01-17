@@ -52,9 +52,7 @@ export default () => {
         console.log("받은 데이터 : ", result)
         setTemplate(result.data);
     }, [search])
-    const onClickEvent = (da) => {
-        setSearch(da);
-    }
+
     return <SearchContainer >
         <SearchForm type="search" onChange={onChangeSearchBar} value={search} placeholder="What are you searching for?" />
         <Link to={`/search/${search}`} replace >

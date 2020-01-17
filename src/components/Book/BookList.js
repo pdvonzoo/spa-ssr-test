@@ -9,7 +9,6 @@ const BooksContainer = styled.div`
 `;
 
 const BookList = () => {
-
   const dispatch = useDispatch();
   const { recommendedBooks } = useSelector(state => state.books);
   useEffect(() => {
