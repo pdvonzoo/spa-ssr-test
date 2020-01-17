@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux'
-import { SEARCH_A_BOOK_REQUEST } from '../../modules/admin';
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
-
+import { SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_REQUEST } from '../../modules/admin';
 
 const Container = styled.div`
     display: flex;
@@ -26,21 +25,22 @@ const SearchBtn = styled.button`
     border-radius: 2rem;
 `;
 
-import { SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_REQUEST } from '../../modules/admin';
+
 const Search = ({ view }) => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
+
     const onChangeSearch = useCallback((e) => {
         setSaerch(e.target.value)
         console.log(search)
     }, [search])
+
     const getBookFromNaverRepository = useCallback(() => {
-        console.log('getBooksFromNaver')
         dispatch({ type: SEARCH_ADMIN_NAVER_BOOKS_REQUEST, payload: search })
         setSaerch('')
     });
+
     const getBooksFromRepository = useCallback(() => {
-        console.log('getBooksFromRespository')
         dispatch({ type: SEARCH_ADMIN_USER_REQUEST, payload: search });
         setSaerch('')
     }, [search])
