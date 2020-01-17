@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
-import { CREATE_BOOK_REQUEST } from '../../modules/admin'
 import { pointColor } from "../common/colors";
 
 const Container = styled.div`
@@ -46,7 +45,6 @@ const AdminSearch = () => {
     }
     return (
         <>
-            {/* <SearchNewBook /> */}
             {books && books.content.map((book, idx) => {
                 const { bookTitle,
                     bookWriter,

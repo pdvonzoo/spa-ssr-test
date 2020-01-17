@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
 import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
@@ -7,6 +7,7 @@ import { isBlank } from '../../Utils/valid'
 import { pointColor } from "../common/colors";
 import Axios from "axios";
 import { getBookKeyWord } from '../../api/book'
+import SearchListTemplate from "./SearchListTemplate";
 
 const SearchContainer = styled.form`
     display: flex;
@@ -43,20 +44,27 @@ const SearchBtn = styled.button`
 `;
 
 export default () => {
-
+    const [template, setTemplate] = useState(null);
     const [search, setSearch] = useState('')
-    const onChangeSearchBar = useCallback((e) => {
+    const onChangeSearchBar = useCallback(async (e) => {
         setSearch(e.target.value)
-
-        console.log('result')
-
+        const result = await getBookKeyWord(e.target.value);
+        console.log("받은 데이터 : ", result)
+        setTemplate(result.data);
     }, [search])
-
+    const onClickEvent = (da) => {
+        setSearch(da);
+    }
     return <SearchContainer >
         <SearchForm type="search" onChange={onChangeSearchBar} value={search} placeholder="What are you searching for?" />
         <Link to={`/search/${search}`} replace >
-
             <SearchBtn>GO</SearchBtn>
         </Link>
+
+
+        {template && <SearchListTemplate resultData={template} setSearch={setSearch} />}
     </SearchContainer>
 }
+
+
+

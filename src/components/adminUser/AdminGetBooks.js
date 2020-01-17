@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { DELETE_BOOK_REQUEST, UPDATE_BOOK_REQUEST, CREATE_BOOK_REQUEST } from '../../modules/admin'
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
 import { createBookAPI } from '../../api/admin';
@@ -40,21 +39,8 @@ const Btn = styled.button`
 `;
 const AdminGetBooks = () => {
 
-    const dispatch = useDispatch();
     const { hasBooks } = useSelector(state => state.admin)
-
-    const updataBookFromRepository = useCallback((isbn) => {
-        console.log('updataBookFromRepository', isbn)
-        dispatch({ type: UPDATE_BOOK_REQUEST, data: isbn })
-    }, [hasBooks])
-
-    const deleteBookFromRepository = useCallback((id) => {
-        console.log('deleteBookFromRepository', id)
-        dispatch({ type: DELETE_BOOK_REQUEST, data: id })
-    }, [hasBooks])
-
     const createBookFromRepository = useCallback((book) => {
-        console.log('createBookFromRepository', book)
         createBookAPI(book).then(res => console.log(res));
     }, [hasBooks])
     return (

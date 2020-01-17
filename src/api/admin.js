@@ -10,10 +10,6 @@ function searchBookAPI(email) {
     })
 }
 
-function updateBookAPI(actionData) {
-    return axios.post(`${baseURI}/admin/update`, { actionData })
-}
-
 function createBookAPI(naverBook) {
     const jwt = JSON.parse(localStorage.getItem("jwt")).token;
     return axios.post(`${baseURI}/books`, naverBook, {
@@ -21,10 +17,6 @@ function createBookAPI(naverBook) {
             "X-AUTH-TOKEN": jwt
         }
     });
-}
-
-function deleteBookAPI() {
-    return axios.delete(`${baseURI}/admin/delete`);
 }
 
 function searchNaverBooksAPI(search) {
@@ -36,4 +28,4 @@ function searchNaverBooksAPI(search) {
         }
     });
 }
-export { searchBookAPI, updateBookAPI, createBookAPI, deleteBookAPI, searchNaverBooksAPI }
+export { searchBookAPI, createBookAPI, searchNaverBooksAPI }
