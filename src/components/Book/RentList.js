@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { GET_MY_BOOKS_LOOKUP_REQUEST } from '../../modules/user';
 import styled from "styled-components";
 import { pointColor } from "../common/colors";
+import { returnBookAPI } from "../../api/user";
 
 const Container = styled.div`
     width: 70%;
@@ -41,31 +42,39 @@ const Btn = styled.button`
 `;
 
 const RentList = () => {
-
   const dispatch = useDispatch();
-  const { userLookUpBooks } = useSelector(state => state.user)
+  const { userLookUpBooks, isLoading } = useSelector(state => state.user)
 
   useEffect(() => {
     console.log("get_my_books_lookup_request")
     dispatch({ type: GET_MY_BOOKS_LOOKUP_REQUEST })
   }, [])
+
+  const rentBook = async (bookId) => {
+    const book = returnBookAPI(bookId);
+
+  }
+
   return (
     <>
-      {userLookUpBooks && userLookUpBooks.map((book, index) => {
-        return (
-          <Container>
-            <img src={book.image} />
-            <TextContainer key={index}>
-              <Heading2>신청한 책 제목 {book.name} </Heading2>
-              <Param>빌린 날짜 {book.date}</Param>
-              <Param>반납여부 {book.isOk ? "반납 완료" : "반납 미완료"}</Param>
-            </TextContainer>
-            <BtnContainer>
-              <Btn>반납하기</Btn>
-            </BtnContainer>
-          </Container>
-        )
-      })
+      {userLookUpBooks.content && !isLoading &&
+        userLookUpBooks.content.map((book, index) => {
+          return (
+            <Container>
+              <img src={book.image} />
+              <TextContainer key={index}>
+                <Heading2>신청한 책 제목 {book.rentedBookResponseDto.bookTitle} </Heading2>
+                <Param>빌린 날짜 {book.rentedBookResponseDto.bookWriter}</Param>
+                <Param>반납여부 {book.rentState === "RENT" ? "반납 미완료" : "반납 완료"}</Param>
+              </TextContainer>
+              <BtnContainer>
+                <Btn onClick={() => {
+                  // rentBook(book.rentedBookResponseDto.bookId)
+                }}>반납하기</Btn>
+              </BtnContainer>
+            </Container>
+          )
+        })
       }
     </>
   )

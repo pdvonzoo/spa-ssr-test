@@ -24,7 +24,7 @@ const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
     height: 20rem;
-    background-color: ${secondaryColor};
+    background-color: rgb(51, 51, 51);
 `;
 const Image = styled.img`
     height: 60%;
@@ -47,6 +47,7 @@ const Title = styled.h2`
     text-overflow: ellipsis;
     font-size: 1rem;
     font-weight: bold;
+    color: #040404;
 `;
 
 const Text = styled.p`

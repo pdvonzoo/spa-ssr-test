@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { rentOneBook } from "./BookListAPI";
+import React from "react";
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { rentBookAPI } from "../../api/user";
 
 const BookLayout = styled.div`
-  flex: 1;
+  width: 33.3333%;
   padding: 0 30px;
 `;
 const BookCover = styled.div`
@@ -35,14 +35,14 @@ const BookCoverText = styled.div`
 
 const ImageContainer = styled.div`
   position: relative;
-  width: 100%;
   cursor: pointer;
   display: flex;
   background-color: rgb(51,51,51);
   align-items: center;
   justify-content: center;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
   &:hover {
     ${BookCover}{
       display: flex;
@@ -53,6 +53,10 @@ const ImageContainer = styled.div`
 const BookImage = styled.img`
   width: auto;
   height: 70%;
+  transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
 `;
 const BookInfo = styled.ul`
   padding: 1.75rem 1.25rem;
@@ -103,7 +107,7 @@ const RecommendedBook = ({ bookTitle, bookWriter, bookImage, bookIsbn }) => {
         <ListTitle>{bookTitle}</ListTitle>
         <SmallHr></SmallHr>
         <ListText>{bookWriter}</ListText>
-        <RentalBtn onClick={rentOneBook}>책 대여하기</RentalBtn>
+        <RentalBtn onClick={rentBookAPI}>책 대여하기</RentalBtn>
       </BookInfo>
     </BookLayout>
 
