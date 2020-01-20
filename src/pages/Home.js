@@ -10,6 +10,7 @@ const HomeConatainer = styled.div`
 `;
 
 export default () => {
+
   return <>
     <Search />
     <HomeConatainer>

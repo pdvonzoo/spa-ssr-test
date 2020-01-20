@@ -44,23 +44,67 @@ const SearchBtn = styled.button`
 `;
 
 export default () => {
+    const [dataLength, setDataLength] = useState(0);
+    const [counter, setCounter] = useState(0);
     const [template, setTemplate] = useState(null);
     const [search, setSearch] = useState('')
-    const onChangeSearchBar = useCallback(async (e) => {
+
+    const onChangeSearchBar = useCallback((e) => {
         setSearch(e.target.value)
-        const result = await getBookKeyWord(e.target.value);
-        console.log("받은 데이터 : ", result)
-        setTemplate(result.data);
-    }, [search])
+        setCounter(0)
+    }, [search, counter, dataLength])
+
+    const onKeyUPEvent = useCallback(async (e) => {
+        if (e.keyCode === 38 || e.keyCode === 40) {
+            return;
+        }
+        try {
+            const result = await getBookKeyWord(search)
+            console.log(result);
+            setDataLength(parseInt(result.data.length))
+            setTemplate(result.data);
+        } catch (e) {
+            console.error(e);
+        }
+
+    }, [counter, dataLength])
+
+    const onKeyDownEvent = (e) => {
+        if (e.keyCode === 40) {
+            console.log('dataLength : ', dataLength);
+            if (counter == 0) {
+                setCounter(counter + 1);
+                setSearch(template[counter].title)
+                return;
+            }
+
+            if (counter < dataLength) {
+                setCounter(counter + 1);
+                setSearch(template[counter].title)
+            }
+        } else if (e.keyCode === 38) {
+            if (counter > 0) {
+                setCounter(counter - 1);
+                setSearch(template[counter].title)
+            }
+        }
+    }
 
     return <SearchContainer >
-        <SearchForm type="search" onChange={onChangeSearchBar} value={search} placeholder="What are you searching for?" />
+
+        <SearchForm
+            type="search"
+            onKeyUp={onKeyUPEvent}
+            onKeyDown={onKeyDownEvent}
+            onChange={onChangeSearchBar}
+            value={search}
+            placeholder="What are you searching for?" />
+
         <Link to={`/search/${search}`} replace >
             <SearchBtn>GO</SearchBtn>
         </Link>
 
-
-        {template && <SearchListTemplate resultData={template} setSearch={setSearch} />}
+        {template && <SearchListTemplate selectedId={counter} resultData={template} setSearch={setSearch} />}
     </SearchContainer>
 }
 
