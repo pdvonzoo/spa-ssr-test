@@ -22,14 +22,11 @@ const Layout = () => {
     <>
       <Header>
         <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/" }}>Logo</BaseItem>
-        {/* <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/signin" }}>sign in</BaseItem> */}
         <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/auth" }}>sign in/sign up</BaseItem>
-        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/userhistory" }}>My</BaseItem>
+        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/myBooksRoom" }}>My</BaseItem>
         <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/error" }}>Error</BaseItem>
         <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/admin" }}> admin</BaseItem>
       </Header>
-      {/* <Search /> */}
-      {/* {children} */}
     </>
   );
 };

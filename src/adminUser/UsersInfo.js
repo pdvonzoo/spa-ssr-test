@@ -1,5 +1,4 @@
 import React from "react";
-import Book from "../core/Book";
 const user = {
   name: "샤크라",
   count: 10

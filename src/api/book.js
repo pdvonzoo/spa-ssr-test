@@ -12,7 +12,6 @@ function getCommendedAPI() {
     return axios.get(`${baseURI}/recommend`);
 }
 
-
 function getBookDetail(isbn) {
     return axios.get(`${baseURI}/books/${isbn}`)
 }
