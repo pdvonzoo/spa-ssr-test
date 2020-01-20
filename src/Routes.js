@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { Admin, Home, Error404, Auth, UserHistory, BookDetail, SearchPage, MyBooksPage } from "./LazyRoutes";
+import { Admin, Home, Error404, Auth, UserHistory, BookDetail, SearchPage, MyBooksPage } from "./pages";
 import Layout from "./components/common/Layout";
 
 const Routes = () => {
