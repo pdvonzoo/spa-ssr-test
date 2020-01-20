@@ -27,6 +27,7 @@ app.use(express.static("dist"))
 const preloadedState = store.getState()
 
 app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+
 app.get("*", (req, res, next) => {
 
     const sheet = new ServerStyleSheet();

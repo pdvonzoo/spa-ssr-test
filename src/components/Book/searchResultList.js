@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
 import SearchABook from './searchABook';
 import styled from "styled-components";
-// import { withRouter } from 'react-router-dom'
 
 const Container = styled.ul`
     border-top: 1px solid #ddd;

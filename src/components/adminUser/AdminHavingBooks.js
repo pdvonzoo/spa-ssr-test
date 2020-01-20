@@ -21,16 +21,7 @@ const AdminHavingBooks = () => {
         }
 
     }, [havingBooks])
-    // "bookDeleted": true,
-    // "bookId": 0,
-    // "bookImage": "string",
-    // "bookIsbn": "string",
-    // "bookPublishYear": 0,
-    // "bookPublisher": "string",
-    // "bookTitle": "string",
-    // "bookWriter": "string",
-    // "rented": true 
-    //위에가 받아오는 리스트고 bookId로 삭제합니다.
+
     return (
         <div>
             {havingBooks && havingBooks.map((book, index) => {

@@ -1,17 +1,25 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
-const SearchListTemplate = ({ resultData, setSearch }) => {
+const SearchListTemplate = ({ resultData, setSearch, selectedId }) => {
+
     const onClickEvent = useCallback((text) => {
         setSearch(text)
     }, [resultData])
+
+    const styles = {
+        border: '1px solid red'
+    }
     return (
-        <div>
-            {resultData && resultData.map((val, idx) => {
-                return (
-                    <div key={idx} onClick={() => onClickEvent(val.title)}>{val.title}</div>
-                )
-            })}
-        </div>
+        <>
+            {selectedId}
+            <div >
+                {resultData && resultData.map((val, idx) => {
+                    return (
+                        <div key={idx} style={idx + 1 === selectedId ? styles : null} onClick={() => onClickEvent(val.title)}>{val.title}</div>
+                    )
+                })}
+            </div>
+        </>
     );
 };
 

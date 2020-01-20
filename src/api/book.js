@@ -17,7 +17,8 @@ function getBookDetail(isbn) {
 }
 
 function getBookKeyWord(search) {
-    return axios.get(`http://localhost:5000/template`);
+    // return axios.get(`${baseURI}/books/titles`);
+    return axios.get('http://localhost:5000/template')
 }
 
 export { searchBooksAPI, getCommendedAPI, getBookDetail, getBookKeyWord }
