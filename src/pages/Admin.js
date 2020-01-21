@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 import styled from "styled-components";
 import { pointColor } from '../components/common/colors';
-import Search from '../components/adminUser/Search';
-import ExternalsBooks from '../components/adminUser/AdminContainers/ExternalsBooks';
-import InhouseBooks from '../components/adminUser/AdminContainers/InhouseBooks';
-import UserInfo from '../components/adminUser/AdminContainers/UserInfo';
+import Search from '../components/AdminUser/AdminSearch';
+import ExternalsBooks from '../components/AdminUser/AdminContainers/ExternalsBooks';
+import InhouseBooks from '../components/AdminUser/AdminContainers/InHouseBooks';
+import UserInfo from '../components/AdminUser/AdminContainers/UserInfo';
+import AdminList from '../components/AdminUser/AdminList';
 
 
 const Container = styled.div`
@@ -52,8 +53,7 @@ const Admin = () => {
         <NavItem onClick={setBooksView} view={view}>추가할 도서 검색</NavItem>
         <NavItem onClick={setHavingView} view={view}>사내 보유 도서 검색</NavItem>
       </Nav>
-      <Search view={view} />
-      {views[view]}
+      <AdminList view={view} />
     </Container>
   );
 };

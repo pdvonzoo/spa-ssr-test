@@ -1,14 +1,14 @@
 import { createAction, handleActions } from "redux-actions";
 import { makeActionTypes } from '../Utils/makeActionTypes'
 
-export const [SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_USER_SUCCESS, SEARCH_ADMIN_USER_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_USER')
-export const [SEARCH_ADMIN_NAVER_BOOKS_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_SUCCESS, SEARCH_ADMIN_NAVER_BOOKS_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_NAVER_BOOKS');
-export const [SEARCH_ADMIN_HAVING_BOOKS_REQUEST, SEARCH_ADMIN_HAVING_BOOKS_SUCCESS, SEARCH_ADMIN_HAVING_BOOKS_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_HAVING_BOOKS');
+export const [SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_USER_INFO_SUCCESS, SEARCH_ADMIN_USER_INFO_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_USER_INFO')
+export const [SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS, SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_EXTERNAL_BOOKS');
+export const [SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS, SEARCH_ADMIN_INHOUSE_BOOKS_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_INHOUSE_BOOKS');
 export const [ADMIN_REMOVE_HAVING_BOOK_REQUEST, ADMIN_REMOVE_HAVING_BOOK_SUCCESS, ADMIN_REMOVE_HAVING_BOOK_FAILURE] = makeActionTypes('admin/ADMIN_REMOVE_HAVING_BOOK');
 const initialState = {
-    books: null,
-    hasBooks: null,
-    havingBooks: [],
+    userInfo: [],
+    externalBooks: [],
+    inhouseBooks: [],
 }
 const admin = handleActions(
     {
@@ -21,7 +21,7 @@ const admin = handleActions(
         [ADMIN_REMOVE_HAVING_BOOK_SUCCESS]: (state, action) => {
             return {
                 ...state,
-                havingBooks: state.havingBooks.filter(book => action.payload !== book.bookId)
+                inhouseBooks: state.inhouseBooks.filter(book => action.payload !== book.bookId)
             }
         },
         [ADMIN_REMOVE_HAVING_BOOK_FAILURE]: (state, action) => {
@@ -29,22 +29,22 @@ const admin = handleActions(
                 ...state,
             }
         },
-        [SEARCH_ADMIN_USER_REQUEST]: (state, action) => {
+        [SEARCH_ADMIN_USER_INFO_REQUEST]: (state, action) => {
             return {
                 ...state,
-                hasBooks: null,
-                books: null
+                externalBooks: null,
+                userInfo: null
             }
         },
-        [SEARCH_ADMIN_USER_SUCCESS]: (state, action) => {
+        [SEARCH_ADMIN_USER_INFO_SUCCESS]: (state, action) => {
             return {
                 ...state,
-                books: action.payload,
-                hasBooks: null,
-                havingBooks: null,
+                userInfo: action.payload,
+                externalBooks: null,
+                inhouseBooks: null,
             }
         },
-        [SEARCH_ADMIN_USER_FAILURE]: (state, action) => {
+        [SEARCH_ADMIN_USER_INFO_FAILURE]: (state, action) => {
             return {
                 ...state,
 
@@ -52,46 +52,46 @@ const admin = handleActions(
         },
 
         // SEARCH_NAVER_BOOKS_REQUEST
-        [SEARCH_ADMIN_NAVER_BOOKS_REQUEST]: (state, action) => {
+        [SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST]: (state, action) => {
             return {
                 ...state,
-                hasBooks: null,
-                books: null
+                externalBooks: null,
+                userInfo: null
             }
         },
-        [SEARCH_ADMIN_NAVER_BOOKS_SUCCESS]: (state, action) => {
+        [SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS]: (state, action) => {
             return {
                 ...state,
-                books: null,
-                hasBooks: action.payload,
-                havingBooks: null,
+                userInfo: null,
+                externalBooks: action.payload,
+                inhouseBooks: null,
             }
         },
-        [SEARCH_ADMIN_NAVER_BOOKS_FAILURE]: (state, action) => {
+        [SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE]: (state, action) => {
             return {
                 ...state,
 
-            }
-        },
-
-
-        [SEARCH_ADMIN_HAVING_BOOKS_REQUEST]: (state, action) => {
-            return {
-                ...state,
-            }
-        },
-
-        [SEARCH_ADMIN_HAVING_BOOKS_SUCCESS]: (state, action) => {
-            return {
-                ...state,
-                books: null,
-                hasBooks: null,
-                havingBooks: action.payload
             }
         },
 
 
-        [SEARCH_ADMIN_HAVING_BOOKS_FAILURE]: (state, action) => {
+        [SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST]: (state, action) => {
+            return {
+                ...state,
+            }
+        },
+
+        [SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS]: (state, action) => {
+            return {
+                ...state,
+                userInfo: null,
+                externalBooks: null,
+                inhouseBooks: action.payload
+            }
+        },
+
+
+        [SEARCH_ADMIN_INHOUSE_BOOKS_FAILURE]: (state, action) => {
             return {
                 ...state,
             }

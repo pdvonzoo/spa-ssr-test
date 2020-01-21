@@ -1,17 +1,10 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { ADMIN_REMOVE_HAVING_BOOK_REQUEST } from '../../../modules/admin'
+import { ADMIN_REMOVE_HAVING_BOOK_REQUEST } from '../../../modules/admin';
 
-const InhouseBooks = () => {
-
-
+export default () => {
     const dispatch = useDispatch();
-
     const { havingBooks } = useSelector(state => state.admin)
-
-
-
-
     const deleteBook = useCallback((id, name) => {
         if (confirm(`${name}을 정말로 삭제하시겠습니까?`)) {
             dispatch({ type: ADMIN_REMOVE_HAVING_BOOK_REQUEST, payload: id })
@@ -38,5 +31,3 @@ const InhouseBooks = () => {
         </div>
     );
 };
-
-export default InhouseBooks;
