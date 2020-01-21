@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import styled from "styled-components";
 import { pointColor } from '../components/common/colors';
-import Search from '../components/AdminUser/AdminSearch';
-import ExternalsBooks from '../components/AdminUser/AdminContainers/ExternalsBooks';
-import InhouseBooks from '../components/AdminUser/AdminContainers/InHouseBooks';
-import UserInfo from '../components/AdminUser/AdminContainers/UserInfo';
-import AdminList from '../components/AdminUser/AdminList';
+import Search from '../components/Admin/AdminSearch';
+import ExternalsBooks from '../components/Admin/AdminContainers/ExternalsBooks';
+import InhouseBooks from '../components/Admin/AdminContainers/InHouseBooks';
+import UserInfo from '../components/Admin/AdminContainers/UserInfo';
+import AdminList from '../components/Admin/AdminList';
 
 
 const Container = styled.div`

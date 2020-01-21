@@ -8,7 +8,6 @@ function searchBooksAPI(data, limit = dataLimitLength) {
 }
 
 function getCommendedAPI() {
-    console.log("getCommAPI")
     return axios.get(`${baseURI}/recommend`);
 }
 
@@ -17,8 +16,7 @@ function getBookDetail(isbn) {
 }
 
 function getBookKeyWord(search) {
-    // return axios.get(`${baseURI}/books/titles`);
-    return axios.get('http://localhost:5000/template')
+    return axios.get(`${baseURI}/books/titles`);
 }
 
 export { searchBooksAPI, getCommendedAPI, getBookDetail, getBookKeyWord }

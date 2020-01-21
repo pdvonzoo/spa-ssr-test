@@ -17,7 +17,7 @@ const initialState = {
   isLoading_recommendedBooks: false,
   recommendedBooks: null,
   searchText: '',
-  pageNumber: 0,
+  offset: 0,
 };
 
 const books = handleActions(
@@ -26,7 +26,7 @@ const books = handleActions(
       return {
         ...state,
         searchResultBooks: [],
-        pageNumber: 0,
+        offset: 0,
       }
     },
     [SEARCH_BOOK_REQUEST]: (state, action) => {
@@ -44,7 +44,7 @@ const books = handleActions(
         searchText: state.searchText,
         searchResultBooks: state.searchResultBooks.concat(action.payload),
         hasMoreSearchBooks: action.payload.length !== 0,
-        pageNumber: state.pageNumber + 1,
+        offset: state.offset + 1,
       }
     },
     [SEARCH_BOOK_FAILURE]: (state, action) => {

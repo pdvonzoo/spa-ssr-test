@@ -69,7 +69,6 @@ const RentList = () => {
               </TextContainer>
               <BtnContainer>
                 <Btn onClick={() => {
-                  // rentBook(book.rentedBookResponseDto.bookId)
                 }}>반납하기</Btn>
               </BtnContainer>
             </Container>

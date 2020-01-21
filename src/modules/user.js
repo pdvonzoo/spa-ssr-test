@@ -43,7 +43,6 @@ const user = handleActions(
         },
 
         [GET_MY_BOOKS_LOOKUP_SUCCESS]: (state, action) => {
-            console.log("getMyBooks Success!! ", action)
             return {
                 ...state,
                 isLoading: false,
@@ -53,9 +52,9 @@ const user = handleActions(
 
 
         [GET_MY_BOOKS_LOOKUP_FAILURE]: (state, action) => {
+            console.log("get_my_books_lookup_failure", action)
             return {
                 ...state,
-                isLoading: false,
             }
         },
     },
