@@ -10,7 +10,7 @@ import { getMyBooksLookUpAPI } from '../api/user';
 export function* getMybooksSaga(action) {
     try {
         const response = yield call(getMyBooksLookUpAPI);
-        console.log('~~', response)
+        console.log('받아온 데이터', response)
         yield put({
             type: GET_MY_BOOKS_LOOKUP_SUCCESS,
             payload: response.data
