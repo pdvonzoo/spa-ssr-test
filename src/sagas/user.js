@@ -1,11 +1,29 @@
 import { take, fork, all, takeLatest, delay, takeEvery, put, call } from "redux-saga/effects";
 import { createRequestSaga } from "../Utils/createRequestSaga";
-import { GET_MY_BOOKS_LOOKUP_REQUEST } from "../modules/user";
+import { GET_MY_BOOKS_LOOKUP_REQUEST, GET_MY_BOOKS_LOOKUP_SUCCESS, GET_MY_BOOKS_LOOKUP_FAILURE } from "../modules/user";
 import { getMyBooksLookUpAPI } from '../api/user';
-export const getMyBooksSaga = createRequestSaga(getMyBooksLookUpAPI, "user/GET_MY_BOOKS_LOOKUP");
 
+// export const getMyBooksSaga = createRequestSaga(getMyBooksLookUpAPI, "user/GET_MY_BOOKS_LOOKUP");
+
+
+
+export function* getMybooksSaga(action) {
+    try {
+        const response = yield call(getMyBooksLookUpAPI);
+        console.log('~~', response)
+        yield put({
+            type: GET_MY_BOOKS_LOOKUP_SUCCESS,
+            payload: response.data
+        })
+    } catch (e) {
+        yield put({
+            type: GET_MY_BOOKS_LOOKUP_FAILURE,
+            payload: e
+        })
+    }
+}
 export function* getMyBooksLookupSaga() {
-    yield takeEvery(GET_MY_BOOKS_LOOKUP_REQUEST, getMyBooksSaga);
+    yield takeEvery(GET_MY_BOOKS_LOOKUP_REQUEST, getMybooksSaga);
 }
 
 export default function* userSaga() {

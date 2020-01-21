@@ -48,7 +48,6 @@ export default () => {
     const [counter, setCounter] = useState(0);
     const [template, setTemplate] = useState(null);
     const [search, setSearch] = useState('')
-
     const onChangeSearchBar = useCallback((e) => {
         setSearch(e.target.value)
         setCounter(0)
@@ -71,7 +70,7 @@ export default () => {
 
     const onKeyDownEvent = (e) => {
         if (e.keyCode === 40) {
-            console.log('dataLength : ', dataLength);
+
             if (counter == 0) {
                 setCounter(counter + 1);
                 setSearch(template[counter].title)

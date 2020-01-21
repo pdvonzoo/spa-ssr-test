@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
-import { pointColor } from "../common/colors";
+import { pointColor } from "../../common/colors";
+// import { pointColor } from "../../common/colors";
+
 
 const Container = styled.div`
     width: 70%;
@@ -37,7 +39,7 @@ const Btn = styled.button`
     background-color: ${pointColor};
 `;
 
-const AdminSearch = () => {
+const UserInfo = () => {
 
     const dispatch = useDispatch();
     const { books } = useSelector(state => state.admin)
@@ -72,4 +74,4 @@ const AdminSearch = () => {
     );
 };
 
-export default AdminSearch;
+export default UserInfo;

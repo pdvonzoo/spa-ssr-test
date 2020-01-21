@@ -1,8 +1,10 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
-import { pointColor } from '../common/colors';
-import { createBookAPI } from '../../api/admin';
+// import { pointColor } from '../common/colors';
+
+import { createBookAPI } from '../../../api/admin'
+import { pointColor } from '../../common/colors';
 
 const Container = styled.div`
     width: 70%;
@@ -37,7 +39,7 @@ const Btn = styled.button`
     border-radius: 2rem;
     background-color: ${pointColor};
 `;
-const AdminGetBooks = () => {
+const ExternalsBooks = () => {
 
     const { hasBooks } = useSelector(state => state.admin)
     const createBookFromRepository = useCallback((book) => {
@@ -64,7 +66,6 @@ const AdminGetBooks = () => {
                         </TextContainer>
                         <BtnContainer>
                             <Btn onClick={() => createBookFromRepository(book)}>추가하기</Btn>
-                            <Btn onClick={() => deleteBookFromRepository(index)}>삭제하기</Btn>
                         </BtnContainer>
                     </Container>
                 )
@@ -73,4 +74,4 @@ const AdminGetBooks = () => {
     );
 };
 
-export default AdminGetBooks;
+export default ExternalsBooks;

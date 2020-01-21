@@ -47,4 +47,10 @@ function deleteHavingBook(id) {
         }
     });
 }
-export { searchBookAPI, createBookAPI, searchNaverBooksAPI, searchHavingBooksAPI, deleteHavingBook }
+
+function testAPI(actionData) {
+    return axios.get('http://localhost:5000/movie')
+}
+
+
+export { searchBookAPI, createBookAPI, searchNaverBooksAPI, searchHavingBooksAPI, deleteHavingBook, testAPI }

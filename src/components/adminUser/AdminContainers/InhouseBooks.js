@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { ADMIN_REMOVE_HAVING_BOOK_REQUEST } from '../../modules/admin'
+import { ADMIN_REMOVE_HAVING_BOOK_REQUEST } from '../../../modules/admin'
 
-const AdminHavingBooks = () => {
+const InhouseBooks = () => {
 
 
     const dispatch = useDispatch();
@@ -39,4 +39,4 @@ const AdminHavingBooks = () => {
     );
 };
 
-export default AdminHavingBooks;
+export default InhouseBooks;

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import AdminGetBooks from '../components/adminUser/AdminGetBooks';
-import AdminSearch from '../components/adminUser/AdminSearch';
-import AdminHavingBooks from '../components/adminUser/AdminHavingBooks';
+
 import styled from "styled-components";
 import { pointColor } from '../components/common/colors';
 import Search from '../components/adminUser/Search';
+import ExternalsBooks from '../components/adminUser/AdminContainers/ExternalsBooks';
+import InhouseBooks from '../components/adminUser/AdminContainers/InhouseBooks';
+import UserInfo from '../components/adminUser/AdminContainers/UserInfo';
 
 
 const Container = styled.div`
@@ -20,13 +21,13 @@ const NavItem = styled.li`
   font-size: 1.3rem;
   cursor: pointer;
   &:nth-child(1){
-    border-bottom: ${props => props.view === 1 ? `1px solid ${pointColor}` : "0px"}
+    border-bottom: ${props => props.view === 0 ? `1px solid ${pointColor}` : "0px"}
   }
   &:nth-child(2){
-    border-bottom: ${props => props.view === 2 ? `1px solid ${pointColor}` : "0px"}
+    border-bottom: ${props => props.view === 1 ? `1px solid ${pointColor}` : "0px"}
   }
   &:nth-child(3){
-    border-bottom: ${props => props.view === 3 ? `1px solid ${pointColor}` : "0px"}
+    border-bottom: ${props => props.view === 2 ? `1px solid ${pointColor}` : "0px"}
   }
 `;
 
@@ -35,15 +36,15 @@ const Admin = () => {
   const [view, setView] = useState(1)
 
   const searchView = () => {
-    setView(1)
+    setView(0)
   }
   const setBooksView = () => {
-    setView(2)
+    setView(1)
   }
   const setHavingView = () => {
-    setView(3);
+    setView(2);
   }
-
+  const views = [<UserInfo />, <ExternalsBooks />, <InhouseBooks />]
   return (
     <Container>
       <Nav>
@@ -52,8 +53,7 @@ const Admin = () => {
         <NavItem onClick={setHavingView} view={view}>사내 보유 도서 검색</NavItem>
       </Nav>
       <Search view={view} />
-      {view === 1 ? <AdminSearch /> : view === 2 ? <AdminGetBooks /> : <AdminHavingBooks />}
-
+      {views[view]}
     </Container>
   );
 };
