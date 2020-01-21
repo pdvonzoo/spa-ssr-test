@@ -9,23 +9,52 @@ import { getMyBooksLookupSaga } from "./user";
 
 import user from '../modules/user'
 
+
+const result = {
+    data: [
+        {
+            title: "책1",
+            writer: "홍길동",
+        },
+        {
+            title: "책2",
+            writer: "홍길동2"
+        },
+
+        {
+            title: "책3",
+            writer: "홍길동3"
+        },
+    ]
+}
+
 const initialState = {
-    userLookUpBooks: 'mike',
+    userLookUpBooks: [],
+    isLoading: false,
+    isLogged: false,
+    number: 1000000,
+}
+const finalState = {
+    userLookUpBooks: result.data,
     isLoading: false,
     isLogged: false,
     number: 1000000,
 }
 
-const datas = {
-    data: 'mike'
-}
-
-it("fetches a user", () => {
+it("초기 상태 체크", () => {
     return expectSaga(getMyBooksLookupSaga)
         .withReducer(user)
-        .provide([[call(getMyBooksLookUpAPI), datas]])
-        .put({ type: GET_MY_BOOKS_LOOKUP_SUCCESS, payload: datas.data })
+        .hasFinalState(initialState)
+        .run()
+})
+
+it("가져온 책들이 배열로 들어가야한다.", () => {
+    return expectSaga(getMyBooksLookupSaga)
+        .withReducer(user)
+        .provide([[call(getMyBooksLookUpAPI), result]])
+        .put({ type: GET_MY_BOOKS_LOOKUP_SUCCESS, payload: result.data })
         .dispatch({ type: GET_MY_BOOKS_LOOKUP_REQUEST })
-        .hasFinalState({ initialState })
+        .hasFinalState(finalState)
         .silentRun();
 });
+
