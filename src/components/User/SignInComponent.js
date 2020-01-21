@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { signin, authenticate, isAuthenticated } from "../../auth";
-import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "../auth";
+import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "./StyledAuthComponent";
 
 import { isEmail, isCelluar, isJobPassword } from '../../Utils/valid'
 

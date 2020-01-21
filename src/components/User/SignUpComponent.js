@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signup } from "../../auth";
 import { isEmail, isCelluar, isJobPassword } from '../../Utils/valid'
-import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "../auth";
+import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "./StyledAuthComponent";
 
 const SignUpComponent = () => {
   const [values, setValues] = useState({

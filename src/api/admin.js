@@ -1,7 +1,7 @@
 import axios from 'axios';
 const baseURI = 'http://10.102.61.102:8080'
 
-function searchBookAPI(email) {
+function searchUserInfoAPI(email) {
     const jwt = JSON.parse(localStorage.getItem("jwt")).token;
     return axios.get(`${baseURI}/rents?email=${email}`, {
         headers: {
@@ -19,7 +19,7 @@ function createBookAPI(naverBook) {
     });
 }
 
-function searchNaverBooksAPI(search) {
+function searchExternalBooksAPI(search) {
     console.log(search);
     const jwt = JSON.parse(localStorage.getItem("jwt")).token;
     return axios.get(`${baseURI}/naverbooks?searchValue=${search}&page=1&size=10`, {
@@ -29,7 +29,7 @@ function searchNaverBooksAPI(search) {
     });
 }
 
-function searchHavingBooksAPI(search) {
+function searchInHouseBooksAPI(search) {
     console.log(`searchHavingBooksAPI ${search}검색`)
     const jwt = JSON.parse(localStorage.getItem("jwt")).token;
     return axios.get(`${baseURI}/books/collections?query=${search}&size=${10}`, search, {
@@ -53,4 +53,4 @@ function testAPI(actionData) {
 }
 
 
-export { searchBookAPI, createBookAPI, searchNaverBooksAPI, searchHavingBooksAPI, deleteHavingBook, testAPI }
+export { searchUserInfoAPI, searchExternalBooksAPI, searchInHouseBooksAPI, createBookAPI, deleteHavingBook, testAPI }

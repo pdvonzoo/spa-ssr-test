@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
-import { SEARCH_ADMIN_USER_REQUEST, SEARCH_ADMIN_NAVER_BOOKS_REQUEST, SEARCH_ADMIN_HAVING_BOOKS_REQUEST } from '../../modules/admin';
+import { SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST } from '../../modules/admin';
 
 const Container = styled.div`
     display: flex;
@@ -26,7 +26,7 @@ const SearchBtn = styled.button`
 `;
 
 
-const Search = ({ view }) => {
+export default ({ view }) => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
 
@@ -35,19 +35,19 @@ const Search = ({ view }) => {
     }, [search])
 
     const getAdminUserInfo = useCallback(() => {
-        dispatch({ type: SEARCH_ADMIN_USER_REQUEST, payload: search });
+        dispatch({ type: SEARCH_ADMIN_USER_INFO_REQUEST, payload: search });
         setSaerch('')
     }, [search])
 
 
     const getAdminExternalBooks = useCallback(() => {
-        dispatch({ type: SEARCH_ADMIN_NAVER_BOOKS_REQUEST, payload: search })
+        dispatch({ type: SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, payload: search })
         setSaerch('')
     });
 
 
     const getAdminInHouseBooks = useCallback(() => {
-        dispatch({ type: SEARCH_ADMIN_HAVING_BOOKS_REQUEST, payload: search })
+        dispatch({ type: SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, payload: search })
         setSaerch('')
     }, [search])
 
@@ -59,5 +59,3 @@ const Search = ({ view }) => {
         </Container>
     );
 };
-
-export default Search;
