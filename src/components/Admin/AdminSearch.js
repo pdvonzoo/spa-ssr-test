@@ -39,12 +39,10 @@ export default ({ view }) => {
         setSaerch('')
     }, [search])
 
-
     const getAdminExternalBooks = useCallback(() => {
         dispatch({ type: SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, payload: search })
         setSaerch('')
     });
-
 
     const getAdminInHouseBooks = useCallback(() => {
         dispatch({ type: SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, payload: search })

@@ -78,26 +78,24 @@ const RentalBtn = styled.button`
   background: inherit;
 `;
 
-const RecommendedBook = ({ bookTitle, bookWriter, bookImage, bookIsbn }) => {
-  return (
-    <BookLayout>
-      <Link to={`/product/detail/${bookIsbn}`} >
-        <ImageContainer>
-          <BookImage src={bookImage} alt="추천 책" />
-          <BookCover>
-            <BookCoverText>detail</BookCoverText>
-          </BookCover>
-        </ ImageContainer>
-      </Link>
-      <BookInfo>
-        <ListTitle>{bookTitle}</ListTitle>
-        <SmallHr></SmallHr>
-        <ListText>{bookWriter}</ListText>
-        <RentalBtn onClick={rentBookAPI}>책 대여하기</RentalBtn>
-      </BookInfo>
-    </BookLayout>
+export default ({ bookTitle, bookWriter, bookImage, bookIsbn, linkInfo }) => {
+    return (
+        <BookLayout>
+            <Link to={`/product/detail/${linkInfo}`} >
+                <ImageContainer>
+                    <BookImage src={bookImage} alt="추천 책" />
+                    <BookCover>
+                        <BookCoverText>detail</BookCoverText>
+                    </BookCover>
+                </ ImageContainer>
+            </Link>
+            <BookInfo>
+                <ListTitle>{bookTitle}</ListTitle>
+                <SmallHr></SmallHr>
+                <ListText>{bookWriter}</ListText>
+                <RentalBtn onClick={rentBookAPI}>책 대여하기</RentalBtn>
+            </BookInfo>
+        </BookLayout>
 
-  );
+    );
 };
-
-export default RecommendedBook;

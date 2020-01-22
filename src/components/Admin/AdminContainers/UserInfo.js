@@ -1,20 +1,17 @@
 import React, { useState, useCallback } from "react";
-import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
-import { pointColor } from "../../common/colors";
-// import { pointColor } from "../../common/colors";
 import { Container, TextContainer, BtnContainer, Heading2, Param, Btn } from "./StyledAdminContainers";
 
 export default () => {
 
     const dispatch = useDispatch();
-    const { books } = useSelector(state => state.admin)
+    const { userInfo } = useSelector(state => state.admin)
     const onSubmitCreate = (isbn) => {
         dispatch({ type: CREATE_BOOK_REQUEST, data: isbn })
     }
     return (
         <>
-            {books && books.content.map((book, idx) => {
+            {userInfo && userInfo.content.map((book, idx) => {
                 const { bookTitle,
                     bookWriter,
                     bookPublisher,

@@ -8,13 +8,14 @@ import { pointColor } from '../../common/colors';
 import { Container, TextContainer, BtnContainer, Heading2, Param, Btn } from "./StyledAdminContainers";
 
 export default () => {
-    const { hasBooks } = useSelector(state => state.admin)
+    const { externalBooks } = useSelector(state => state.admin)
     const createBookFromRepository = useCallback((book) => {
         createBookAPI(book).then(res => console.log(res));
-    }, [hasBooks])
+    }, [externalBooks])
+
     return (
         <>
-            {hasBooks && hasBooks.map((book, index) => {
+            {externalBooks && externalBooks.map((book, index) => {
                 const { title,
                     link,
                     image,
