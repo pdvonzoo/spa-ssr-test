@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-
 import styled from "styled-components";
 import { pointColor } from '../components/common/colors';
-import Search from '../components/Admin/AdminSearch';
-import ExternalsBooks from '../components/Admin/AdminContainers/ExternalsBooks';
-import InhouseBooks from '../components/Admin/AdminContainers/InHouseBooks';
-import UserInfo from '../components/Admin/AdminContainers/UserInfo';
 import AdminList from '../components/Admin/AdminList';
 
 
@@ -34,7 +29,7 @@ const NavItem = styled.li`
 
 
 const Admin = () => {
-  const [view, setView] = useState(1)
+  const [view, setView] = useState(0)
 
   const searchView = () => {
     setView(0)
@@ -45,7 +40,6 @@ const Admin = () => {
   const setHavingView = () => {
     setView(2);
   }
-  const views = [<UserInfo />, <ExternalsBooks />, <InhouseBooks />]
   return (
     <Container>
       <Nav>

@@ -6,7 +6,6 @@ import UserInfo from "./AdminContainers/UserInfo";
 
 export default ({ view }) => {
     const views = [<UserInfo />, <ExternalsBooks />, <InhouseBooks />]
-
     return (<>
         <AdminSearch view={view} />
         {views[view]}

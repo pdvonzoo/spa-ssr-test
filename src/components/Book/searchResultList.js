@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
 import SearchABook from './searchABook';
 import styled from "styled-components";
-import onScroll from '../../Utils/onScroll'
+import { onScroll } from "../../Utils/events";
 
 const Container = styled.ul`
     border-top: 1px solid #ddd;
@@ -12,7 +12,7 @@ const Container = styled.ul`
     padding-top: 10rem;
 `;
 
-const searchResultList = () => {
+export default () => {
 
     const { search } = useParams();
     const { searchResultBooks, isLoadging, hasMoreSearchBooks, offset } = useSelector(state => state.books);
@@ -23,14 +23,13 @@ const searchResultList = () => {
     }, [search])
 
     useEffect(() => {
-        if (!hasMoreSearchBooks || isLoadging) return null;
+        if (!(hasMoreSearchBooks && !isLoadging)) return;
         window.addEventListener('scroll', () => {
-            onScroll() && dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } })
+            onScroll() && dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } });
         });
-        return () => {
-            window.removeEventListener('scroll', onScroll)
-        }
+        return () => window.removeEventListener('scroll', onScroll)
     }, [isLoadging])
+
     return (
         <Container>
             {searchResultBooks.map((book, index) => {
@@ -41,5 +40,3 @@ const searchResultList = () => {
         </Container>
     );
 };
-
-export default searchResultList
