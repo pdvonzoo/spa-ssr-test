@@ -7,20 +7,20 @@ export const searchExternalBooks = createRequestSaga(searchExternalBooksAPI, "ad
 export const searchInHounseBooks = createRequestSaga(searchInHouseBooksAPI, 'admin/SEARCH_ADMIN_INHOUSE_BOOKS')
 export const removeHavingBook = createRequestSaga(deleteHavingBook, 'admin/ADMIN_REMOVE_HAVING_BOOK')
 
-function* watchSearchInHounseBooks() {
+export function* watchSearchInHounseBooks() {
     yield takeEvery(SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, searchInHounseBooks)
 }
 
-function* watchSearcUserInfo() {
+export function* watchSearcUserInfo() {
     yield takeLatest(SEARCH_ADMIN_USER_INFO_REQUEST, searchUserInfo);
 }
 
-function* watchSearchExternalBooks() {
+export function* watchSearchExternalBooks() {
     yield takeLatest(SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, searchExternalBooks);
 }
 
 
-function* watchDeleteHavingBook() {
+export function* watchDeleteHavingBook() {
     yield takeLatest(ADMIN_REMOVE_HAVING_BOOK_REQUEST, removeHavingBook)
 }
 export default function* adminSaga() {

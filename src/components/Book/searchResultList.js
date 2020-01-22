@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
 import SearchABook from './searchABook';
 import styled from "styled-components";
+import onScroll from '../../Utils/onScroll'
 
 const Container = styled.ul`
     border-top: 1px solid #ddd;
@@ -13,33 +14,19 @@ const Container = styled.ul`
 
 const searchResultList = () => {
 
-    const { id } = useParams();
-    const { searchResultBooks, isLoadging, hasMoreSearchBooks, pageNumber } = useSelector(state => state.books);
+    const { search } = useParams();
+    const { searchResultBooks, isLoadging, hasMoreSearchBooks, offset } = useSelector(state => state.books);
     const dispatch = useDispatch();
-
-    const onScroll = () => {
-        if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 250) {
-            if (hasMoreSearchBooks && !isLoadging) {
-                const data = {
-                    search: id,
-                    offset: pageNumber
-                }
-                dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
-            }
-        }
-    }
-
     useEffect(() => {
         dispatch({ type: INIT_BOOKS });
-        const data = {
-            search: id,
-            offset: 0
-        }
-        dispatch({ type: SEARCH_BOOK_REQUEST, payload: data })
-    }, [id])
+        dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } })
+    }, [search])
 
     useEffect(() => {
-        window.addEventListener('scroll', onScroll);
+        if (!hasMoreSearchBooks || isLoadging) return null;
+        window.addEventListener('scroll', () => {
+            onScroll() && dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } })
+        });
         return () => {
             window.removeEventListener('scroll', onScroll)
         }

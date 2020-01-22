@@ -1,4 +1,4 @@
-import { createAction, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 import { makeActionTypes } from '../Utils/makeActionTypes'
 
 export const [SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_USER_INFO_SUCCESS, SEARCH_ADMIN_USER_INFO_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_USER_INFO')
@@ -9,6 +9,7 @@ const initialState = {
     userInfo: [],
     externalBooks: [],
     inhouseBooks: [],
+    search: '',
 }
 const admin = handleActions(
     {
@@ -30,10 +31,12 @@ const admin = handleActions(
             }
         },
         [SEARCH_ADMIN_USER_INFO_REQUEST]: (state, action) => {
+            console.log('search admin user request', action)
             return {
                 ...state,
                 externalBooks: null,
-                userInfo: null
+                userInfo: null,
+                search: action.payload.search
             }
         },
         [SEARCH_ADMIN_USER_INFO_SUCCESS]: (state, action) => {

@@ -10,22 +10,26 @@ import { getMyBooksLookUpAPI } from '../api/user';
 export function* getMybooksSaga(action) {
     try {
         const response = yield call(getMyBooksLookUpAPI);
+
         console.log('받아온 데이터', response)
+
         yield put({
             type: GET_MY_BOOKS_LOOKUP_SUCCESS,
             payload: response.data
         })
+
     } catch (e) {
+
         yield put({
             type: GET_MY_BOOKS_LOOKUP_FAILURE,
             payload: e
         })
     }
 }
-export function* getMyBooksLookupSaga() {
+export function* watchGetMyBooksLookupSaga() {
     yield takeEvery(GET_MY_BOOKS_LOOKUP_REQUEST, getMybooksSaga);
 }
 
 export default function* userSaga() {
-    yield all([fork(getMyBooksLookupSaga)]);
+    yield all([fork(watchGetMyBooksLookupSaga)]);
 }
