@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import { pointColor } from '../components/common/colors';
 import AdminList from '../components/Admin/AdminList';
+import Layout from '../components/common/Layout';
 
 
 const Container = styled.div`
@@ -28,7 +29,7 @@ const NavItem = styled.li`
 `;
 
 
-const Admin = () => {
+export default () => {
   const [view, setView] = useState(0)
 
   const searchView = () => {
@@ -41,15 +42,15 @@ const Admin = () => {
     setView(2);
   }
   return (
-    <Container>
-      <Nav>
-        <NavItem onClick={searchView} view={view}>회원별 대여 기록</NavItem>
-        <NavItem onClick={setBooksView} view={view}>추가할 도서 검색</NavItem>
-        <NavItem onClick={setHavingView} view={view}>사내 보유 도서 검색</NavItem>
-      </Nav>
-      <AdminList view={view} />
-    </Container>
+    <Layout title="관리자 페이지" description="">
+      <Container>
+        <Nav>
+          <NavItem onClick={searchView} view={view}>회원별 대여 기록</NavItem>
+          <NavItem onClick={setBooksView} view={view}>추가할 도서 검색</NavItem>
+          <NavItem onClick={setHavingView} view={view}>사내 보유 도서 검색</NavItem>
+        </Nav>
+        <AdminList view={view} />
+      </Container>
+    </Layout>
   );
 };
-
-export default Admin;

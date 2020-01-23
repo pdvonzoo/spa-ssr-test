@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { jwt } from './utils';
-const baseURI = 'http://10.102.61.102:8080';
 
 function searchUserInfoAPI(email) {
-    return axios.get(`${baseURI}/rents?email=${email}`, {
+    return axios.get(`${process.env.SERVER_URL}/rents?email=${email}`, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
@@ -11,7 +10,7 @@ function searchUserInfoAPI(email) {
 }
 
 function createBookAPI(bookName) {
-    return axios.post(`${baseURI}/books`, bookName, {
+    return axios.post(`${process.env.SERVER_URL}/books`, bookName, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
@@ -20,7 +19,7 @@ function createBookAPI(bookName) {
 
 function searchExternalBooksAPI(search) {
     console.log(search);
-    return axios.get(`${baseURI}/naverbooks?searchValue=${search}&page=1&size=10`, {
+    return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${search}&page=1&size=10`, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
@@ -29,7 +28,7 @@ function searchExternalBooksAPI(search) {
 
 function searchInHouseBooksAPI(search) {
     console.log(`searchHavingBooksAPI ${search}검색`)
-    return axios.get(`${baseURI}/books/collections?query=${search}&size=${10}`, search, {
+    return axios.get(`${process.env.SERVER_URL}/books/collections?query=${search}&size=10`, search, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
@@ -37,7 +36,7 @@ function searchInHouseBooksAPI(search) {
 }
 
 function deleteHavingBook(id) {
-    return axios.delete(`${baseURI}/books/${id}?bookDeleted=true`, {}, {
+    return axios.delete(`${process.env.SERVER_URL}/books/${id}?bookDeleted=true`, {}, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }

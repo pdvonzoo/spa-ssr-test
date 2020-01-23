@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 import { signin, authenticate, isAuthenticated } from "../../auth";
 import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "./StyledAuthComponent";
 
 import { isEmail, isCelluar, isJobPassword } from '../../Utils/valid'
-
-import { isLogged } from '../../modules/user';
+// import { USER_LOGIN } from "../../modules/user";
 
 const SignInComponent = () => {
   const [values, setValues] = useState({
@@ -15,7 +15,7 @@ const SignInComponent = () => {
     loading: false,
     redirectToRefferrer: false
   });
-
+  // const dispatch = useDispatch();
   const { memberEmail, memberPassword, loading, error, redirectToRefferrer } = values;
   const { user } = isAuthenticated();
 
@@ -40,9 +40,10 @@ const SignInComponent = () => {
 
     signin({ memberEmail, memberPassword }).then(data => {
       if (data.error || data.err) {
-
         setValues({ ...values, error: data.error || data.err, loading: false });
       } else {
+
+        // dispatch({ type: USER_LOGIN });
         authenticate(data, () => {
           setValues({
             ...values,
@@ -99,11 +100,6 @@ const SignInComponent = () => {
   const redirectUser = () => {
     if (redirectToRefferrer) {
       return <Redirect to="/" />;
-      // if (user && user.role === 1) {
-      //   return <Redirect to="/admin/dashboard" />;
-      // } else {
-      //   return <Redirect to="/user/dashboard" />;
-      // }
     }
   };
 

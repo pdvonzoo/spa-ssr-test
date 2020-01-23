@@ -4,7 +4,8 @@ import { makeActionTypes } from "../Utils/makeActionTypes";
 export const [GET_MY_BOOKS_LOOKUP_REQUEST, GET_MY_BOOKS_LOOKUP_SUCCESS, GET_MY_BOOKS_LOOKUP_FAILURE] = makeActionTypes('user/GET_MY_BOOKS_LOOKUP');
 export const USER_LOGIN = 'user/USER_LOGIN'
 export const USER_LOGOUT = 'user/USER_LOGOUT';
-export const userLogin = createAction(USER_LOGIN, user => user);
+export const userLogin = createAction(USER_LOGIN);
+export const userlogout = createAction(USER_LOGOUT)
 export const getMyBooksLookUp = createAction(GET_MY_BOOKS_LOOKUP_REQUEST); //유저 빌린 책 정보 조회
 
 const initialState = {
@@ -21,7 +22,6 @@ const user = handleActions(
         [USER_LOGIN]: (state) => {
             return {
                 ...state,
-                isLoading: true,
                 isLogged: true
             }
         },
@@ -29,8 +29,7 @@ const user = handleActions(
         [USER_LOGOUT]: (state) => {
             return {
                 ...state,
-                isLoading: false
-                , isLogged: false
+                isLogged: false
             }
         },
 

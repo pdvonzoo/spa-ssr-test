@@ -1,7 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import BookList from "../components/Book/BookList";
 import styled from "styled-components";
 import Search from "../components/Search/Search";
+import Layout from "../components/common/Layout";
 
 const HomeConatainer = styled.div`
   padding-top: 10rem;
@@ -9,12 +11,11 @@ const HomeConatainer = styled.div`
   background-color: #e4e4e4;
 `;
 
-export default () => {
-
-  return <>
+export default () => (
+  <Layout title="홈" description="">
     <Search />
     <HomeConatainer>
       <BookList />
     </HomeConatainer>
-  </>;
-};
+  </Layout>
+);

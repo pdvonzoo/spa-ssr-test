@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 import styled from 'styled-components';
-import Search from "../Search/Search";
 import { primaryColor } from "./colors";
+import { isUser, isAdmin } from "../../auth";
 
 const Header = styled.header`
   display: flex;
@@ -12,21 +14,38 @@ const Header = styled.header`
 `;
 
 const BaseItem = styled(Link)`
+  margin-left: 1rem;
   color: #fff;
   text-decoration: none;
   font-size: 1.2rem;
+  &nth-child(5){
+
+  }
 `;
 
-const Layout = () => {
+const Layout = ({ children, title, description }) => {
+  // const { isLogged } = useSelector(state => state.user)
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Helmet>
       <Header>
-        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/" }}>Logo</BaseItem>
-        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/auth" }}>sign in/sign up</BaseItem>
-        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/myBooksRoom" }}>My</BaseItem>
-        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/error" }}>Error</BaseItem>
-        <BaseItem style={{ marginLeft: '10px' }} to={{ pathname: "/admin" }}> admin</BaseItem>
+        <BaseItem to={{ pathname: "/" }}>Logo</BaseItem>
+        {isUser() && <>
+          <BaseItem to={{ pathname: "/myBooksRoom" }}>My Page</BaseItem>
+          <BaseItem to="/">logout</BaseItem>
+        </>}
+        {!isUser() &&
+          <BaseItem to={{ pathname: "/auth" }}>sign in/sign up</BaseItem>}
+        {isAdmin() &&
+          <BaseItem to={{ pathname: "/admin" }}> admin</BaseItem>}
+
+        {/* <BaseItem to={{ pathname: "/error" }}>Error</BaseItem> */}
       </Header>
+      {children}
     </>
   );
 };
