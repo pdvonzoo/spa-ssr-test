@@ -23,7 +23,10 @@ export const signin = user => {
     },
     body: JSON.stringify(user)
   })
-    .then(response => response.json())
+    .then(response => {
+      console.log("실행")
+      return response.json()
+    })
     .catch(err => console.log(err));
 };
 
@@ -58,3 +61,11 @@ export const isAuthenticated = () => {
     return false;
   }
 };
+
+export const isUser = () => {
+  return isAuthenticated() && isAuthenticated().roles[0]
+}
+
+export const isAdmin = () => {
+  return isAuthenticated() && isAuthenticated().roles[1]
+}

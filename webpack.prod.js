@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require('dotenv-webpack');
 
 const browserConfig = {
   mode: "production",
@@ -24,7 +25,14 @@ const browserConfig = {
     new webpack.DefinePlugin({
       __isBrowser__: "true"
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
+    new Dotenv({
+      path: './.env', // load this now instead of the ones in '.env'
+      safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: true, // hide any errors
+      defaults: false // load '.env.defaults' as the default values if empty.
+    })
   ]
 }
 

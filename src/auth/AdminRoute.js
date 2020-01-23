@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./index";
+import { isAdmin } from "./index";
 
-const FinderRoute = ({ component: Component, redirectTo, ...rest }) => (
+export default ({ component: Component, redirectTo, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      isAuthenticated() && isAuthenticated().user.role === 0 ? (
+      isAdmin() ? (
         <Component {...props} />
       ) : (
 
@@ -15,7 +15,3 @@ const FinderRoute = ({ component: Component, redirectTo, ...rest }) => (
     }
   />
 );
-
-export default FinderRoute;
-
-

@@ -1,21 +1,21 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Admin, Home, Error404, Auth, BookDetail, SearchPage, MyBooksPage } from "./pages/index";
-import Layout from "./components/common/Layout";
+import AdminRoute from "./auth/AdminRoute";
+import UserRoute from "./auth/UserRoute";
 
 const Routes = () => {
   return (
     <>
-      <Layout />
-      < Switch >
+      <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/search/:search" component={SearchPage} />
         <Route path="/product/detail/:isbn" component={BookDetail} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/myBooksRoom" component={MyBooksPage} />
+        <AdminRoute path="/admin" component={Admin} />
+        <UserRoute path="/myBooksRoom" component={MyBooksPage} />
         <Route path="/*" exact component={Error404} />
-      </Switch >
+      </Switch>
     </>
   );
 };
