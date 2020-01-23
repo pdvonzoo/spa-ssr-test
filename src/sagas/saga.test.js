@@ -1,90 +1,94 @@
 import { expectSaga } from "redux-saga-test-plan";
 import { call } from "redux-saga/effects";
-import { GET_MY_BOOKS_LOOKUP_REQUEST, GET_MY_BOOKS_LOOKUP_SUCCESS, GET_MY_BOOKS_LOOKUP_FAILURE } from "../modules/user";
-import { SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_USER_INFO_SUCCESS, SEARCH_ADMIN_USER_INFO_FAILURE } from '../modules/admin';
-import { throwError } from "redux-saga-test-plan/providers";
-import { getMyBooksLookUpAPI } from '../api/user'
-import { searchUserInfoAPI } from '../api/admin'
-import { getMybooksSaga, watchGetMyBooksLookupSaga } from "./user";
-import { watchSearcUserInfo } from './admin'
 
-import user from '../modules/user'
+import {
+    SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_USER_INFO_SUCCESS, SEARCH_ADMIN_USER_INFO_FAILURE,
+    SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS, SEARCH_ADMIN_INHOUSE_BOOKS_FAILURE,
+    ADMIN_REMOVE_HAVING_BOOK_SUCCESS, ADMIN_REMOVE_HAVING_BOOK_REQUEST
+} from '../modules/admin';
+
+import { throwError } from "redux-saga-test-plan/providers";
+import { searchUserInfoAPI, searchInHouseBooksAPI, deleteHavingBook, } from '../api/admin'
+import { watchSearcUserInfo, watchDeleteHavingBook, watchSearchInHounseBooks, searchUserInfo } from './admin'
 import admin from '../modules/admin'
 
-const result = {
-    data: [
-        {
-            title: "책1",
-            writer: "홍길동",
-        },
-        {
-            title: "책2",
-            writer: "홍길동2"
-        }
-    ]
-}
 
-const initialState = {
-    userLookUpBooks: [],
-    isLoading: false,
-    isLogged: false,
-    number: 1000000,
-}
-const finalState = {
-    userLookUpBooks: result.data,
-    isLoading: false,
-    isLogged: false,
-    number: 1000000,
-}
+describe('어드민 사내 보유 책 제거 기능', () => {
 
 
-describe("추천 책 가져오기 테스트", () => {
 
-    it("초기 상태 체크", () => {
-        return expectSaga(watchGetMyBooksLookupSaga)
-            .withReducer(user)
-            .hasFinalState(initialState)
-            .run()
-    })
+    it('검색어를 `react`로 검색 하면 검색어와 검색어와 관련된 책들이 initialState에 들어간다', () => {
 
-    it("추천 책 가져오기.", () => {
-        return expectSaga(watchGetMyBooksLookupSaga)
-            .withReducer(user)
-            .provide([[call(getMyBooksLookUpAPI), result]])
-            .put({ type: GET_MY_BOOKS_LOOKUP_SUCCESS, payload: result.data })
-            .dispatch({ type: GET_MY_BOOKS_LOOKUP_REQUEST })
+        const books = [{ title: "reat", bookId: 0 }, { title: "angular", bookId: 1 }, { title: "vue", bookId: 2 }]
+        const search = 'react'
+        const initalState = { inhouseBooks: [], search: "" }
+        const finalState = { ...initalState };
+        finalState.inhouseBooks = finalState.inhouseBooks.concat(books)
+        finalState.search = search;
+
+        return expectSaga(watchSearchInHounseBooks)
+            .withReducer(admin, initalState)
+            .provide([[call(searchInHouseBooksAPI, search), { data: books }]])
+            .put({ type: SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS, payload: books })
+            .dispatch({ type: SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, payload: search })
             .hasFinalState(finalState)
-            .silentRun();
-    });
-
-    it('가져오는 api 오류', () => {
-        const error = new Error('error');
-        return expectSaga(getMybooksSaga)
-            .provide([[call(getMyBooksLookUpAPI), throwError(error)]])
-            .put({ type: GET_MY_BOOKS_LOOKUP_FAILURE, payload: error })
-            .run();
+            .silentRun()
     })
+
+
+
+    it('id가 0~2인 책 중에서 id가 1인 책은 제거 한 후에 상태를 본다', () => {
+
+        const id = 1;
+        const books = [{ title: "reat", bookId: 0 }, { title: "angular", bookId: 1 }, { title: "vue", bookId: 2 }]
+
+        const initalState = { inhouseBooks: [] }
+        initalState.inhouseBooks = initalState.inhouseBooks.concat(books)
+        const finalState = { ...initalState }
+        finalState.inhouseBooks.splice(id, 1) // index 가 id인 data 삭제
+
+        return expectSaga(watchDeleteHavingBook)
+            .withReducer(admin, initalState)
+            .provide([[call(deleteHavingBook, id), { data: id }]])
+            .put({ type: ADMIN_REMOVE_HAVING_BOOK_SUCCESS, payload: id })
+            .dispatch({ type: ADMIN_REMOVE_HAVING_BOOK_REQUEST, payload: id })
+            .hasFinalState(finalState)
+            .silentRun()
+    })
+
 })
 
-const adminResult = {
-    data: [
-        {
-            user: "리액트는즐거워",
-            email: "react@react.com"
-        },
-        {
-            user: "Vue는즐거워",
-            email: "VueTest@naver.com"
-        }
-    ]
-}
-describe('어드민', () => {
-    it('어드민 초기 상태 check', () => {
-        return expectSaga(watchSearcUserInfo)
-            .withReducer(admin)
-            .provide([[call(searchUserInfoAPI, "즐거워"), adminResult]])
-            .put({ type: SEARCH_ADMIN_USER_INFO_SUCCESS, payload: adminResult.data })
-            .dispatch({ type: SEARCH_ADMIN_USER_INFO_REQUEST, payload: "즐거워" })
+describe('어드민 유저 리스트 가져오기 기능', () => {
+
+    it('어디민 유저 정보 가져오기 에러 핸들링', () => {
+        const error = new Error("잘못된 데이터 형식");
+
+        return expectSaga(searchUserInfo)
+            .provide({ call() { throw error } })
+            .put.like({ action: { type: SEARCH_ADMIN_USER_INFO_FAILURE } })
             .run()
     })
+
+    it(' `위메프`라는 이름을 가진 유저의 대여리스트 정보를 가져온다', () => {
+
+        const users = [{ name: "react" }, { name: "vue" }, { name: "angular" }]
+        const search = "위메프";
+
+        const initialState = { userInfo: [], search: '' }
+        const finalState = { ...initialState }
+        finalState.userInfo = finalState.userInfo.concat(users)
+        finalState.search = search
+
+        return expectSaga(watchSearcUserInfo)
+            .withReducer(admin, initialState)
+            .provide([[call(searchUserInfoAPI, search), { data: users }]])
+            .put({ type: SEARCH_ADMIN_USER_INFO_SUCCESS, payload: users })
+            .dispatch({ type: SEARCH_ADMIN_USER_INFO_REQUEST, payload: search })
+            .hasFinalState(finalState)
+            .silentRun()
+    })
+
 })
+
+
+
