@@ -1,4 +1,4 @@
-const baseURI = "http://10.102.61.102:8080/members";
+const baseURI = "http://10.102.61.104:8080/members";
 
 export const signup = user => {
   console.log(user);
@@ -40,14 +40,14 @@ export const authenticate = (data, next) => {
 export const signout = next => {
   if (typeof window !== undefined) {
     localStorage.removeItem("jwt");
-    next();
-    return fetch(`${API}/signout`, {
-      method: "GET"
-    })
-      .then(response => {
-        console.log("signout", response);
-      })
-      .catch(err => console.log(err));
+    //   next();
+    //   return fetch(`${API}/signout`, {
+    //     method: "GET"
+    //   })
+    //     .then(response => {
+    //       console.log("signout", response);
+    //     })
+    //     .catch(err => console.log(err));
   }
 };
 

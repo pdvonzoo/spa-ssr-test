@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { jwt } from './utils';
-
+import { dataLimitLength } from '../modules/books';
 function searchUserInfoAPI(email) {
     return axios.get(`${process.env.SERVER_URL}/rents?email=${email}`, {
         headers: {
@@ -17,14 +17,26 @@ function createBookAPI(bookName) {
     });
 }
 
-function searchExternalBooksAPI(search) {
-    console.log(search);
-    return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${search}&page=1&size=10`, {
+// function searchExternalBooksAPI(search) {
+//     console.log(search);
+//     return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${search}&page=1&size=10`, {
+//         headers: {
+//             "X-AUTH-TOKEN": jwt
+//         }
+//     });
+// }
+
+
+function searchExternalBooksAPI(data, offset, limit = dataLimitLength) {
+    console.log('data 는 ', data)
+    console.log('offset은 : ', offset)
+    return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${data}&page=${offset}&size=${limit}`, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
     });
 }
+
 
 function searchInHouseBooksAPI(search) {
     console.log(`searchHavingBooksAPI ${search}검색`)

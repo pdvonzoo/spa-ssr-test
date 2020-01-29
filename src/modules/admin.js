@@ -5,13 +5,25 @@ export const [SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_USER_INFO_SUCCESS, SE
 export const [SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS, SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_EXTERNAL_BOOKS');
 export const [SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS, SEARCH_ADMIN_INHOUSE_BOOKS_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_INHOUSE_BOOKS');
 export const [ADMIN_REMOVE_HAVING_BOOK_REQUEST, ADMIN_REMOVE_HAVING_BOOK_SUCCESS, ADMIN_REMOVE_HAVING_BOOK_FAILURE] = makeActionTypes('admin/ADMIN_REMOVE_HAVING_BOOK');
+
+export const EXTENALS_BOOKS_INIT = 'admin/EXTENALS_BOOKS_INIT';
 const initialState = {
     userInfo: null,
-    externalBooks: null,
+    externalBooks: [],
     inhouseBooks: null,
+    hasmoreExternalsBooks: false,
+    searchText: '',
+    offset: 0,
+    extenalLoading: false
 }
 const admin = handleActions(
     {
+        [EXTENALS_BOOKS_INIT]: (state, action) => {
+            return {
+                ...state,
+                externalBooks: []
+            }
+        },
         [ADMIN_REMOVE_HAVING_BOOK_REQUEST]: (state, action) => {
             return {
                 ...state,
@@ -33,8 +45,6 @@ const admin = handleActions(
             console.log('search admin user request', action)
             return {
                 ...state,
-                externalBooks: null,
-                userInfo: null,
                 search: action.payload.search
             }
         },
@@ -55,21 +65,27 @@ const admin = handleActions(
 
         // SEARCH_NAVER_BOOKS_REQUEST
         [SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST]: (state, action) => {
+            console.log('SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST', action);
             return {
                 ...state,
-                externalBooks: null,
-                userInfo: null
+                extenalLoading: true,
+                searchText: action.payload,
+                hasmoreExternalsBooks: state.hasmoreExternalsBooks.length ? state.hasmoreExternalsBooks : true,
             }
         },
         [SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS]: (state, action) => {
+            console.log('SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS', action);
             return {
                 ...state,
-                userInfo: null,
-                externalBooks: action.payload,
-                inhouseBooks: null,
+                extenalLoading: false,
+                searchText: state.searchText,
+                externalBooks: state.externalBooks.concat(action.payload),
+                hasmoreExternalsBooks: action.payload.length !== 0 ? true : false,
+                offset: state.offset + 1,
             }
         },
         [SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE]: (state, action) => {
+            console.log('SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE', action)
             return {
                 ...state,
 

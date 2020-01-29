@@ -12,7 +12,6 @@ export default () => {
         } else {
             alert("삭제를 취소합니다.")
         }
-
     }, [inhouseBooks])
 
     return (
