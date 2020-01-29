@@ -24,5 +24,4 @@ const destroy = (event, callback, els) => {
     return els;
 }
 
-
 export { onScroll, on, destroy };

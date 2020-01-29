@@ -15,11 +15,16 @@ const StyledBookInfoText = styled.p`
   line-height: 1.5;
 `;
 
+const StyledRentButton = styled.button`
+  font-size: 14px;
+`;
+
 export default ({ title, author, publisher, pubdate, isbn }) => <StyledBookInfo>
   <StyledBookInfoText>{title}</StyledBookInfoText>
   <StyledBookInfoText>{author}</StyledBookInfoText>
   <StyledBookInfoText>{publisher}</StyledBookInfoText>
   <StyledBookInfoText>{pubdate}</StyledBookInfoText>
   <StyledBookInfoText>{isbn}</StyledBookInfoText>
+  <StyledRentButton>대여하기</StyledRentButton>
   {/* <p>{isRental}</p> */}
 </StyledBookInfo>

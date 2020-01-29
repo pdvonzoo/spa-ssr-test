@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
+import parse, { domToReact } from 'html-react-parser';
 
-const SearchListTemplate = ({ resultData, setSearch, selectedId }) => {
+const SearchListTemplate = ({ resultData, setUserInput, selectedId }) => {
 
     const onClickEvent = useCallback((text) => {
-        setSearch(text)
+        setUserInput(text)
     }, [resultData])
 
     const styles = {
@@ -15,7 +16,15 @@ const SearchListTemplate = ({ resultData, setSearch, selectedId }) => {
             <div >
                 {resultData && resultData.map((val, idx) => {
                     return (
-                        <div key={idx} style={idx + 1 === selectedId ? styles : null} onClick={() => onClickEvent(val.title)}>{val.title}</div>
+                        <div key={idx} style={idx + 1 === selectedId ? styles : null} onClick={() => onClickEvent(val)}>{parse(val, {
+                            replace: domNode => {
+                                if (domNode && domNode.name === 'em') {
+                                    return <span style={{ fontWeight: "bold" }}>
+                                        {domNode.children.reduce((a, b) => a + b.data, "")}
+                                    </span>
+                                }
+                            }
+                        })}</div>
                     )
                 })}
             </div>

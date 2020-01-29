@@ -2,12 +2,13 @@ import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from 'react-redux'
 import { SEARCH_BOOK_REQUEST, INIT_BOOKS } from '../../modules/books'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { isBlank } from '../../Utils/valid'
 import { pointColor } from "../common/colors";
-import Axios from "axios";
-import { getBookKeyWord } from '../../api/book'
+import { getBookKeyWord, getAutoComplete } from '../../api/book'
 import SearchListTemplate from "./SearchListTemplate";
+import useDebounce from "../../Utils/useDebounce";
+import parse from 'html-react-parser';
 
 const SearchContainer = styled.form`
     display: flex;
@@ -44,66 +45,93 @@ const SearchBtn = styled.button`
 `;
 
 export default () => {
+    const { search } = useParams();
     const [dataLength, setDataLength] = useState(0);
     const [counter, setCounter] = useState(0);
     const [template, setTemplate] = useState(null);
-    const [search, setSearch] = useState('')
-    const onChangeSearchBar = useCallback((e) => {
-        setSearch(e.target.value)
-        setCounter(0)
-    }, [search, counter, dataLength])
+    const [useInput, setUserInput] = useState('')
 
-    const onKeyUPEvent = useCallback(async (e) => {
-        if (e.keyCode === 38 || e.keyCode === 40) {
-            return;
-        }
-        try {
-            const result = await getBookKeyWord(search)
-            console.log(result);
-            setDataLength(parseInt(result.data.length))
-            setTemplate(result.data);
-        } catch (e) {
-            console.error(e);
-        }
+    const debouncedSearchTerm = useDebounce(useInput, 100);
 
-    }, [counter, dataLength])
+    useEffect(() => {
+        setDataLength(0);
+        setCounter(0);
+        setTemplate(null);
+    }, [search]);
+
+    useEffect(
+        () => {
+            if (counter > 0) return;
+            if (debouncedSearchTerm) {
+                getAutoComplete(useInput).then(result => {
+                    setTemplate([useInput, ...result.data]);
+                    setDataLength(parseInt(result.data.length))
+                });
+
+            } else {
+                setTemplate([]);
+            }
+        },
+        [debouncedSearchTerm]
+    );
 
     const onKeyDownEvent = (e) => {
         if (e.keyCode === 40) {
 
             if (counter == 0) {
+                let searchValue = parse(template[counter + 1]);
+                if (toString.call(searchValue) === "[object Array]") {
+                    searchValue = searchValue
+                        .map((v) => (toString.call(v) === "[object Object]") ? v.props.children : v)
+                        .join("");
+                }
+                setUserInput(searchValue)
                 setCounter(counter + 1);
-                setSearch(template[counter].title)
                 return;
             }
 
             if (counter < dataLength) {
+                let searchValue = parse(template[counter + 1]);
+                if (toString.call(searchValue) === "[object Array]") {
+                    searchValue = searchValue
+                        .map((v) => (toString.call(v) === "[object Object]") ? v.props.children : v)
+                        .join("");
+                }
+                setUserInput(searchValue)
                 setCounter(counter + 1);
-                setSearch(template[counter].title)
             }
         } else if (e.keyCode === 38) {
+
             if (counter > 0) {
+                console.log(parse(template[counter - 1]));
+                let searchValue = parse(template[counter - 1]);
+                if (toString.call(searchValue) === "[object Array]") {
+                    searchValue = searchValue
+                        .map((v) => (toString.call(v) === "[object Object]") ? v.props.children : v)
+                        .join("");
+                }
+                setUserInput(searchValue);
                 setCounter(counter - 1);
-                setSearch(template[counter].title)
             }
         }
     }
 
     return <SearchContainer >
-
+        {console.log(template)}
         <SearchForm
             type="search"
-            onKeyUp={onKeyUPEvent}
+            // onKeyUp={onKeyUPEvent}
             onKeyDown={onKeyDownEvent}
-            onChange={onChangeSearchBar}
-            value={search}
+            onChange={e => setUserInput(e.target.value)}
+            value={useInput}
             placeholder="What are you searching for?" />
 
-        <Link to={`/search/${search}`} replace >
+        <Link to={`/search/${useInput}`} replace>
             <SearchBtn>GO</SearchBtn>
         </Link>
 
-        {template && <SearchListTemplate selectedId={counter} resultData={template} setSearch={setSearch} />}
+        {template && <SearchListTemplate selectedId={counter} resultData={template.filter((t, i) => i !== 0)} setUserInput={setUserInput} />}
+        {/* {template && template.map(text => <p>{text}</p>)} */}
     </SearchContainer>
 }
 
