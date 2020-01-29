@@ -11,24 +11,33 @@ const Container = styled.ul`
     padding: 0 8rem;
     padding-top: 10rem;
 `;
-
 export default () => {
 
     const { search } = useParams();
     const { searchResultBooks, isLoadging, hasMoreSearchBooks, offset } = useSelector(state => state.books);
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch({ type: INIT_BOOKS });
-        dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } })
+        dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset: 0 } })
     }, [search])
 
+    const onScroll = () => {
+
+
+        if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 250) return;
+        if (hasMoreSearchBooks && !isLoadging) {
+            dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } })
+        }
+    }
+
     useEffect(() => {
-        if (!(hasMoreSearchBooks && !isLoadging)) return;
-        window.addEventListener('scroll', () => {
-            onScroll() && dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } });
-        });
-        return () => window.removeEventListener('scroll', onScroll)
+        window.addEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+        }
     }, [isLoadging])
+
 
     return (
         <Container>

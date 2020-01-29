@@ -2,9 +2,9 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
-import { SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST } from '../../modules/admin';
+import { SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, SET_SEARCH } from '../../modules/admin';
 
-const Container = styled.div`
+const Container = styled.form`
     display: flex;
     justify-content: center;
     margin: 3rem 0;
@@ -30,6 +30,9 @@ export default ({ view }) => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
 
+    const submitBtton = useCallback((e) => {
+        e.preventDefault();
+    }, [search])
     const onChangeSearch = useCallback((e) => {
         setSaerch(e.target.value)
     }, [search])
@@ -51,9 +54,9 @@ export default ({ view }) => {
 
     const datas = [getAdminUserInfo, getAdminExternalBooks, getAdminInHouseBooks]
     return (
-        <Container>
-            <SearchInput type="text" onChange={onChangeSearch} value={search} placeholder="조회하고 싶은 도서를 입력하세요" />
-            <SearchBtn onClick={datas[view]}>책 조회하기</SearchBtn>
+        <Container onSubmit={submitBtton}>
+            <SearchInput type="text" onChange={onChangeSearch} value={search} placeholder="궁금 하신 책 또는 회원의 이름을 입력해주세요" />
+            <SearchBtn onClick={datas[view]}>조회하기</SearchBtn>
         </Container>
     );
 };

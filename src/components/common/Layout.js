@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import styled from 'styled-components';
 import { primaryColor } from "./colors";
-import { isUser, isAdmin } from "../../auth";
+import { isUser, isAdmin, signout } from "../../auth";
 
 const Header = styled.header`
   display: flex;
@@ -21,6 +21,15 @@ const BaseItem = styled(Link)`
   
 `;
 
+const SignOutBtn = styled.button`
+  display: inline-block;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: inherit;
+`;
+
 const Layout = ({ children, title, description }) => {
   // const { isLogged } = useSelector(state => state.user)
   return (
@@ -34,7 +43,7 @@ const Layout = ({ children, title, description }) => {
         <BaseItem to={{ pathname: "/" }}>Logo</BaseItem>
         {isUser() && <>
           <BaseItem to={{ pathname: "/myBooksRoom" }}>My Page</BaseItem>
-          <BaseItem to="/">logout</BaseItem>
+          <BaseItem to="/"><SignOutBtn onClick={signout}>logout</SignOutBtn></BaseItem>
         </>}
         {!isUser() &&
           <BaseItem to={{ pathname: "/auth" }}>sign in/sign up</BaseItem>}

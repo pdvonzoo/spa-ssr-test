@@ -38,12 +38,13 @@ const books = handleActions(
       }
     },
     [SEARCH_BOOK_SUCCESS]: (state, action) => {
+      console.log(action)
       return {
         ...state,
         isLoadging: false,
         searchText: state.searchText,
         searchResultBooks: state.searchResultBooks.concat(action.payload),
-        hasMoreSearchBooks: action.payload.length !== 0,
+        hasMoreSearchBooks: action.payload.length !== 0 ? true : false,
         offset: state.offset + 1,
       }
     },
