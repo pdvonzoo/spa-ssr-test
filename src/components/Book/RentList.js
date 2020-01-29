@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { GET_MY_BOOKS_LOOKUP_REQUEST } from '../../modules/user';
 import styled from "styled-components";
 import { pointColor } from "../common/colors";
-import { returnBookAPI } from "../../api/user";
+import { returnBookAPI, rentBookAPI } from "../../api/user";
 
 const Container = styled.div`
     width: 70%;
@@ -50,26 +50,31 @@ const RentList = () => {
     dispatch({ type: GET_MY_BOOKS_LOOKUP_REQUEST })
   }, [])
 
-  const rentBook = async (bookId) => {
-    const book = returnBookAPI(bookId);
-
+  const returnBook = async (bookId) => {
+    const bookRentStatus = await returnBookAPI(bookId);
+    if (bookRentStatus) {
+      dispatch({ type: bookId });
+    }
   }
 
   return (
     <>
       {userLookUpBooks.content && !isLoading &&
         userLookUpBooks.content.map((book, index) => {
+          const { rentState } = book;
+          const { bookTitle, bookWriter, bookId, bookImage, bookIsbn } = book.rentedBookResponseDto;
           return (
             <Container>
-              <img src={book.image} />
+              <img src={bookImage} />
               <TextContainer key={index}>
-                <Heading2>신청한 책 제목 {book.rentedBookResponseDto.bookTitle} </Heading2>
-                <Param>빌린 날짜 {book.rentedBookResponseDto.bookWriter}</Param>
-                <Param>반납여부 {book.rentState === "RENT" ? "반납 미완료" : "반납 완료"}</Param>
+                <Heading2>신청한 책 제목 {bookTitle} </Heading2>
+                <Param>빌린 날짜 {bookWriter}</Param>
+                <Param>반납여부 {rentState === "RENT" ? "반납 미완료" : "반납 완료"}</Param>
               </TextContainer>
               <BtnContainer>
-                <Btn onClick={() => {
-                }}>반납하기</Btn>
+                {rentState === "RENT" ?
+                  <Btn onClick={() => returnBook(bookId)}>반납하기</Btn> :
+                  <Btn onClick={() => rentBookAPI(bookIsbn)}>대여하기</Btn>}
               </BtnContainer>
             </Container>
           )

@@ -25,8 +25,6 @@ const BookImage = styled.img`
 `;
 
 export default ({ image, title, author, publisher, pubdate, isbn }) => {
-
-
   return (
     <Container>
       <BookImageContainer>

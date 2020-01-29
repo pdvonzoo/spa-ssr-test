@@ -93,7 +93,7 @@ const RecommendedBook = ({ bookTitle, bookWriter, bookImage, bookIsbn }) => {
         <ListTitle>{bookTitle}</ListTitle>
         <SmallHr></SmallHr>
         <ListText>{bookWriter}</ListText>
-        <RentalBtn onClick={rentBookAPI}>책 대여하기</RentalBtn>
+        <RentalBtn onClick={() => rentBookAPI(bookIsbn)}>책 대여하기</RentalBtn>
       </BookInfo>
     </BookLayout>
 

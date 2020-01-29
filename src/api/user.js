@@ -10,19 +10,24 @@ const getMyBooksLookUpAPI = () => {
 }
 
 const returnBookAPI = (bookId) => {
-    return axios.post(`${process.env.SERVER_URL}/rents`, {
+    console.log("api", bookId);
+    return axios.post(`${process.env.SERVER_URL}/rents/${bookId}`, {
         returnBook: true,
         bookId
     }, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
+    }).then(res => {
+        return true;
+    }).catch(err => {
+
     });
 }
 
-const rentBookAPI = () => {
-    return axios.post(`${process.env.SERVER_URL}/books/1186694009%209791186694008/rents`,
-        { isbn: "1186694009 9791186694008" },
+const rentBookAPI = (isbn) => {
+    return axios.post(`${process.env.SERVER_URL}/books/${isbn}/rents`,
+        { isbn },
         {
             headers: {
                 "X-AUTH-TOKEN": jwt

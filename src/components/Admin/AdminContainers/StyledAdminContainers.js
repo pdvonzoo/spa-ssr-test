@@ -20,7 +20,6 @@ const BtnContainer = styled.div`
 `;
 
 const Heading2 = styled.h2`
-    font-weight: bold;
     font-size: 1.2rem;
     padding-bottom: 1rem;
 `;

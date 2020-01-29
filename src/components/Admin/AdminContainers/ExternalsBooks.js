@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
+// import { pointColor } from '../common/colors';
+import parse from 'html-react-parser';
 import { createBookAPI } from '../../../api/admin'
 import { pointColor } from '../../common/colors';
 import { Container, TextContainer, BtnContainer, Heading2, Param, Btn } from "./StyledAdminContainers";
@@ -49,10 +51,12 @@ export default () => {
                     pubdate,
                     isbn,
                     description } = book;
+                const parseTitle = parse(title);
+                console.log(parseTitle);
                 return (
                     <Container key={index}>
                         <TextContainer>
-                            <Heading2>책 이름 : {title}</Heading2>
+                            <Heading2>책 이름 : {parseTitle}</Heading2>
                             <Param>책 저자 : {author}</Param>
                         </TextContainer>
                         <BtnContainer>

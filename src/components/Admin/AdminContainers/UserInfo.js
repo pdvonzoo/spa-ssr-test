@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { Container, TextContainer, BtnContainer, Heading2, Param, Btn } from "./StyledAdminContainers";
+import { returnBookAPI } from "../../../api/user";
 
 export default () => {
 
@@ -9,10 +10,19 @@ export default () => {
     const onSubmitCreate = (isbn) => {
         dispatch({ type: CREATE_BOOK_REQUEST, data: isbn })
     }
+
+    const returnBook = async (bookId) => {
+        const bookRentStatus = await returnBookAPI(bookId);
+        if (bookRentStatus) {
+            dispatch({ type: bookId });
+        }
+    }
+
     return (
         <>
             {userInfo && userInfo.content.map((book, idx) => {
-                const { bookTitle,
+                const { bookId,
+                    bookTitle,
                     bookWriter,
                     bookPublisher,
                     bookPublishYear,
@@ -27,7 +37,7 @@ export default () => {
                             <Param>반납 여부 : {bookWriter}</Param>
                         </TextContainer>
                         <BtnContainer>
-                            <Btn onClick={() => onSubmitCreate(bookIsbn)}>반납하기</Btn>
+                            <Btn onClick={() => returnBook(bookId)}>반납하기</Btn>
                         </BtnContainer>
                     </Container>
                 )

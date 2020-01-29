@@ -11,7 +11,6 @@ export function* getMybooksSaga(action) {
     try {
         const response = yield call(getMyBooksLookUpAPI);
 
-        console.log('받아온 데이터', response)
 
         yield put({
             type: GET_MY_BOOKS_LOOKUP_SUCCESS,

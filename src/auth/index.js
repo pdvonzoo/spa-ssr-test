@@ -1,4 +1,4 @@
-const baseURI = "http://10.102.61.104:8080/members";
+const baseURI = "http://10.102.61.102:8080/members";
 
 export const signup = user => {
   console.log(user);
