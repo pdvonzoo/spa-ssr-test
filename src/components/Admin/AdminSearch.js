@@ -22,7 +22,9 @@ const SearchBtn = styled.button`
     border: 0;
     height: 100%;
     background-color: ${pointColor};
-    border-radius: 2rem;
+    border-radius: 0;
+    padding: .3rem 1.3rem;
+    font-size: 1rem;
 `;
 
 

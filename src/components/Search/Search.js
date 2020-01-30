@@ -18,6 +18,10 @@ const SearchContainer = styled.form`
     background-color: #fff;
     justify-content: center;
 `;
+
+const SearchInputWrapper = styled.div`
+    position: relative;
+`;
 const SearchForm = styled.input`
     border: none;
     font-family: Chivo,sans-serif;
@@ -103,7 +107,6 @@ export default () => {
         } else if (e.keyCode === 38) {
 
             if (counter > 0) {
-                console.log(parse(template[counter - 1]));
                 let searchValue = parse(template[counter - 1]);
                 if (toString.call(searchValue) === "[object Array]") {
                     searchValue = searchValue
@@ -117,21 +120,20 @@ export default () => {
     }
 
     return <SearchContainer >
-        {console.log(template)}
-        <SearchForm
-            type="search"
-            // onKeyUp={onKeyUPEvent}
-            onKeyDown={onKeyDownEvent}
-            onChange={e => setUserInput(e.target.value)}
-            value={useInput}
-            placeholder="What are you searching for?" />
+        <SearchInputWrapper>
+            <SearchForm
+                type="search"
+                onKeyDown={onKeyDownEvent}
+                onChange={e => setUserInput(e.target.value)}
+                value={useInput}
+                placeholder="What are you searching for?" />
 
-        <Link to={`/search/${useInput}`} replace>
-            <SearchBtn>GO</SearchBtn>
-        </Link>
+            <Link to={`/search/${useInput}`} replace>
+                <SearchBtn>GO</SearchBtn>
+            </Link>
 
-        {template && <SearchListTemplate selectedId={counter} resultData={template.filter((t, i) => i !== 0)} setUserInput={setUserInput} />}
-        {/* {template && template.map(text => <p>{text}</p>)} */}
+            {template && <SearchListTemplate selectedId={counter} resultData={template.filter((t, i) => i !== 0)} setUserInput={setUserInput} />}
+        </SearchInputWrapper>
     </SearchContainer>
 }
 

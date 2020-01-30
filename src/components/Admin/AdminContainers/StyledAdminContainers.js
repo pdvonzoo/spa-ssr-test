@@ -3,35 +3,42 @@ import { pointColor } from "../../common/colors";
 
 const Container = styled.div`
     width: 70%;
-    display: flex;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
     border: 1px solid #040404;
     margin: auto;
     margin-bottom: -1px;
+`;
+
+const Img = styled.img`
+    width: 15rem;
+    height: auto;
+    margin-bottom: 1rem;
 `;
 
 const TextContainer = styled.div`
 `;
 
 const BtnContainer = styled.div`
-    display: flex;
-    align-items: baseline;
+    padding-top: 1.5rem;
 `;
 
 const Heading2 = styled.h2`
     font-size: 1.2rem;
-    padding-bottom: 1rem;
+    line-height: 1.4;
+    font-weight: bold;
+    padding-bottom: 1.5rem;
 `;
 const Param = styled.p`
     font-size: 1.2rem;
+    line-height: 1.4;
 `;
 const Btn = styled.button`
-    margin-left: 1rem;
     padding: .4rem .8rem;
     border: 0;
-    border-radius: 2rem;
-    background-color: ${pointColor};
+    border-radius: 0;
+    background: rgb(51,51,51);
+    color: #fff;
 `;
 
-export { Container, TextContainer, BtnContainer, Heading2, Param, Btn };
+export { Container, TextContainer, BtnContainer, Heading2, Param, Btn, Img };

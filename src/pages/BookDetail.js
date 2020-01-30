@@ -36,6 +36,7 @@ export default () => {
   }
 
   const {
+    bookId,
     bookTitle,
     bookImage,
     bookWriter,
@@ -51,6 +52,7 @@ export default () => {
     <Layout title="책 상세페이지" description="">
       < Container >
         <BookInfoTab
+          bookId={bookId}
           image={bookImage}
           title={bookTitle}
           author={bookWriter}

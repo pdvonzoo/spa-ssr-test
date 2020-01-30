@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { ADMIN_REMOVE_HAVING_BOOK_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST } from '../../../modules/admin';
+import { Container, TextContainer, BtnContainer, Heading2, Param, Btn, Img } from "./StyledAdminContainers";
 
 export default () => {
     const dispatch = useDispatch();
@@ -30,16 +31,24 @@ export default () => {
     }, [inhouseBooks])
 
     return (
-        <div>
+        <>
             {inhouseBooks && inhouseBooks.map((book, index) => {
                 return (
-                    <div>
-                        <img src={book.bookImage} />
-                        이름 : {book.bookTitle}   / 저자 :  {book.bookWriter}  /  출판일 : {book.bookPublisher}    / ISBN :{book.bookIsbn}
-                        <button onClick={() => deleteBook(book.bookId, book.bookWriter)}>책 삭제하기</button>
-                    </div>
+                    <Container>
+                        <Img src={book.bookImage.split("?")[0]} />
+                        <TextContainer>
+                            <Heading2>{book.bookTitle}</Heading2>
+                            {/* 이름 :    / 저자 :  {book.bookWriter}  /  출판일 : {book.bookPublisher}    / ISBN : */}
+                            <Param>{book.bookWriter}</Param>
+                            <Param>{book.bookPublisher}</Param>
+                            <Param>{book.bookIsbn}</Param>
+                        </TextContainer>
+                        <BtnContainer>
+                            <Btn onClick={() => deleteBook(book.bookId, book.bookWriter)}>책 삭제하기</Btn>
+                        </BtnContainer>
+                    </Container>
                 )
             })}
-        </div>
+        </>
     );
 };

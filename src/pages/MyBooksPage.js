@@ -11,8 +11,10 @@ const Container = styled.div`
 const MyBooksPage = () => (
     <Layout title="마이페이지" description="">
         <Container>
-            <h2>대여 목록</h2>
-            <RentList />
+            <h2>현대 대여 목록</h2>
+            <RentList status="current" />
+            <h2>유저 히스토리</h2>
+            <RentList status="total" />
         </Container>
     </Layout>
 );
