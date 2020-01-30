@@ -8,34 +8,35 @@ import { pointColor } from '../../common/colors';
 import { Container, TextContainer, BtnContainer, Heading2, Param, Btn } from "./StyledAdminContainers";
 import { SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, EXTENALS_BOOKS_INIT } from '../../../modules/admin'
 export default () => {
-    const { externalBooks, extenalLoading, offset, hasmoreExternalsBooks, searchText } = useSelector(state => state.admin)
-
+    const { externalBooks, adminIsLoading, offset, hasmoreBooksForAdmin, searchText } = useSelector(state => state.admin)
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch({ type: EXTENALS_BOOKS_INIT });
-        dispatch({ type: SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, payload: { search: searchText, offset: 0 } })
-    }, [])
 
     const createBookFromRepository = useCallback((book) => {
-        createBookAPI(book).then(res => console.log(res));
+        if (confirm(`${book.title} 책을 추가 하시겠습니까?`)) {
+            createBookAPI(book).then(res => {
+                alert(`${book.title} 책 추가를 성공 했습니다.`)
+                console.log(res)
+            });
+        } else {
+            alert('책 추가하기를 취소합니다.')
+        }
+
     }, [externalBooks])
 
     const onScroll = () => {
         if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 250) {
-            if (hasmoreExternalsBooks && !extenalLoading) {
+            if (hasmoreBooksForAdmin && !adminIsLoading) {
                 dispatch({ type: SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, payload: { search: searchText, offset: offset } })
             }
         }
     }
-
-
 
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => {
             window.removeEventListener('scroll', onScroll)
         }
-    }, [extenalLoading])
+    }, [adminIsLoading])
 
 
     return (

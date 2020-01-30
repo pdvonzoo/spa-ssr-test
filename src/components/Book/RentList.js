@@ -4,7 +4,7 @@ import { GET_MY_BOOKS_LOOKUP_REQUEST } from '../../modules/user';
 import styled from "styled-components";
 import { pointColor } from "../common/colors";
 import { returnBookAPI, rentBookAPI } from "../../api/user";
-
+import { RETURN_MY_BOOK } from '../../modules/user'
 const Container = styled.div`
     width: 70%;
     display: flex;
@@ -51,12 +51,11 @@ const RentList = () => {
   }, [])
 
   const returnBook = async (bookId) => {
-    const bookRentStatus = await returnBookAPI(bookId);
-    if (bookRentStatus) {
-      dispatch({ type: bookId });
-    }
+    console.log('return book')
+    const result = await returnBookAPI(bookId).then(
+      dispatch({ type: RETURN_MY_BOOK, payload: bookId })
+    )
   }
-
   return (
     <>
       {userLookUpBooks.content && !isLoading &&

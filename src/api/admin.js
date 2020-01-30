@@ -17,20 +17,9 @@ function createBookAPI(bookName) {
     });
 }
 
-// function searchExternalBooksAPI(search) {
-//     console.log(search);
-//     return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${search}&page=1&size=10`, {
-//         headers: {
-//             "X-AUTH-TOKEN": jwt
-//         }
-//     });
-// }
-
-
-function searchExternalBooksAPI(data, offset, limit = dataLimitLength) {
+function searchExternalBooksAPI(data, limit = dataLimitLength) {
     console.log('data 는 ', data)
-    console.log('offset은 : ', offset)
-    return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${data}&page=${offset}&size=${limit}`, {
+    return axios.get(`${process.env.SERVER_URL}/naverbooks?searchValue=${data.search}&page=${data.offset}&size=${limit}`, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
@@ -38,9 +27,9 @@ function searchExternalBooksAPI(data, offset, limit = dataLimitLength) {
 }
 
 
-function searchInHouseBooksAPI(search) {
-    console.log(`searchHavingBooksAPI ${search}검색`)
-    return axios.get(`${process.env.SERVER_URL}/books/collections?query=${search}&size=10`, search, {
+function searchInHouseBooksAPI(data, limit = dataLimitLength) {
+    console.log(data)
+    return axios.get(`${process.env.SERVER_URL}/books/collections?query=${data.search}&page=${data.offset}&size=${limit}`, {
         headers: {
             "X-AUTH-TOKEN": jwt
         }
