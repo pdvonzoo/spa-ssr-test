@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { pointColor } from '../components/common/colors';
 import AdminList from '../components/Admin/AdminList';
 import Layout from '../components/common/Layout';
-
-
+import { useDispatch, useSelector } from 'react-redux'
+import { ADMIN_BOOK_INIT } from '../modules/admin';
 const Container = styled.div`
   margin: 5rem 0;
 `;
@@ -30,15 +30,20 @@ const NavItem = styled.li`
 
 
 export default () => {
+  const dispatch = useDispatch();
+
   const [view, setView] = useState(0)
 
   const searchView = () => {
+    dispatch({ type: ADMIN_BOOK_INIT })
     setView(0)
   }
   const setBooksView = () => {
+    dispatch({ type: ADMIN_BOOK_INIT })
     setView(1)
   }
   const setHavingView = () => {
+    dispatch({ type: ADMIN_BOOK_INIT })
     setView(2);
   }
   return (

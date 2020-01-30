@@ -1,14 +1,29 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { ADMIN_REMOVE_HAVING_BOOK_REQUEST } from '../../../modules/admin';
+import { ADMIN_REMOVE_HAVING_BOOK_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST } from '../../../modules/admin';
 
 export default () => {
     const dispatch = useDispatch();
-    const { inhouseBooks } = useSelector(state => state.admin)
+    const { inhouseBooks, adminIsLoading, offset, hasmoreBooksForAdmin, searchText } = useSelector(state => state.admin)
+
+    const onScroll = () => {
+        if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 250) {
+            if (hasmoreBooksForAdmin && !adminIsLoading) {
+                dispatch({ type: SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, payload: { search: searchText, offset: offset } })
+            }
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+        }
+    }, [adminIsLoading])
+
     const deleteBook = useCallback((id, name) => {
         if (confirm(`${name}을 정말로 삭제하시겠습니까?`)) {
             dispatch({ type: ADMIN_REMOVE_HAVING_BOOK_REQUEST, payload: id })
-            alert("삭제가 완료되었습니다.")
         } else {
             alert("삭제를 취소합니다.")
         }

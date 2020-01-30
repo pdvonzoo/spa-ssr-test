@@ -8,7 +8,8 @@ export const searchInHounseBooks = createRequestSaga(searchInHouseBooksAPI, 'adm
 export const removeHavingBook = createRequestSaga(deleteHavingBook, 'admin/ADMIN_REMOVE_HAVING_BOOK')
 
 export function* watchSearchInHounseBooks() {
-    yield takeEvery(SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, searchInHounseBooks)
+    console.log('watch~')
+    yield takeLatest(SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, searchInHounseBooks)
 }
 
 export function* watchSearcUserInfo() {

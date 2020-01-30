@@ -31,7 +31,6 @@ const SignOutBtn = styled.button`
 `;
 
 const Layout = ({ children, title, description }) => {
-  // const { isLogged } = useSelector(state => state.user)
   return (
     <>
       <Helmet>
@@ -40,7 +39,7 @@ const Layout = ({ children, title, description }) => {
         <meta name="description" content={description} />
       </Helmet>
       <Header>
-        <BaseItem to={{ pathname: "/" }}>Logo</BaseItem>
+        <BaseItem to={{ pathname: "/" }}>WMP</BaseItem>
         {isUser() && <>
           <BaseItem to={{ pathname: "/myBooksRoom" }}>My Page</BaseItem>
           <BaseItem to="/"><SignOutBtn onClick={signout}>logout</SignOutBtn></BaseItem>
@@ -49,8 +48,6 @@ const Layout = ({ children, title, description }) => {
           <BaseItem to={{ pathname: "/auth" }}>sign in/sign up</BaseItem>}
         {isAdmin() &&
           <BaseItem to={{ pathname: "/admin" }}> admin</BaseItem>}
-
-        {/* <BaseItem to={{ pathname: "/error" }}>Error</BaseItem> */}
       </Header>
       {children}
     </>

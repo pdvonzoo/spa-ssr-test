@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from "styled-components";
 import { pointColor } from '../common/colors';
-import { SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, SET_SEARCH } from '../../modules/admin';
+import { SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, SET_SEARCH, ADMIN_BOOK_INIT } from '../../modules/admin';
 
 const Container = styled.form`
     display: flex;
@@ -29,26 +29,32 @@ const SearchBtn = styled.button`
 export default ({ view }) => {
     const dispatch = useDispatch();
     const [search, setSaerch] = useState('')
+    const { offset } = useSelector(state => state.admin)
 
     const submitBtton = useCallback((e) => {
         e.preventDefault();
     }, [search])
+
     const onChangeSearch = useCallback((e) => {
         setSaerch(e.target.value)
+
     }, [search])
 
     const getAdminUserInfo = useCallback(() => {
+        dispatch({ type: ADMIN_BOOK_INIT })
         dispatch({ type: SEARCH_ADMIN_USER_INFO_REQUEST, payload: search });
         setSaerch('')
     }, [search])
 
     const getAdminExternalBooks = useCallback(() => {
-        dispatch({ type: SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, payload: search })
+        dispatch({ type: ADMIN_BOOK_INIT })
+        dispatch({ type: SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST, payload: { search, offset: 0 } })
         setSaerch('')
-    });
+    }, [search]);
 
     const getAdminInHouseBooks = useCallback(() => {
-        dispatch({ type: SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, payload: search })
+        dispatch({ type: ADMIN_BOOK_INIT })
+        dispatch({ type: SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST, payload: { search, offset: 0 } })
         setSaerch('')
     }, [search])
 

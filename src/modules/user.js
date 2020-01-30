@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { makeActionTypes } from "../Utils/makeActionTypes";
 
 export const [GET_MY_BOOKS_LOOKUP_REQUEST, GET_MY_BOOKS_LOOKUP_SUCCESS, GET_MY_BOOKS_LOOKUP_FAILURE] = makeActionTypes('user/GET_MY_BOOKS_LOOKUP');
+
 export const USER_LOGIN = 'user/USER_LOGIN'
 export const USER_LOGOUT = 'user/USER_LOGOUT';
 export const RETURN_MY_BOOK = 'user/RETURN_MY_BOOK';
@@ -35,9 +36,21 @@ const user = handleActions(
         },
 
         [RETURN_MY_BOOK]: (state, action) => {
+            const result = {
+                content: state.userLookUpBooks.content.map((book, index) => {
+
+                    if (book.rentedBookResponseDto.bookId === action.payload) {
+                        return {
+                            ...book, rentState: "REETURN"
+                        }
+                    }
+                    return book;
+                })
+            }
+
             return {
                 ...state,
-                userLookUpBooks: state.userLookUpBooks.filter(book => book.rentedBookResponseDto.bookId !== action.bookId)
+                userLookUpBooks: result
             }
         },
 
@@ -69,7 +82,6 @@ const user = handleActions(
 
 
         [GET_MY_BOOKS_LOOKUP_FAILURE]: (state, action) => {
-            console.log("get_my_books_lookup_failure", action)
             return {
                 ...state,
             }
