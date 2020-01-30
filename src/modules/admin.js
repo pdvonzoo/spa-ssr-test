@@ -8,9 +8,10 @@ export const [ADMIN_REMOVE_HAVING_BOOK_REQUEST, ADMIN_REMOVE_HAVING_BOOK_SUCCESS
 export const ADMIN_USER_RETURNB_BOOK = 'admin/ADMIN_USER_RETURNB_BOOK'
 export const ADMIN_BOOK_INIT = 'admin/EXTENALS_BOOKS_INIT';
 const initialState = {
-    userInfo: null,
+    userInfo: [],
     externalBooks: [],
     inhouseBooks: [],
+    userRentList: [],
     hasmoreBooksForAdmin: false,
     searchText: '',
     offset: 0,
@@ -25,7 +26,7 @@ const admin = handleActions(
                 offset: 0,
                 externalBooks: [],
                 inhouseBooks: [],
-                userInfo: null,
+                userInfo: [],
                 hasmoreBooksForAdmin: false,
                 searchText: '',
                 adminIsLoading: false,
@@ -61,7 +62,7 @@ const admin = handleActions(
             }
         },
         [SEARCH_ADMIN_USER_INFO_SUCCESS]: (state, action) => {
-
+            console.log("search admin", action)
             const checkUnique = [];
             let result = { content: [] };
             action.payload.content.forEach((book) => {
@@ -71,11 +72,12 @@ const admin = handleActions(
                     result.content = result.content.concat(book);
                 }
             })
-
+            result.content = result.content.filter(book => book.rentState === "RENT");
 
             return {
                 ...state,
-                userInfo: result
+                userInfo: action.payload,
+                userRentList: result
             }
         },
         [SEARCH_ADMIN_USER_INFO_FAILURE]: (state, action) => {

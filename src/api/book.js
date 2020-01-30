@@ -11,7 +11,7 @@ function getCommendedAPI() {
 }
 
 function getBookDetail(isbn) {
-    return axios.get(`${process.env.SERVER_URL}/books/${isbn}`)
+    return axios.get(`${process.env.SERVER_URL}/bookDetails/${isbn}`)
 }
 
 function getBookKeyWord(search) {
@@ -19,7 +19,7 @@ function getBookKeyWord(search) {
 }
 
 function getAutoComplete(search) {
-    return axios.get(`http://10.102.60.86:8080/books/search?q=${search}&title`).then(res => res).catch(e => e);
+    return axios.get(`${process.env.SERVER_URL}/books/titles?query=${search}`).then(res => res).catch(e => e);
 }
 
 export { searchBooksAPI, getCommendedAPI, getBookDetail, getBookKeyWord, getAutoComplete }

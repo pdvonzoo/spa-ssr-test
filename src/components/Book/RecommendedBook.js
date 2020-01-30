@@ -79,11 +79,18 @@ const RentalBtn = styled.button`
 `;
 
 const RecommendedBook = ({ bookTitle, bookWriter, bookImage, bookIsbn }) => {
+  const rentBook = async (bookIsbn) => {
+    try {
+      await rentBookAPI(bookIsbn);
+    } catch (e) {
+      alert("이미 대여중인 책입니다.");
+    }
+  }
   return (
     <BookLayout>
       <Link to={`/product/detail/${bookIsbn}`} >
         <ImageContainer>
-          <BookImage src={bookImage} alt="추천 책" />
+          <BookImage src={bookImage.split("?")[0]} alt="추천 책" />
           <BookCover>
             <BookCoverText>detail</BookCoverText>
           </BookCover>
@@ -93,7 +100,7 @@ const RecommendedBook = ({ bookTitle, bookWriter, bookImage, bookIsbn }) => {
         <ListTitle>{bookTitle}</ListTitle>
         <SmallHr></SmallHr>
         <ListText>{bookWriter}</ListText>
-        <RentalBtn onClick={() => rentBookAPI(bookIsbn)}>책 대여하기</RentalBtn>
+        <RentalBtn onClick={() => rentBook(bookIsbn)}>책 대여하기</RentalBtn>
       </BookInfo>
     </BookLayout>
 

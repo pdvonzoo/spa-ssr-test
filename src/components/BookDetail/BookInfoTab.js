@@ -22,15 +22,16 @@ const BookImage = styled.img`
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  border: 1px solid rgb(51,51,51);
 `;
 
-export default ({ image, title, author, publisher, pubdate, isbn }) => {
+export default ({ bookId, image, title, author, publisher, pubdate, isbn }) => {
   return (
     <Container>
       <BookImageContainer>
-        <BookImage src={image} alt={title} />
+        <BookImage src={image.split("?")[0]} alt={title} />
       </BookImageContainer>
-      <BookInfo title={title} author={author} publisher={publisher} pubdate={pubdate} isbn={isbn} />
+      <BookInfo bookId={bookId} title={title} author={author} publisher={publisher} pubdate={pubdate} isbn={isbn} />
     </Container>
   )
 }

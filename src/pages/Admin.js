@@ -18,13 +18,13 @@ const NavItem = styled.li`
   font-size: 1.3rem;
   cursor: pointer;
   &:nth-child(1){
-    border-bottom: ${props => props.view === 0 ? `1px solid ${pointColor}` : "0px"}
+    border-bottom: ${props => props.view === 0 ? `1px solid rgb(51,51,51)` : "0px"}
   }
   &:nth-child(2){
-    border-bottom: ${props => props.view === 1 ? `1px solid ${pointColor}` : "0px"}
+    border-bottom: ${props => props.view === 1 ? `1px solid rgb(51,51,51)` : "0px"}
   }
   &:nth-child(3){
-    border-bottom: ${props => props.view === 2 ? `1px solid ${pointColor}` : "0px"}
+    border-bottom: ${props => props.view === 2 ? `1px solid rgb(51,51,51)` : "0px"}
   }
 `;
 
