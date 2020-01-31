@@ -36,6 +36,14 @@ const SearchForm = styled.input`
     min-width: 26rem;
     height: 100%;
     box-sizing: border-box;
+    @media (max-width: 600px) {
+        margin-right: 1rem;
+        min-width: 20rem;
+    }
+    @media (max-width: 500px) {
+        margin-right: .7rem;
+        min-width: 15rem;
+    }
 `;
 const SearchBtn = styled.button`
     margin: 0 5px;
@@ -45,7 +53,11 @@ const SearchBtn = styled.button`
     font-size: 1.3rem;
     background: ${pointColor};
     color: #040404;
-    border-radius: 2rem;
+    border-radius: 1.8rem;
+    @media (max-width: 600px) {
+        padding: .3rem 1.2rem;
+        font-size: 1.1rem;
+    }
 `;
 
 export default () => {

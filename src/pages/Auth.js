@@ -6,9 +6,13 @@ import Layout from "../components/common/Layout";
 
 const AuthForm = styled.div`
   display: flex;
-  padding: 3rem 3rem 0;
-  background-color: #e4e4e4;
+  padding: 4rem 4rem 0;
+  background-color: #eee;
   height: 100%;
+  @media (max-width: 768px) {
+    display: block;
+    padding: 2rem 2rem 0;
+  }
 `;
 
 export default () => (

@@ -17,6 +17,15 @@ const SearchInput = styled.input`
     border: 0;
     border-bottom: 1px solid #040404;
     display: inherit;
+    @media (max-width: 600px) {
+        margin-right: 1rem;
+        min-width: 20rem;
+    }
+    @media (max-width: 500px) {
+        margin-right: .7rem;
+        min-width: 15rem;
+    }
+    
 `;
 const SearchBtn = styled.button`
     border: 0;
@@ -25,6 +34,10 @@ const SearchBtn = styled.button`
     border-radius: 0;
     padding: .3rem 1.3rem;
     font-size: 1rem;
+    @media (max-width: 600px) {
+        padding: .3rem 1.2rem;
+        font-size: 1.1rem;
+    }
 `;
 
 

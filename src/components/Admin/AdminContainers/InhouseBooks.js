@@ -44,7 +44,7 @@ export default () => {
                             <Param>{book.bookIsbn}</Param>
                         </TextContainer>
                         <BtnContainer>
-                            <Btn onClick={() => deleteBook(book.bookId, book.bookWriter)}>책 삭제하기</Btn>
+                            <Btn onClick={() => deleteBook(book.bookId, book.bookTitle)}>책 삭제하기</Btn>
                         </BtnContainer>
                     </Container>
                 )

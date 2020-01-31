@@ -13,6 +13,9 @@ const Container = styled.div`
   background-color: #fff;
   color: #333;
   border-top: 1px solid #e3e4df;
+  @media (max-width: 1000px) {
+    display: block;
+  }
 `;
 
 export default () => {
@@ -50,7 +53,7 @@ export default () => {
   console.log(book);
   return (
     <Layout title="책 상세페이지" description="">
-      < Container >
+      <Container >
         <BookInfoTab
           bookId={bookId}
           image={bookImage}

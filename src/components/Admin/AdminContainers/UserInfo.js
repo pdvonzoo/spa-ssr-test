@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Container, TextContainer, BtnContainer, Heading2, Param, Btn } from "./StyledAdminContainers";
+import { Container, TextContainer, BtnContainer, Heading2, Param, Title } from "./StyledAdminContainers";
 import { returnBookAPI } from "../../../api/user";
 import { RETURN_MY_BOOK } from "../../../modules/user";
 
@@ -20,7 +20,7 @@ export default () => {
 
     return (
         <>
-            {userRentList.content && <Heading2>사용자 대여 목록</Heading2>}
+            {userRentList.content && <Title>사용자 대여 목록</Title>}
             {userRentList.content && userRentList.content.map((book, idx) => {
                 const { rentState } = book;
                 const { bookId,
@@ -44,7 +44,7 @@ export default () => {
 
                 )
             })}
-            {userRentList.content && <Heading2>사용자 히스토리</Heading2>}
+            {userRentList.content && <Title>사용자 히스토리</Title>}
             {userInfo.content && userInfo.content.map((book, idx) => {
                 const { rentState } = book;
                 const { bookId,

@@ -5,8 +5,17 @@ import { rentBookAPI } from "../../api/user";
 import BookCover from "../common/BookCover";
 
 const BookLayout = styled.div`
+  display: inline-block;
   width: 33.3333%;
   padding: 0 30px;
+  @media (max-width: 1000px) {
+      margin-bottom: 2.5rem;
+      padding: 0 1rem;
+      width: 50%;
+  }
+  @media (max-width: 600px) {
+      width: 100%;
+  }
 `;
 
 const BookCoverText = styled.div`
@@ -51,11 +60,21 @@ const BookInfo = styled.ul`
   min-height: 7.8rem;
 `;
 const ListTitle = styled.li`
-  text-transform: uppercase;
   font-size: .9rem;
   font-weight: 700;
   font-family: Chivo,sans-serif;
   margin-bottom: .75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  word-wrap:break-word; 
+  line-height: 1.4;
+  height: 2.52rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: .9rem;
+  font-weight: bold;
+  color: #040404;
 `;
 const SmallHr = styled.hr`
   margin-top: 1rem;

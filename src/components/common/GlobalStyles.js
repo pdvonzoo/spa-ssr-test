@@ -110,6 +110,7 @@ html {
     font-size: 100%; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
     -ms-text-size-adjust: 100%; /* 2 */
+    font-family: Chivo, sans-serif;
 }
 
 a:focus {

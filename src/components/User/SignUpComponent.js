@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { signup } from "../../auth";
-import { isEmail, isCelluar, isJobPassword } from '../../Utils/valid'
-import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "./StyledAuthComponent";
+import { isEmail, isJobPassword } from '../../Utils/valid'
+import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn, Heading2, ErrorMessage } from "./StyledAuthComponent";
+import BigHr from "../common/BigHr";
 
 const SignUpComponent = () => {
   const [values, setValues] = useState({
@@ -23,12 +23,11 @@ const SignUpComponent = () => {
     setValues({ ...values, error: false });
 
     if (!isEmail(memberEmail)) {
-      setValues({ ...values, memberEmail: '', })
+      return setValues({ ...values, memberEmail: '', error: "이메일 형식이 올바르지 않습니다...." })
       return alert("이메일 형식이 올바르지 않습니다....")
     }
     if (!isJobPassword(memberPassword)) {
-      setValues({ ...values, memberPassword: '', })
-      return alert("비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.")
+      return setValues({ ...values, memberPassword: '', error: "비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다." })
     }
 
     signup({ memberEmail, memberPassword }).then(data => {
@@ -48,7 +47,8 @@ const SignUpComponent = () => {
 
   const signUpForm = () => (
     <AuthContainer>
-      회원가입
+      <Heading2>Register</Heading2>
+      <BigHr></BigHr>
       <FormGroup>
         <AuthLabel className="text-muted">Email</AuthLabel>
         <AuthTextInput
@@ -70,31 +70,20 @@ const SignUpComponent = () => {
       <SubmitBtn onClick={clickSubmit}>
         Submit
       </SubmitBtn>
+      {showError()}
     </AuthContainer>
   );
 
   const showError = () => (
-    <div
-      className="alert alert-danger"
+    <ErrorMessage
       style={{ display: error ? "" : "none" }}
     >
       {error}
-    </div>
-  );
-
-  const showSuccess = () => (
-    <div
-      className="alert alert-info"
-      style={{ display: success ? "" : "none" }}
-    >
-      New account is created. Please signin <Link to="/signin">Sign In</Link>
-    </div>
+    </ErrorMessage>
   );
 
   return (
     <>
-      {showError()}
-      {showSuccess()}
       {signUpForm()}
     </>
   );

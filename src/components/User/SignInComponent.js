@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import { signin, authenticate, isAuthenticated } from "../../auth";
-import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn } from "./StyledAuthComponent";
+import { AuthContainer, AuthLabel, AuthTextInput, FormGroup, SubmitBtn, Heading2, ErrorMessage } from "./StyledAuthComponent";
 
-import { isEmail, isCelluar, isJobPassword } from '../../Utils/valid'
+import { isEmail, isJobPassword } from '../../Utils/valid'
+import BigHr from "../common/BigHr";
 
 const SignInComponent = () => {
   const [values, setValues] = useState({
@@ -26,19 +26,18 @@ const SignInComponent = () => {
     setValues({ ...values, error: false, loading: true });
 
     if (!isEmail(memberEmail)) {
-      setValues({ ...values, memberEmail: '', memberPassword: '', error: true, loading: false })
-      return alert("이메일 형식이 올바르지 않습니다....")
+      return setValues({ ...values, memberEmail: '', memberPassword: '', error: "이메일 형식이 올바르지 않습니다....", loading: false })
+      // return alert("이메일 형식이 올바르지 않습니다....")
     }
-
     if (!isJobPassword(memberPassword)) {
-      setValues({ ...values, memberEmail: '', memberPassword: '', error: true, loading: false })
-      return alert("비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.")
+      return setValues({ ...values, memberEmail: '', memberPassword: '', error: "비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.", loading: false })
+      // return alert("비밀번호는  8 ~ 10자 영문, 숫자 조합의 형식이어야 합니다.")
     }
 
 
     signin({ memberEmail, memberPassword }).then(data => {
-      if (data.error || data.err) {
-        setValues({ ...values, error: data.error || data.err, loading: false });
+      if (data.message) {
+        setValues({ ...values, loading: false });
       } else {
         authenticate(data, () => {
           setValues({
@@ -52,7 +51,8 @@ const SignInComponent = () => {
 
   const signInForm = () => (
     <AuthContainer onSubmit={clickSubmit}>
-      로그인
+      <Heading2>Login</Heading2>
+      <BigHr></BigHr>
       <FormGroup>
         <AuthLabel>Email</AuthLabel>
         <AuthTextInput
@@ -74,16 +74,16 @@ const SignInComponent = () => {
       <SubmitBtn onClick={clickSubmit}>
         Submit
       </SubmitBtn>
+      {showError()}
     </AuthContainer>
   );
 
   const showError = () => (
-    <div
-      className="alert alert-danger"
+    <ErrorMessage
       style={{ display: error ? "block" : "none" }}
     >
       {error}
-    </div>
+    </ErrorMessage>
   );
 
   const showLoading = () =>
@@ -101,9 +101,8 @@ const SignInComponent = () => {
 
   return (
     <>
-      {showError()}
-      {showLoading()}
       {signInForm()}
+      {showLoading()}
       {redirectUser()}
     </>
   );

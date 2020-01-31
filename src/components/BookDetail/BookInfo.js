@@ -8,6 +8,9 @@ const StyledBookInfo = styled.div`
   background-color: #fff;
   border-right: 1px solid #e3e4df;
   height: 40%;
+  @media (max-width: 1000px) {
+    height: auto;
+  }
 `;
 
 

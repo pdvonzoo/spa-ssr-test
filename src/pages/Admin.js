@@ -26,6 +26,15 @@ const NavItem = styled.li`
   &:nth-child(3){
     border-bottom: ${props => props.view === 2 ? `1px solid rgb(51,51,51)` : "0px"}
   }
+  @media (max-width: 1000px) {
+    margin: 0 1.5rem;
+    font-size: 1.2rem;
+  }
+  @media (max-width: 600px) {
+    margin: 0 1.5rem;
+    padding-bottom: 0.3rem;
+    font-size: 1.1rem;
+  }
 `;
 
 

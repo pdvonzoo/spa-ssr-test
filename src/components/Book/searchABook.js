@@ -2,14 +2,24 @@ import React from 'react';
 import styled from "styled-components";
 import SmallHr from '../common/SmallHr';
 import { Link } from 'react-router-dom'
-import { pointColor, secondaryColor } from '../common/colors';
+import { pointColor } from '../common/colors';
 const Container = styled.li`
-    font-family: 'Nanum Gothic', 'Chivo',sans-serif;
     display: inline-block;
     margin-bottom: 5rem;
     padding: 0 1.5rem;
     width: 25%;
     vertical-align: top;
+    @media (max-width: 1300px) {
+        width: 33.3333%;
+    }
+    @media (max-width: 1000px) {
+        margin-bottom: 2.5rem;
+        padding: 0 1rem;
+        width: 50%;
+    }
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `;
 
 const ListItem = styled.div`
@@ -34,15 +44,15 @@ const BookInfo = styled.div`
     height: auto;
     box-sizing: border-box;
     background-color: #fff;
-    padding: .5rem 0;
+    padding: 1.2rem 2rem;
 `;
 const Title = styled.h2`
     display: -webkit-box;
-    -webkit-line-clamp: 2; 
+    -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
     word-wrap:break-word; 
     line-height: 1.4;
-    height: 2.8rem;
+    height: 4.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
@@ -53,6 +63,7 @@ const Title = styled.h2`
 const Text = styled.p`
     font-size: 0.9rem;
     line-height: 1.4;
+    color: #040404;
 `;
 
 const RentalBtn = styled.button`
@@ -73,6 +84,8 @@ const SearchABook = ({ title, author, pubdate, isbn, image }) => {
                     </ImageContainer>
                     <BookInfo>
                         <Title>{title}</Title>
+                        <SmallHr></SmallHr>
+                        <Text>{author}</Text>
                     </BookInfo>
                 </ListItem>
             </Container>

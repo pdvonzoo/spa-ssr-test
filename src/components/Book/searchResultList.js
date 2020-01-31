@@ -8,8 +8,27 @@ import { onScroll } from "../../Utils/events";
 
 const Container = styled.ul`
     border-top: 1px solid #ddd;
-    padding: 0 8rem;
-    padding-top: 10rem;
+    padding: 10rem 8rem;
+    background-color: #eee;
+    min-height: 100%;
+    @media (max-width: 1300px) {
+        padding: 8rem 5rem;
+    }
+    @media (max-width: 1000px) {
+        padding: 6rem 4rem;
+    }
+    @media (max-width: 768px) {
+        padding: 4rem 2rem;
+    }
+    @media (max-width: 600px) {
+        padding: 4rem 0;
+    }
+`;
+
+const BlankResult = styled.div`
+    margin: 5rem 0;
+    text-align: center;
+    font-size: 2rem;
 `;
 export default () => {
 
@@ -23,8 +42,6 @@ export default () => {
     }, [search])
 
     const onScroll = () => {
-
-
         if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 250) return;
         if (hasMoreSearchBooks && !isLoadging) {
             dispatch({ type: SEARCH_BOOK_REQUEST, payload: { search, offset } })
@@ -41,11 +58,11 @@ export default () => {
 
     return (
         <Container>
-            {searchResultBooks.map((book, index) => {
+            {searchResultBooks.length ? searchResultBooks.map((book, index) => {
                 return (
                     <SearchABook key={index} title={book.bookTitle} author={book.bookWriter} image={book.bookImage.split("?")[0]} pubdate={book.bookPublishYear} isbn={book.bookIsbn} />
                 )
-            })}
+            }) : <BlankResult>검색된 책이 존재하지 않습니다.</BlankResult>}
         </Container>
     );
 };

@@ -6,18 +6,36 @@ import { pointColor } from "../common/colors";
 import { returnBookAPI, rentBookAPI } from "../../api/user";
 
 const Container = styled.div`
-    width: 70%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 1rem 2rem;
     border: 1px solid #040404;
-    margin: auto;
-    margin-bottom: -1px;
+    @media (max-width: 600px) {
+      display: block;
+      padding: .5rem 1rem;
+    }
 `;
 
 const TextContainer = styled.div`
   padding-left: 2rem;
   flex: 1;
+  @media (max-width: 600px) {
+    margin-top: 1rem;
+    padding-left: 0;
+  }
+}
+`;
+
+const Img = styled.img`
+  width: 14rem;
+  border: 1px solid #040404;
+  @media (max-width: 600px) {
+    width: 10rem;
+  }
+  @media (max-width: 500px) {
+    width: 8rem;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -39,6 +57,12 @@ const Btn = styled.button`
     border: 0;
     border-radius: 2rem;
     background-color: ${pointColor};
+    @media (max-width: 600px) {
+      border-radius: 0;
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+  }
 `;
 
 const RentList = ({ status }) => {
@@ -82,23 +106,21 @@ const RentList = ({ status }) => {
           const { rentState } = book;
           const { bookTitle, bookWriter, bookId, bookImage, bookIsbn } = book.rentedBookResponseDto;
           return (
-            <>
-              <Container>
-                <img src={bookImage.split("?")[0]} />
-                <TextContainer key={index}>
-                  <Heading2>{bookTitle}</Heading2>
-                  <Param>{bookWriter}</Param>
-                  {
-                    status === "current" ? <Param>대여 중</Param> :
-                      <Param>{rentState === "RENT" ? "대여 내역" : "반납 완료"}</Param>}
-                </TextContainer>
-                {status === "current" ? <BtnContainer>
-                  {rentState === "RENT" ?
-                    <Btn onClick={() => returnBook(bookId)}>반납하기</Btn> :
-                    <Btn onClick={() => rentBook(bookIsbn, bookTitle)}>대여하기</Btn>}
-                </BtnContainer> : null}
-              </Container>
-            </>
+            <Container>
+              <Img src={bookImage.split("?")[0]} />
+              <TextContainer key={index}>
+                <Heading2>{bookTitle}</Heading2>
+                <Param>{bookWriter}</Param>
+                {
+                  status === "current" ? <Param>대여 중</Param> :
+                    <Param>{rentState === "RENT" ? "대여 내역" : "반납 완료"}</Param>}
+              </TextContainer>
+              {status === "current" ? <BtnContainer>
+                {rentState === "RENT" ?
+                  <Btn onClick={() => returnBook(bookId)}>반납하기</Btn> :
+                  <Btn onClick={() => rentBook(bookIsbn, bookTitle)}>대여하기</Btn>}
+              </BtnContainer> : null}
+            </Container>
           )
         }) : userRentList.content && !isLoading &&
         userRentList.content.map((book, index) => {
@@ -107,7 +129,7 @@ const RentList = ({ status }) => {
           return (
             <>
               <Container>
-                <img src={bookImage.split("?")[0]} />
+                <Img src={bookImage.split("?")[0]} />
                 <TextContainer key={index}>
                   <Heading2>{bookTitle}</Heading2>
                   <Param>{bookWriter}</Param>

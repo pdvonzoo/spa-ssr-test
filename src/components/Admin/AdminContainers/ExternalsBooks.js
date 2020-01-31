@@ -12,10 +12,12 @@ export default () => {
     const dispatch = useDispatch();
 
     const createBookFromRepository = async (book) => {
-        if (confirm(`${book.title} 책을 추가 하시겠습니까?`)) {
+        const title = parse(book.title).map((v) => (toString.call(v) === "[object Object]") ? v.props.children : v)
+            .join("")
+        if (confirm(`${parse(title)} 책을 추가 하시겠습니까?`)) {
             await createBookAPI(book).then(function () {
-                alert(`${book.title} 책을 추가 완료 했습니다.`)
-            }).catch(function () { alert(`${book.title} 책 추가를 실패 했습니다.`) })
+                alert(`${parse(title)} 책을 추가 완료 했습니다.`)
+            }).catch(function () { alert(`${parse(title)} 책 추가를 실패 했습니다.`) })
 
         } else {
             alert('책 추가하기를 취소합니다.')

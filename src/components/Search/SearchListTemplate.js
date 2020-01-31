@@ -5,16 +5,16 @@ import styled from "styled-components";
 const Container = styled.div`
     position: absolute;
     left: 0;
-    top: 3rem;
+    top: 3.5rem;
     z-index: 99;
     width: 100%;
     background: #fff;
+    box-shadow: rgb(4, 4, 4) 0px 0px .8rem -.4rem;
+    border-radius: 1rem;
 `;
 
 const Item = styled.div`
-    box-sizing: border-box;
-    padding: .5rem .3rem;
-    border: 1px solid #fff;
+    padding: .7rem .5rem;
     font-size: 1rem;
 `
 
@@ -26,7 +26,7 @@ const SearchListTemplate = ({ resultData, setUserInput, selectedId }) => {
     }, [resultData])
 
     const styles = {
-        border: '1px solid #040404'
+        background: '#eaefef'
     }
     return (
         <Container>

@@ -8,7 +8,7 @@ import Layout from "../components/common/Layout";
 const HomeConatainer = styled.div`
   padding-top: 10rem;
   min-height: 100%;
-  background-color: #e4e4e4;
+  background-color: #eee;
 `;
 
 export default () => (

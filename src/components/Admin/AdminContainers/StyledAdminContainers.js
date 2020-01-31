@@ -8,12 +8,33 @@ const Container = styled.div`
     border: 1px solid #040404;
     margin: auto;
     margin-bottom: -1px;
+    @media (max-width: 1000px) {
+        width: 80%;
+    }
+    @media (max-width: 600px) {
+        width: 90%;
+    }
 `;
 
 const Img = styled.img`
     width: 15rem;
     height: auto;
     margin-bottom: 1rem;
+`;
+
+const Title = styled.h2`
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: bold;
+    padding-bottom: 1.5rem;
+    width: 70%;
+    margin: 2rem auto 0;
+    @media (max-width: 1000px) {
+        width: 80%;
+    }
+    @media (max-width: 600px) {
+        width: 90%;
+    }
 `;
 
 const TextContainer = styled.div`
@@ -41,4 +62,4 @@ const Btn = styled.button`
     color: #fff;
 `;
 
-export { Container, TextContainer, BtnContainer, Heading2, Param, Btn, Img };
+export { Container, TextContainer, BtnContainer, Heading2, Param, Btn, Img, Title };
