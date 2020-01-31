@@ -61,7 +61,6 @@ const user = handleActions(
         },
 
         [RENT_BOOK]: (state, action) => {
-            console.log(action)
             const result = {
                 content: state.userLookUpBooks.content.map(book => {
                     if (book.rentedBookResponseDto.bookIsbn === action.payload) {

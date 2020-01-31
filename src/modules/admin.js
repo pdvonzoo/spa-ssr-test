@@ -1,4 +1,4 @@
-import { handleActions } from "redux-actions";
+import { handleActions, createAction } from "redux-actions";
 import { makeActionTypes } from '../Utils/makeActionTypes'
 
 export const [SEARCH_ADMIN_USER_INFO_REQUEST, SEARCH_ADMIN_USER_INFO_SUCCESS, SEARCH_ADMIN_USER_INFO_FAILURE] = makeActionTypes('admin/SEARCH_ADMIN_USER_INFO')
@@ -16,8 +16,10 @@ const initialState = {
     searchText: '',
     offset: 0,
     adminIsLoading: false,
-    adminError: ""
+    adminError: false,
 }
+
+export const removeAdminBook = createAction(ADMIN_REMOVE_HAVING_BOOK_REQUEST, id => id)
 const admin = handleActions(
     {
         [ADMIN_BOOK_INIT]: (state, action) => {
@@ -27,42 +29,42 @@ const admin = handleActions(
                 externalBooks: [],
                 inhouseBooks: [],
                 userInfo: [],
+                userRentList: [],
                 hasmoreBooksForAdmin: false,
                 searchText: '',
                 adminIsLoading: false,
+                adminError: false
             }
         },
         [ADMIN_REMOVE_HAVING_BOOK_REQUEST]: (state, action) => {
             return {
                 ...state,
+                adminError: false
             }
         },
 
         [ADMIN_REMOVE_HAVING_BOOK_SUCCESS]: (state, action) => {
-            alert('삭제가 완료되었습니다.')
             return {
                 ...state,
-                inhouseBooks: state.inhouseBooks.filter(book => action.payload !== book.bookId)
+                inhouseBooks: state.inhouseBooks.filter(book => action.payload !== book.bookId),
+                adminError: false
             }
         },
         [ADMIN_REMOVE_HAVING_BOOK_FAILURE]: (state, action) => {
-            alert("삭제가 실패하였습니다.")
             return {
                 ...state,
-                adminError: '삭제를 실패 했습니다.'
+                adminError: true
             }
         },
 
         [SEARCH_ADMIN_USER_INFO_REQUEST]: (state, action) => {
 
-            console.log('search admin user request', action)
             return {
                 ...state,
                 search: action.payload.search
             }
         },
         [SEARCH_ADMIN_USER_INFO_SUCCESS]: (state, action) => {
-            console.log("search admin", action)
             const checkUnique = [];
             let result = { content: [] };
             action.payload.content.forEach((book) => {
@@ -83,12 +85,10 @@ const admin = handleActions(
         [SEARCH_ADMIN_USER_INFO_FAILURE]: (state, action) => {
             return {
                 ...state,
-                adminError: "유저 검색에 실패 했습니다."
             }
         },
 
         [SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST]: (state, action) => {
-            console.log('SEARCH_ADMIN_EXTERNAL_BOOKS_REQUEST', action);
             return {
                 ...state,
                 adminIsLoading: true,
@@ -97,7 +97,6 @@ const admin = handleActions(
             }
         },
         [SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS]: (state, action) => {
-            console.log('SEARCH_ADMIN_EXTERNAL_BOOKS_SUCCESS', action);
             return {
                 ...state,
                 adminIsLoading: false,
@@ -107,16 +106,13 @@ const admin = handleActions(
             }
         },
         [SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE]: (state, action) => {
-            console.log('SEARCH_ADMIN_EXTERNAL_BOOKS_FAILURE', action)
             return {
                 ...state,
-                adminError: "책 검색에 실패했습니다."
             }
         },
 
 
         [SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST]: (state, action) => {
-            console.log('SEARCH_ADMIN_INHOUSE_BOOKS_REQUEST', action)
             return {
                 ...state,
                 adminIsLoading: true,
@@ -126,7 +122,6 @@ const admin = handleActions(
         },
 
         [SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS]: (state, action) => {
-            console.log('SEARCH_ADMIN_INHOUSE_BOOKS_SUCCESS', action)
             return {
                 ...state,
                 adminIsLoading: false,
@@ -140,12 +135,11 @@ const admin = handleActions(
         [SEARCH_ADMIN_INHOUSE_BOOKS_FAILURE]: (state, action) => {
             return {
                 ...state,
-                adminError: "책 검색에 실패했습니다."
+
             }
         },
 
         [ADMIN_USER_RETURNB_BOOK]: (state, action) => {
-            console.log('ADMIN_USER_RETURNB_BOOK', action)
             const result = {
                 ...state.userInfo,
                 content: state.userInfo.content.map((book, index) => {
