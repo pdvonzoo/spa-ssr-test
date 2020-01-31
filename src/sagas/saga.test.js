@@ -15,15 +15,12 @@ import admin from '../modules/admin'
 
 describe('어드민 사내 보유 책 제거 기능', () => {
 
-
-
     it('검색어를 `react`로 검색 하면 검색어와 검색어와 관련된 책들이 initialState에 들어간다', () => {
-
         const books = [{ title: "reat", bookId: 0 }, { title: "angular", bookId: 1 }, { title: "vue", bookId: 2 }]
         const search = 'react'
-        const initalState = { inhouseBooks: [], search: "" }
+        const initalState = { inhouseBooks: [], search: "" };
         const finalState = { ...initalState };
-        finalState.inhouseBooks = finalState.inhouseBooks.concat(books)
+        finalState.inhouseBooks = finalState.inhouseBooks.concat(books);
         finalState.search = search;
 
         return expectSaga(watchSearchInHounseBooks)

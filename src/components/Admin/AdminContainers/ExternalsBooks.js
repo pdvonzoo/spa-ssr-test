@@ -11,17 +11,17 @@ export default () => {
     const { externalBooks, adminIsLoading, offset, hasmoreBooksForAdmin, searchText } = useSelector(state => state.admin)
     const dispatch = useDispatch();
 
-    const createBookFromRepository = useCallback((book) => {
+    const createBookFromRepository = async (book) => {
         if (confirm(`${book.title} 책을 추가 하시겠습니까?`)) {
-            createBookAPI(book).then(res => {
-                alert(`${book.title} 책 추가를 성공 했습니다.`)
-                console.log(res)
-            });
+            await createBookAPI(book).then(function () {
+                alert(`${book.title} 책을 추가 완료 했습니다.`)
+            }).catch(function () { alert(`${book.title} 책 추가를 실패 했습니다.`) })
+
         } else {
             alert('책 추가하기를 취소합니다.')
         }
 
-    }, [externalBooks])
+    }
 
     const onScroll = () => {
         if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 250) {
