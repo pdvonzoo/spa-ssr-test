@@ -56,10 +56,25 @@ const RentList = ({ status }) => {
     dispatch({ type: RETURN_MY_BOOK, payload: bookId });
   }
 
-  const rentBook = async (bookIsbn) => {
-    await rentBookAPI(bookIsbn);
-    dispatch({ type: RENT_BOOK, payload: bookIsbn });
+  const rentBook = async (bookIsbn, bookTitle) => {
+    if (confirm(`${bookTitle} 책을 대여 하겠습니까?`)) {
+      try {
+        const response = await rentBookAPI(bookIsbn);
+        if (Object.keys(response.data).length === 0) {
+          alert(`${bookTitle} 현재 모든 책이 예약 되어서 대여가 불가능합니다.`)
+        } else {
+          alert(`${bookTitle} 대여 성공 했습니다.`)
+          dispatch({ type: RENT_BOOK, payload: bookIsbn });
+        }
+      } catch (e) {
+        alert(`${bookTitle} 대여 실패 했습니다.`)
+      }
+    } else {
+      alert('대여를 취소합니다.')
+    }
   }
+
+
   return (
     <>
       {status === "total" ? userLookUpBooks.content && !isLoading &&
@@ -80,7 +95,7 @@ const RentList = ({ status }) => {
                 {status === "current" ? <BtnContainer>
                   {rentState === "RENT" ?
                     <Btn onClick={() => returnBook(bookId)}>반납하기</Btn> :
-                    <Btn onClick={() => rentBook(bookIsbn)}>대여하기</Btn>}
+                    <Btn onClick={() => rentBook(bookIsbn, bookTitle)}>대여하기</Btn>}
                 </BtnContainer> : null}
               </Container>
             </>

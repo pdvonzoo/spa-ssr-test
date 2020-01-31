@@ -4,7 +4,7 @@ import { jwt } from './utils';
 const getMyBooksLookUpAPI = () => {
     return axios.get(`${process.env.SERVER_URL}/members/rents`, {
         headers: {
-            "X-AUTH-TOKEN": jwt
+            "X-AUTH-TOKEN": jwt()
         }
     });
 }
@@ -16,7 +16,7 @@ const returnBookAPI = (bookId) => {
         bookId
     }, {
         headers: {
-            "X-AUTH-TOKEN": jwt
+            "X-AUTH-TOKEN": jwt()
         }
     }).then(res => {
         return true;
@@ -30,9 +30,11 @@ const rentBookAPI = (isbn) => {
         { isbn },
         {
             headers: {
-                "X-AUTH-TOKEN": jwt
+                "X-AUTH-TOKEN": jwt()
             }
         });
 };
+
+
 
 export { getMyBooksLookUpAPI, returnBookAPI, rentBookAPI }

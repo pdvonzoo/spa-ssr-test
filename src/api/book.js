@@ -6,7 +6,6 @@ function searchBooksAPI(data, limit = dataLimitLength) {
 }
 
 function getCommendedAPI() {
-    console.log(process.env)
     return axios.get(`${process.env.SERVER_URL}/recommend`);
 }
 

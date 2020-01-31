@@ -38,7 +38,6 @@ const books = handleActions(
       }
     },
     [SEARCH_BOOK_SUCCESS]: (state, action) => {
-      console.log(action)
       return {
         ...state,
         isLoadging: false,
