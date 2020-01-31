@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { rentBookAPI } from "../../api/user";
-
+import { RENT_BOOK } from '../../modules/user'
 const StyledBookInfo = styled.div`
   padding: 1rem 2rem;
   flex: 1;
@@ -26,11 +26,16 @@ const StyledRentButton = styled.button`
 `;
 
 export default ({ title, author, publisher, pubdate, isbn }) => {
-  const rentBook = async (bookIsbn) => {
-    try {
-      await rentBookAPI(bookIsbn);
-    } catch (e) {
-      alert("이미 대여중인 책입니다.");
+  const rentBook = async (bookIsbn, bookTitle) => {
+    if (confirm(`${bookTitle} 책을 대여 하겠습니까?`)) {
+      try {
+        const result = await rentBookAPI(bookIsbn);
+        Object.keys(result.data).length === 0 ? alert(`${bookTitle} 현재 모든 책이 예약 되어서 대여가 불가능합니다.`) : alert(`${bookTitle} 대여 성공 했습니다.`)
+      } catch (e) {
+        alert(`${bookTitle} 대여 실패 했습니다.`)
+      }
+    } else {
+      alert('대여를 취소합니다.')
     }
   }
   return <StyledBookInfo>
@@ -39,7 +44,6 @@ export default ({ title, author, publisher, pubdate, isbn }) => {
     <StyledBookInfoText>{publisher}</StyledBookInfoText>
     <StyledBookInfoText>{pubdate}</StyledBookInfoText>
     <StyledBookInfoText>{isbn}</StyledBookInfoText>
-    <StyledRentButton onClick={_ => rentBook(isbn)}>대여하기</StyledRentButton>
-    {/* <p>{isRental}</p> */}
+    <StyledRentButton onClick={() => rentBook(isbn, title)}>대여하기</StyledRentButton>
   </StyledBookInfo>
 }

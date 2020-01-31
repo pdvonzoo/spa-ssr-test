@@ -1,3 +1,3 @@
-const jwt = __isBrowser__ && JSON.parse(localStorage.getItem("jwt")).token;
+const jwt = () => __isBrowser__ && localStorage.getItem("jwt") && JSON.parse(localStorage.getItem("jwt")).token
 
 export { jwt };
